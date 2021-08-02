@@ -1,0 +1,5 @@
+<RCC>
+    <qresource prefix="/">
+        <file>scripts/map.php</file>
+    </qresource>
+</RCC>

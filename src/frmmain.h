@@ -168,6 +168,11 @@ protected:
 
 private:
     const int BUFFERLENGTH = 127;
+    const unsigned short HEIGHT_MAP_NUMBER = 0;
+
+    unsigned short m_heghtMapIndex = HEIGHT_MAP_NUMBER;
+    QString m_projectDirectory;
+    QString getTodayDirectory();
 
     Ui::frmMain *ui;
     GcodeViewParse m_viewParser;
@@ -315,6 +320,8 @@ private:
     bool dataIsFloating(QString data);
     bool dataIsEnd(QString data);
     bool dataIsReset(QString data);
+
+    void useHeightmap(QString fileName);
 
     QTime updateProgramEstimatedTime(QList<LineSegment *> lines);
     bool saveProgramToFile(QString fileName, GCodeTableModel *model);

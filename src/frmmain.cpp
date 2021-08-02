@@ -27,6 +27,9 @@
 #include <QAction>
 #include <QLayout>
 #include <QMimeData>
+#include <QTemporaryFile>
+#include <QProcess>
+#include <QTemporaryFile>
 #include "frmmain.h"
 #include "ui_frmmain.h"
 
@@ -179,7 +182,6 @@ frmMain::frmMain(QWidget *parent) :
         loadFile(qApp->arguments().last());
     }
 
-    qDebug() << m_settings.getOptionString("lastUsedFile");
     if(m_settings.getOptionString("lastUsedFile").length() > 0) {
         loadFile(m_settings.getOptionString("lastUsedFile"));
     }
@@ -240,6 +242,7 @@ void frmMain::loadSettings()
         QString opt(m_settings.optionsStringKeys[i]);
         m_settings.setOptionString(opt, set.value(opt).toString());
     }
+    m_projectDirectory = m_settings.getOptionString("projectDirectory");
 
     m_settings.setPort(set.value("port").toString());
     m_settings.setBaud(set.value("baud").toInt());
@@ -572,6 +575,7 @@ void frmMain::updateControlsState() {
     ui->chkHeightMapUse->setEnabled(!m_heightMapMode && !ui->txtHeightMap->text().isEmpty());
 
     ui->actFileSaveTransformedAs->setVisible(ui->chkHeightMapUse->isChecked());
+    qDebug() << getTodayDirectory();
 }
 
 void frmMain::openPort()
@@ -685,7 +689,10 @@ int frmMain::bufferLength()
 
     return length;
 }
-
+QString frmMain::getTodayDirectory()
+{
+    return m_projectDirectory + "/" + QDateTime::currentDateTime().toString("yyMMdd");
+}
 void frmMain::onSerialPortReadyRead()
 {
     while (m_serialPort.canReadLine()) {
@@ -777,8 +784,44 @@ void frmMain::onSerialPortReadyRead()
                     m_timerStateQuery.stop();
                     m_timerConnection.stop();
 
-                    QMessageBox::information(this, qApp->applicationDisplayName(), tr("Job done.\nTime elapsed: %1")
+                    if(m_settings.getOption("checkedHeightMap")) {
+                        if(m_heightMapMode && m_heghtMapIndex < HEIGHT_MAP_NUMBER) {
+                            // Store current heightMap
+                            saveHeightMap((getTodayDirectory() + "/%1.map").arg(++m_heghtMapIndex));
+                            on_cmdFileSend_clicked();
+                        } else if (m_heightMapMode) {
+                            saveHeightMap((getTodayDirectory() + "/%1.map").arg(++m_heghtMapIndex));
+                            resetHeightmap();
+                            on_cmdHeightMapMode_toggled(false);
+
+                            // Generate target heightmap
+                            // Run php file stored in resources
+                            QFile f(":/scripts/map.php");
+                            QTemporaryFile *tmpFile = QTemporaryFile::createNativeFile(f);
+                            if (tmpFile->open()) {
+                                QProcess *process = new QProcess(this);
+                                QStringList params;
+                                qDebug() << tmpFile->fileName();
+                                params << tmpFile->fileName().toLocal8Bit();
+                                params << getTodayDirectory();
+                                qDebug() << params;
+                                process->start("php", params);
+                                process->waitForFinished();
+                                tmpFile->close();
+                            } else {
+                                qDebug() << "Error open temp file";
+                            }
+
+                            ui->chkHeightMapUse->setChecked(true);
+                            useHeightmap(getTodayDirectory() + "/target.map");
+                        } else {
+                            QMessageBox::information(this, qApp->applicationDisplayName(), tr("Job done.\nTime elapsed: %1")
+                                                 .arg(ui->glwVisualizer->spendTime().toString("hh:mm:ss")));
+                        }
+                    } else {
+                        QMessageBox::information(this, qApp->applicationDisplayName(), tr("Job done.\nTime elapsed: %1")
                                              .arg(ui->glwVisualizer->spendTime().toString("hh:mm:ss")));
+                    }
 
                     m_timerStateQuery.setInterval(m_settings.queryStateTime());
                     m_timerConnection.start();
@@ -1600,15 +1643,16 @@ void frmMain::on_cmdFit_clicked()
 
 void frmMain::on_cmdFileSend_clicked()
 {
+    if(m_settings.getOption("checkedHeightMap") && m_projectDirectory.length() == 0) {
+        m_projectDirectory = QFileDialog::getExistingDirectory(this, tr("Open Directory"),
+                                                               m_projectDirectory,
+                                                               QFileDialog::ShowDirsOnly
+                                                               | QFileDialog::DontResolveSymlinks);
+        m_settings.setOptionString("projectDirectory", m_projectDirectory);
+    }
     if (m_currentModel->rowCount() == 1) return;
-
     on_cmdFileReset_clicked();
 
-    m_startTime.start();
-
-    m_transferCompleted = false;
-    m_processingFile = true;
-    m_fileEndSent = false;
     m_storedKeyboardControl = ui->chkKeyboardControl->isChecked();
     ui->chkKeyboardControl->setChecked(false);
 
@@ -1628,12 +1672,14 @@ void frmMain::on_cmdFileSend_clicked()
     updateControlsState();
     ui->cmdFilePause->setFocus();
 
-    if(m_heightMapMode) {
+    m_startTime.start();
+
+    if(m_heightMapMode && m_settings.getOption("checkedHeightMap")) {
         // Some staff
-        qDebug() << "Send";
+        m_heghtMapIndex = 0;
         sendNextFileCommands();
+        qDebug() << "---- Finish";
     } else {
-        qDebug() << "Something";
         sendNextFileCommands();
     }
 }
@@ -1677,6 +1723,11 @@ void frmMain::restoreOffsets()
 
 void frmMain::sendNextFileCommands() {
     if (m_queue.length() > 0) return;
+
+    // Moved from cmdFileSend_click
+    m_transferCompleted = false;
+    m_fileEndSent = false;
+    m_processingFile = true;
 
     QString command = feedOverride(m_currentModel->data(m_currentModel->index(m_fileCommandIndex, 1)).toString());
 
@@ -3188,6 +3239,11 @@ void frmMain::on_cmdHeightMapLoad_clicked()
 
     QString fileName = QFileDialog::getOpenFileName(this, tr("Open"), "", tr("Heightmap files (*.map)"));
 
+    useHeightmap(fileName);
+}
+
+void frmMain::useHeightmap(QString fileName)
+{
     if (fileName != "") {
         addRecentHeightmap(fileName);
         loadHeightMap(fileName);

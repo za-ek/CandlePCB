@@ -102,11 +102,11 @@ public:
 
     bool getOption(QString opt);
     void setOption(QString opt, bool value);
-    constexpr inline static char * options[] = {"restoreZeroAfterHoming"};
+    constexpr inline static char * options[] = {"restoreZeroAfterHoming", "checkedHeightMap"};
 
     QString getOptionString(QString opt);
     void setOptionString(QString opt, QString value);
-    constexpr inline static char * optionsStringKeys[] = {"lastUsedFile"};
+    constexpr inline static char * optionsStringKeys[] = {"lastUsedFile", "projectDirectory"};
 
 protected:
     void showEvent(QShowEvent *se);

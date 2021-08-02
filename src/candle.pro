@@ -98,7 +98,10 @@ FORMS    += frmmain.ui \
 DEFINES += _USE_MATH_DEFINES
 
 RESOURCES += \
+    scripts.qrc \
     shaders.qrc \
     images.qrc
 
 CONFIG += c++11
+
+DISTFILES +=
