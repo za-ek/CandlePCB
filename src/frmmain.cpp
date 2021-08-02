@@ -1631,9 +1631,10 @@ void frmMain::on_cmdFileSend_clicked()
     if(m_heightMapMode) {
         // Some staff
         qDebug() << "Send";
+        sendNextFileCommands();
     } else {
         qDebug() << "Something";
-g        sendNextFileCommands();
+        sendNextFileCommands();
     }
 }
 
