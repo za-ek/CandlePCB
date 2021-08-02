@@ -104,4 +104,5 @@ RESOURCES += \
 
 CONFIG += c++11
 
-DISTFILES +=
+DISTFILES += \
+    CHANGELOG.md
