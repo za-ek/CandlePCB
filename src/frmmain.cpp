@@ -116,6 +116,7 @@ frmMain::frmMain(QWidget *parent) :
     ui->glwVisualizer->addDrawable(&m_heightMapInterpolationDrawer);
     ui->glwVisualizer->fitDrawable();
 
+    // Changes in UI
     connect(ui->glwVisualizer, SIGNAL(rotationChanged()), this, SLOT(onVisualizatorRotationChanged()));
     connect(ui->glwVisualizer, SIGNAL(resized()), this, SLOT(placeVisualizerButtons()));
     connect(&m_programModel, SIGNAL(dataChanged(QModelIndex,QModelIndex)), this, SLOT(onTableCellChanged(QModelIndex,QModelIndex)));
@@ -177,6 +178,11 @@ frmMain::frmMain(QWidget *parent) :
     if (qApp->arguments().count() > 1 && isGCodeFile(qApp->arguments().last())) {
         loadFile(qApp->arguments().last());
     }
+
+    qDebug() << m_settings.getOptionString("lastUsedFile");
+    if(m_settings.getOptionString("lastUsedFile").length() > 0) {
+        loadFile(m_settings.getOptionString("lastUsedFile"));
+    }
 }
 
 frmMain::~frmMain()
@@ -224,6 +230,16 @@ void frmMain::loadSettings()
     set.setIniCodec("UTF-8");
 
     m_settingsLoading = true;
+
+    for(unsigned short i = 0; i < sizeof(m_settings.optionsStringKeys) / sizeof(m_settings.optionsStringKeys[0]);i++) {
+        QString opt(m_settings.options[i]);
+        m_settings.setOption(opt, set.value(opt).toBool());
+    }
+
+    for(unsigned short i = 0; i < sizeof(m_settings.optionsStringKeys) / sizeof(m_settings.optionsStringKeys[0]);i++) {
+        QString opt(m_settings.optionsStringKeys[i]);
+        m_settings.setOptionString(opt, set.value(opt).toString());
+    }
 
     m_settings.setPort(set.value("port").toString());
     m_settings.setBaud(set.value("baud").toInt());
@@ -425,6 +441,15 @@ void frmMain::saveSettings()
 
     for (int i = 0; i < ui->cboCommand->count(); i++) list.append(ui->cboCommand->itemText(i));
     set.setValue("recentCommands", list);
+
+    for(unsigned short i = 0; i < sizeof(m_settings.options) / sizeof(m_settings.options[0]);i++) {
+        QString opt(m_settings.options[i]);
+        set.setValue(opt, m_settings.getOption(opt));
+    }
+    for(unsigned short i = 0; i < sizeof(m_settings.optionsStringKeys) / sizeof(m_settings.optionsStringKeys[0]);i++) {
+        QString opt(m_settings.optionsStringKeys[i]);
+        set.setValue(opt, m_settings.getOptionString(opt));
+    }
 }
 
 bool frmMain::saveChanges(bool heightMapMode)
@@ -928,7 +953,14 @@ void frmMain::onSerialPortReadyRead()
                     }
 
                     // Homing response
-                    if ((ca.command.toUpper() == "$H" || ca.command.toUpper() == "$T") && m_homing) m_homing = false;
+                    if ((ca.command.toUpper() == "$H" || ca.command.toUpper() == "$T") && m_homing) {
+                        m_homing = false;
+                        if(m_settings.getOption("restoreZeroAfterHoming")) {
+                            m_settingZeroXY = true;
+                            sendCommand("G92X0Y0", -1, m_settings.showUICommands());
+                            sendCommand("$#", -2, m_settings.showUICommands());
+                        }
+                    }
 
                     // Reset complete
                     if (ca.command == "[CTRL+X]") {
@@ -1505,6 +1537,8 @@ void frmMain::loadFile(QString fileName)
         return;
     }
 
+    qDebug() << "Load file " << fileName;
+    m_settings.setOptionString("lastUsedFile", fileName);
     // Set filename
     m_programFileName = fileName;
 
@@ -1593,7 +1627,14 @@ void frmMain::on_cmdFileSend_clicked()
 
     updateControlsState();
     ui->cmdFilePause->setFocus();
-    sendNextFileCommands();
+
+    if(m_heightMapMode) {
+        // Some staff
+        qDebug() << "Send";
+    } else {
+        qDebug() << "Something";
+g        sendNextFileCommands();
+    }
 }
 
 void frmMain::on_cmdFileAbort_clicked()
@@ -2980,7 +3021,7 @@ void frmMain::on_cmdHeightMapMode_toggled(bool checked)
 //        m_codeDrawer->updateData(); // Force update data to properly shadowing
     }
 
-    if (checked) {
+    if (m_heightMapMode) {
         ui->tblProgram->setModel(&m_probeModel);
         resizeTableHeightMapSections();
         m_currentModel = &m_probeModel;

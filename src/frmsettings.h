@@ -100,6 +100,14 @@ public:
     int fontSize();
     void setFontSize(int fontSize);
 
+    bool getOption(QString opt);
+    void setOption(QString opt, bool value);
+    constexpr inline static char * options[] = {"restoreZeroAfterHoming"};
+
+    QString getOptionString(QString opt);
+    void setOptionString(QString opt, QString value);
+    constexpr inline static char * optionsStringKeys[] = {"lastUsedFile"};
+
 protected:
     void showEvent(QShowEvent *se);
 
@@ -116,6 +124,8 @@ private slots:
 
     void on_cboFontSize_currentTextChanged(const QString &arg1);
 
+    void on_restoreZeroAfterHoming_stateChanged(int arg1);
+
 private:
     Ui::frmSettings *ui;
     void searchPorts();
@@ -126,6 +136,8 @@ private:
     QList<QColor> m_storedColors;
 
     QIntValidator m_intValidator;
+
+    QHash<QString, QString> m_optionsString;
 };
 
 #endif // FRMSETTINGS_H

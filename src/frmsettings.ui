@@ -72,8 +72,8 @@ QGroupBox {
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>353</width>
-          <height>1191</height>
+          <width>442</width>
+          <height>1383</height>
          </rect>
         </property>
         <layout class="QVBoxLayout" name="verticalLayout_4">
@@ -169,6 +169,13 @@ QGroupBox {
              </layout>
             </item>
            </layout>
+          </widget>
+         </item>
+         <item>
+          <widget class="QCheckBox" name="restoreZeroAfterHoming">
+           <property name="text">
+            <string>Restore zero XY after homing</string>
+           </property>
           </widget>
          </item>
          <item>
@@ -1075,6 +1082,9 @@ QGroupBox {
             </item>
            </layout>
           </widget>
+         </item>
+         <item>
+          <layout class="QGridLayout" name="gridLayout_10"/>
          </item>
          <item>
           <widget class="GroupBox" name="grpColors">

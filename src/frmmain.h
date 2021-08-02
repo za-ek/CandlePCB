@@ -252,12 +252,31 @@ private:
     bool m_transferCompleted = false;
     bool m_fileEndSent = false;
 
+    /**
+     * @brief m_heightMapMode
+     * HeightMap mode toggles by clicking on button "cmdHeightMapMode"
+     * HeightMap process starts by event on_cmdFileSend_clicked
+     *
+     * on_cmdFileSend_clicked calls on_cmdFileReset_clicked
+     *  which set heightmap gcode to m_probeModel
+     *
+     * sendNextFileCommands sends current gcode table
+     *  (m_currentModel (alias for m_probeModel in on_cmdHeightMapMode_toggled))
+     *
+     * updateHeightMapGrid sets data to m_probeModel
+     *
+     */
     bool m_heightMapMode;
     bool m_cellChanged;
 
     // Indices
     int m_fileCommandIndex;
     int m_fileProcessedCommandIndex;
+    /*
+     * Index in heightmap table
+     * Only resets by "reset" button
+     * The fQirst index is -1 which means relative point for rest of heightmap
+     */
     int m_probeIndex;
 
     // Current values

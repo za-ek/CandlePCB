@@ -470,6 +470,23 @@ void frmSettings::setPanelJog(bool panelJog)
     ui->chkPanelJog->setChecked(panelJog);
 }
 
+QString frmSettings::getOptionString(QString opt)
+{
+    return m_optionsString.value(opt);
+}
+void frmSettings::setOptionString(QString opt, QString value)
+{
+    m_optionsString.insert(opt, value);
+}
+bool frmSettings::getOption(QString opt)
+{
+    return findChild<QCheckBox*>(opt)->isChecked();
+}
+void frmSettings::setOption(QString opt, bool value)
+{
+    findChild<QCheckBox*>(opt)->setChecked(value);
+}
+
 QList<ColorPicker *> frmSettings::colors()
 {
     return this->findChildren<ColorPicker*>();
@@ -592,4 +609,9 @@ void frmSettings::on_cmdDefaults_clicked()
 void frmSettings::on_cboFontSize_currentTextChanged(const QString &arg1)
 {
     qApp->setStyleSheet(QString(qApp->styleSheet()).replace(QRegExp("font-size:\\s*\\d+"), "font-size: " + arg1));
+}
+
+void frmSettings::on_restoreZeroAfterHoming_stateChanged(int arg1)
+{
+    setOption("restoreZeroAfterHoming", arg1);
 }

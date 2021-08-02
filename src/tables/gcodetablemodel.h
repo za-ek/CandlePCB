@@ -1,6 +1,10 @@
 // This file is a part of "Candle" application.
 // Copyright 2015-2016 Hayrullin Denis Ravilevich
 
+/**
+  * GCodeTableModel - list of GCodeItem
+  * GCodeItem - command, state, status, etc.
+  */
 #ifndef GCODETABLEMODEL_H
 #define GCODETABLEMODEL_H
 
