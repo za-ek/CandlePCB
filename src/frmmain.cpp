@@ -30,8 +30,13 @@
 #include <QTemporaryFile>
 #include <QProcess>
 #include <QTemporaryFile>
+#include <QDesktopServices>
 #include "frmmain.h"
 #include "ui_frmmain.h"
+#include <iostream>
+#include <cstdio>
+#include <cstring>
+#include <cerrno>
 
 frmMain::frmMain(QWidget *parent) :
     QMainWindow(parent),
@@ -1448,7 +1453,7 @@ void frmMain::on_cmdFileOpen_clicked()
     if (!m_heightMapMode) {
         if (!saveChanges(false)) return;
 
-        QString fileName = QFileDialog::getOpenFileName(this, tr("Open"), "", tr("G-Code files (*.nc *.ncc *.ngc *.tap *.txt);;All files (*.*)"));
+        QString fileName = QFileDialog::getOpenFileName(this, tr("Open"), getTodayDirectory(), tr("G-Code files (*.nc *.ncc *.ngc *.tap *.txt);;All files (*.*)"));
 
         if (fileName != "") {
             addRecentFile(fileName);
@@ -1459,7 +1464,7 @@ void frmMain::on_cmdFileOpen_clicked()
     } else {
         if (!saveChanges(true)) return;
 
-        QString fileName = QFileDialog::getOpenFileName(this, tr("Open"), "", tr("Heightmap files (*.map)"));
+        QString fileName = QFileDialog::getOpenFileName(this, tr("Open"), getTodayDirectory(), tr("Heightmap files (*.map)"));
 
         if (fileName != "") {
             addRecentHeightmap(fileName);
@@ -3539,4 +3544,90 @@ void frmMain::on_cmdHeightMapBorderAuto_clicked()
 bool frmMain::compareCoordinates(double x, double y, double z)
 {
     return ui->txtMPosX->text().toDouble() == x && ui->txtMPosY->text().toDouble() == y && ui->txtMPosZ->text().toDouble() == z;
+}
+
+void frmMain::on_actionGenerate_g_code_triggered()
+{
+    QByteArray projectDir = m_projectDirectory.toLocal8Bit();
+
+    /**
+     * Base pcb2gcode params
+     */
+    QStringList baseParams = QString(
+                "--tile-x=1 --tile-y=1 --metric=true --metricoutput=true --nog64=true --optimise=false \
+                --tolerance=0.0100 --vectorial=true --zchange=12.0000 --zchange-absolute=false --zero-start=true \
+                --zsafe=2.0000 --extra-passes=1 --mill-feed=400 --mill-speed=10000 --offset=0.2000 --voronoi=false \
+                --zwork=-0.0500 --drill-feed=200 --drill-side=front --drill-speed=10000 --milldrill=false --nog81=true \
+                --nog91-1=false --onedrill=false --zdrill=-1.8000 --bridges=0.5000 --bridgesnum=4 --cut-feed=200 \
+                --cut-infeed=0.4000 --cut-side=front --cut-speed=10000 --cutter-diameter=1.0000 --fill-outline=true \
+                --zbridges=-0.6000 --zcut=-1.8000"
+            ).split(" ");
+
+    /**
+     * Generate files:
+     *  - front.ngc (milling)
+     *  - back.ngc (milling)
+     *  - drill.ngc (holes)
+     *  - outline.ngc (edge cuts)
+     */
+    QStringList params;
+    params << "--back=" + projectDir + "/HBridge-B_Cu.gbr";
+    params << "--drill=" + projectDir + "/HBridge.drl";
+    params << "--front=" + projectDir + "/HBridge-F_Cu.gbr";
+    params << "--outline=" + projectDir + "/HBridge-Edge_Cuts.gbr";
+
+    params << "--front-output="  + getTodayDirectory().toLocal8Bit() + "/front_mill.ngc";
+    params << "--back-output="  + getTodayDirectory().toLocal8Bit() + "/back_mill.ngc";
+    params << "--milldrill-output="  + getTodayDirectory().toLocal8Bit() + "/milldrill.ngc";
+    params << "--outline-output="  + getTodayDirectory().toLocal8Bit() + "/outline.ngc";
+
+    params += baseParams;
+
+    QProcess *process = new QProcess(this);
+    process->start("pcb2gcode", params);
+    process->waitForFinished();
+
+    qDebug() << process->readAllStandardOutput();
+
+    /**
+     * Generate mask files
+     */
+    params.clear();
+    params << "--front=" + projectDir + "/HBridge-F_Mask.gbr";
+    params << "--back=" + projectDir + "/HBridge-F_Mask.gbr";
+    params << "--output-dir=" + getTodayDirectory().toLocal8Bit();
+    params += baseParams;
+
+    process->start("pcb2gcode", params);
+    process->waitForFinished();
+
+    qDebug() << process->readAllStandardOutput();
+
+    /**
+     * Make svg file grayscale
+     */
+    runPHP(":/scripts/grayscale_svg.php", QStringList(getTodayDirectory() + "/outp0_original_back.svg"));
+    runPHP(":/scripts/grayscale_svg.php", QStringList(getTodayDirectory() + "/outp1_original_front.svg"));
+}
+
+void frmMain::on_actionOpen_directory_triggered()
+{
+    QDesktopServices::openUrl(getTodayDirectory());
+}
+QString frmMain::runPHP(QString path, QStringList params)
+{
+    // Run php file stored in resources
+    QFile f(path);
+    QTemporaryFile *tmpFile = QTemporaryFile::createNativeFile(f);
+    if (tmpFile->open()) {
+        QProcess *process = new QProcess(this);
+        qDebug() << params;
+        process->start("php", QStringList(tmpFile->fileName()) + params);
+        process->waitForFinished();
+        tmpFile->close();
+        return process->readAllStandardOutput();
+    } else {
+        qDebug() << "Error open temp file";
+        return "";
+    }
 }

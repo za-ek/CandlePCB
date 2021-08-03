@@ -2639,9 +2639,17 @@ padding-right: 8;</string>
     </property>
     <addaction name="actAbout"/>
    </widget>
+   <widget class="QMenu" name="menuProject">
+    <property name="title">
+     <string>Project</string>
+    </property>
+    <addaction name="actionOpen_directory"/>
+    <addaction name="actionGenerate_g_code"/>
+   </widget>
    <addaction name="mnuFile"/>
    <addaction name="mnuService"/>
    <addaction name="mnuHelp"/>
+   <addaction name="menuProject"/>
   </widget>
   <action name="actFileOpen">
    <property name="text">
@@ -2686,6 +2694,16 @@ padding-right: 8;</string>
   <action name="actFileSaveTransformedAs">
    <property name="text">
     <string>Save &amp;transformed as...</string>
+   </property>
+  </action>
+  <action name="actionOpen_directory">
+   <property name="text">
+    <string>Open directory</string>
+   </property>
+  </action>
+  <action name="actionGenerate_g_code">
+   <property name="text">
+    <string>Generate g-code</string>
    </property>
   </action>
  </widget>

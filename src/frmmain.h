@@ -67,6 +67,7 @@ public:
     ~frmMain();
 
     double toolZPosition();
+    QString runPHP(QString path, QStringList params);
 
 private slots:
     void updateHeightMapInterpolationDrawer(bool reset = false);
@@ -156,6 +157,10 @@ private slots:
     void on_cmdHeightMapCreate_clicked();
     void on_cmdHeightMapBorderAuto_clicked();
     void on_cmdFileAbort_clicked();
+
+    void on_actionGenerate_g_code_triggered();
+
+    void on_actionOpen_directory_triggered();
 
 protected:
     void showEvent(QShowEvent *se);
