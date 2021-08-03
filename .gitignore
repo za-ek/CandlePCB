@@ -44,3 +44,9 @@ Temporary Items
 
 # User's project preferences
 *.user*
+
+# Build dir
+build-*
+
+# Binaries
+bin/*

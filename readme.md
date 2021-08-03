@@ -1,4 +1,4 @@
-grblControl
+Candle
 -----------
 GRBL controller application with G-Code visualizer written in Qt.
 
@@ -17,13 +17,15 @@ Version 0.8 release:
 
 Downloads:
 ----------
-* Windows: [grblControl_0.8.zip](https://github.com/Denvi/grblControl/releases/download/v0.8/grblControl_0.8.zip)
-* Linux: [grblControl_0.8.tar.gz](https://github.com/Denvi/grblControl/releases/download/v0.8/grblControl_0.8.tar.gz)
+* Windows: [grblControl_0.8.4.zip](https://github.com/Denvi/grblControl/releases/download/v0.8.4/grblControl_0.8.4.zip)
+* Linux: [grblControl_0.8.4.tar.gz](https://github.com/Denvi/grblControl/releases/download/v0.8.4/grblControl_0.8.4.tar.gz)
 
-Translations will be available from here: [translations](https://github.com/Denvi/grblControl/tree/0.8/translations)
+Build requirements:
+------------------
+Qt 5.5.0 with MinGW compiler
 
 Previous versions:
-
+-----------------
 0.7:
 * Windows: [grblControl_0.7.zip](https://github.com/Denvi/grblControl/releases/download/0.7/grblControl_0.7.zip)
 * Linux: [grblControl_0.7.tar.gz](https://github.com/Denvi/grblControl/releases/download/0.7/grblControl_0.7.tar.gz)
@@ -99,3 +101,8 @@ Version 0.2 release:
 * Some bugs fixed.
 
 ![screenshot](/screenshots/screenshot.png)
+
+--------------------
+Support the "grblControl" project. If you'd like to donate, all proceeds will be used to help fund supporting hardware and testing equipment. Thank you.
+
+[![Donate](https://www.paypalobjects.com/en_US/i/btn/btn_donate_LG.gif)](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=NQG6CB4VGTVZE) / [![Donate](https://www.paypalobjects.com/ru_RU/i/btn/btn_donate_LG.gif)](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=6GRUNTKF2M4BU) 
