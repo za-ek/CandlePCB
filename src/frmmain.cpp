@@ -4,19 +4,6 @@
 //#define INITTIME //QTime time; time.start();
 //#define PRINTTIME(x) //qDebug() << "time elapse" << QString("%1:").arg(x) << time.elapsed(); time.start();
 
-<<<<<<< HEAD
-=======
-#define UNKNOWN 0
-#define IDLE 1
-#define ALARM 2
-#define RUN 3
-#define HOME 4
-#define HOLD 5
-#define QUEUE 6
-#define CHECK 7
-#define DOOR 8
-
->>>>>>> 1912b3bff23ba4a4fb8cfe1b53b1c0bbd8f5db65
 #include <QFileDialog>
 #include <QTextStream>
 #include <QDebug>
@@ -34,10 +21,7 @@
 #include <QProcess>
 #include <QTemporaryFile>
 #include <QDesktopServices>
-<<<<<<< HEAD
 #include <QStatusBar>
-=======
->>>>>>> 1912b3bff23ba4a4fb8cfe1b53b1c0bbd8f5db65
 #include "frmmain.h"
 #include "ui_frmmain.h"
 #include <iostream>
@@ -59,11 +43,7 @@ frmMain::frmMain(QWidget *parent) :
     preloadSettings();
 
     ui->setupUi(this);
-<<<<<<< HEAD
     setStatusBarItems();
-=======
-
->>>>>>> 1912b3bff23ba4a4fb8cfe1b53b1c0bbd8f5db65
 #ifdef WINDOWS
     if (QSysInfo::windowsVersion() >= QSysInfo::WV_WINDOWS7) {
         m_taskBarButton = NULL;
@@ -209,7 +189,6 @@ frmMain::~frmMain()
 
     delete ui;
 }
-<<<<<<< HEAD
 void frmMain::setMachinePosition(coordinates axis, double val)
 {
     machine_coordinates[axis] = val;
@@ -255,8 +234,6 @@ void frmMain::setMachineStatus(QString status)
     machineStatus = UNKNOWN;
 //    machineStatusWidget->setStyleSheet(QString("background-color: palette(button); color: palette(text);"));
 }
-=======
->>>>>>> 1912b3bff23ba4a4fb8cfe1b53b1c0bbd8f5db65
 
 bool frmMain::isGCodeFile(QString fileName)
 {
@@ -297,11 +274,7 @@ void frmMain::loadSettings()
 
     m_settingsLoading = true;
 
-<<<<<<< HEAD
     for(unsigned short i = 0; i < sizeof(m_settings.options) / sizeof(m_settings.options[0]);i++) {
-=======
-    for(unsigned short i = 0; i < sizeof(m_settings.optionsStringKeys) / sizeof(m_settings.optionsStringKeys[0]);i++) {
->>>>>>> 1912b3bff23ba4a4fb8cfe1b53b1c0bbd8f5db65
         QString opt(m_settings.options[i]);
         m_settings.setOption(opt, set.value(opt).toBool());
     }
@@ -310,43 +283,21 @@ void frmMain::loadSettings()
         QString opt(m_settings.optionsStringKeys[i]);
         m_settings.setOptionString(opt, set.value(opt).toString());
     }
-<<<<<<< HEAD
 
     m_projectDirectory = m_settings.getOptionString("projectDirectory");
-
-
-=======
-    m_projectDirectory = m_settings.getOptionString("projectDirectory");
-
->>>>>>> 1912b3bff23ba4a4fb8cfe1b53b1c0bbd8f5db65
     m_settings.setPort(set.value("port").toString());
     m_settings.setBaud(set.value("baud").toInt());
     m_settings.setToolDiameter(set.value("toolDiameter", 3).toDouble());
     m_settings.setToolLength(set.value("toolLength", 15).toDouble());
-<<<<<<< HEAD
-
-=======
-    m_settings.setAntialiasing(set.value("antialiasing", true).toBool());
-    m_settings.setMsaa(set.value("msaa", true).toBool());
-    m_settings.setVsync(set.value("vsync", false).toBool());
-    m_settings.setZBuffer(set.value("zBuffer", false).toBool());
-    m_settings.setSimplify(set.value("simplify", false).toBool());
->>>>>>> 1912b3bff23ba4a4fb8cfe1b53b1c0bbd8f5db65
     m_settings.setSimplifyPrecision(set.value("simplifyPrecision", 0).toDouble());
     ui->txtJogStep->setValue(set.value("jogStep", 1).toDouble());
     m_programSpeed = true;
     ui->sliSpindleSpeed->setValue(set.value("spindleSpeed", 0).toInt());
     m_programSpeed = false;
-<<<<<<< HEAD
-
-=======
-    m_settings.setMoveOnRestore(set.value("moveOnRestore", false).toBool());
->>>>>>> 1912b3bff23ba4a4fb8cfe1b53b1c0bbd8f5db65
     m_settings.setRestoreMode(set.value("restoreMode", 0).toInt());
     m_settings.setLineWidth(set.value("lineWidth", 1).toDouble());
     m_settings.setArcLength(set.value("arcLength", 0).toDouble());
     m_settings.setArcDegree(set.value("arcDegree", 0).toDouble());
-<<<<<<< HEAD
 
 //    m_settings.setSpindleSpeedMin(set.value("spindleSpeedMin", 0).toInt());
 //    m_settings.setSpindleSpeedMax(set.value("spindleSpeedMax", 100).toInt());
@@ -367,34 +318,6 @@ void frmMain::loadSettings()
 //    ui->chkFeedOverride->setChecked(set.value("feedOverride", false).toBool());
     ui->sliFeed->setValue(set.value("feed", 100).toInt());
 //    m_settings.setUnits(set.value("units", 0).toInt());
-=======
-    m_settings.setArcDegreeMode(set.value("arcDegreeMode", true).toBool());
-    m_settings.setShowProgramCommands(set.value("showProgramCommands", 0).toBool());
-    m_settings.setShowUICommands(set.value("showUICommands", 0).toBool());
-    m_settings.setSpindleSpeedMin(set.value("spindleSpeedMin", 0).toInt());
-    m_settings.setSpindleSpeedMax(set.value("spindleSpeedMax", 100).toInt());
-    m_settings.setRapidSpeed(set.value("rapidSpeed", 0).toInt());
-    m_settings.setHeightmapProbingFeed(set.value("heightmapProbingFeed", 0).toInt());
-    m_settings.setAcceleration(set.value("acceleration", 10).toInt());
-    m_settings.setToolAngle(set.value("toolAngle", 0).toDouble());
-    m_settings.setToolType(set.value("toolType", 0).toInt());
-    m_settings.setFps(set.value("fps", 60).toInt());
-    m_settings.setQueryStateTime(set.value("queryStateTime", 250).toInt());
-
-    m_settings.setPanelHeightmap(set.value("panelHeightmapVisible", true).toBool());
-    m_settings.setPanelSpindle(set.value("panelSpindleVisible", true).toBool());
-    m_settings.setPanelFeed(set.value("panelFeedVisible", true).toBool());
-    m_settings.setPanelJog(set.value("panelJogVisible", true).toBool());
-
-    ui->grpConsole->setMinimumHeight(set.value("consoleMinHeight", 100).toInt());
-
-    ui->chkAutoScroll->setChecked(set.value("autoScroll", false).toBool());
-    ui->sliSpindleSpeed->setValue(set.value("spindleSpeed", 100).toInt() / 100);
-    ui->txtSpindleSpeed->setValue(set.value("spindleSpeed", 100).toInt());
-    ui->chkFeedOverride->setChecked(set.value("feedOverride", false).toBool());
-    ui->sliFeed->setValue(set.value("feed", 100).toInt());
-    m_settings.setUnits(set.value("units", 0).toInt());
->>>>>>> 1912b3bff23ba4a4fb8cfe1b53b1c0bbd8f5db65
     m_storedX = set.value("storedX", 0).toDouble();
     m_storedY = set.value("storedY", 0).toDouble();
     m_storedZ = set.value("storedZ", 0).toDouble();
@@ -420,23 +343,11 @@ void frmMain::loadSettings()
     ui->cmdClearConsole->setFixedHeight(ui->cboCommand->height());
     ui->cmdCommandSend->setFixedHeight(ui->cboCommand->height());
 
-<<<<<<< HEAD
-=======
-    ui->grpHeightMap->setChecked(set.value("heightmapPanel", true).toBool());
-    ui->grpSpindle->setChecked(set.value("spindlePanel", true).toBool());
-    ui->grpFeed->setChecked(set.value("feedPanel", true).toBool());
-    ui->grpJog->setChecked(set.value("jogPanel", true).toBool());
-
->>>>>>> 1912b3bff23ba4a4fb8cfe1b53b1c0bbd8f5db65
     m_storedKeyboardControl = set.value("keyboardControl", false).toBool();
 
     ui->cboCommand->addItems(set.value("recentCommands", QStringList()).toStringList());
     ui->cboCommand->setCurrentIndex(-1);
 
-<<<<<<< HEAD
-=======
-    m_settings.setAutoCompletion(set.value("autoCompletion", true).toBool());
->>>>>>> 1912b3bff23ba4a4fb8cfe1b53b1c0bbd8f5db65
     m_settings.setTouchCommand(set.value("touchCommand").toString());
     m_settings.setSafePositionCommand(set.value("safePositionCommand").toString());
 
@@ -444,30 +355,18 @@ void frmMain::loadSettings()
     ui->txtHeightMapBorderY->setValue(set.value("heightmapBorderY", 0).toDouble());
     ui->txtHeightMapBorderWidth->setValue(set.value("heightmapBorderWidth", 1).toDouble());
     ui->txtHeightMapBorderHeight->setValue(set.value("heightmapBorderHeight", 1).toDouble());
-<<<<<<< HEAD
 //    ui->chkHeightMapBorderShow->setChecked(set.value("heightmapBorderShow", false).toBool());
-=======
-    ui->chkHeightMapBorderShow->setChecked(set.value("heightmapBorderShow", false).toBool());
->>>>>>> 1912b3bff23ba4a4fb8cfe1b53b1c0bbd8f5db65
 
     ui->txtHeightMapGridX->setValue(set.value("heightmapGridX", 1).toDouble());
     ui->txtHeightMapGridY->setValue(set.value("heightmapGridY", 1).toDouble());
     ui->txtHeightMapGridZTop->setValue(set.value("heightmapGridZTop", 1).toDouble());
     ui->txtHeightMapGridZBottom->setValue(set.value("heightmapGridZBottom", -1).toDouble());
-<<<<<<< HEAD
 //    ui->chkHeightMapGridShow->setChecked(set.value("heightmapGridShow", false).toBool());
-=======
-    ui->chkHeightMapGridShow->setChecked(set.value("heightmapGridShow", false).toBool());
->>>>>>> 1912b3bff23ba4a4fb8cfe1b53b1c0bbd8f5db65
 
     ui->txtHeightMapInterpolationStepX->setValue(set.value("heightmapInterpolationStepX", 1).toDouble());
     ui->txtHeightMapInterpolationStepY->setValue(set.value("heightmapInterpolationStepY", 1).toDouble());
     ui->cboHeightMapInterpolationType->setCurrentIndex(set.value("heightmapInterpolationType", 0).toInt());
-<<<<<<< HEAD
 //    ui->chkHeightMapInterpolationShow->setChecked(set.value("heightmapInterpolationShow", false).toBool());
-=======
-    ui->chkHeightMapInterpolationShow->setChecked(set.value("heightmapInterpolationShow", false).toBool());
->>>>>>> 1912b3bff23ba4a4fb8cfe1b53b1c0bbd8f5db65
 
     foreach (ColorPicker* pick, m_settings.colors()) {
         pick->setColor(QColor(set.value(pick->objectName().mid(3), "black").toString()));
@@ -489,32 +388,15 @@ void frmMain::saveSettings()
     set.setValue("baud", m_settings.baud());
     set.setValue("toolDiameter", m_settings.toolDiameter());
     set.setValue("toolLength", m_settings.toolLength());
-<<<<<<< HEAD
-=======
-    set.setValue("antialiasing", m_settings.antialiasing());
-    set.setValue("msaa", m_settings.msaa());
-    set.setValue("vsync", m_settings.vsync());
-    set.setValue("zBuffer", m_settings.zBuffer());
-    set.setValue("simplify", m_settings.simplify());
->>>>>>> 1912b3bff23ba4a4fb8cfe1b53b1c0bbd8f5db65
     set.setValue("simplifyPrecision", m_settings.simplifyPrecision());
     set.setValue("jogStep", ui->txtJogStep->value());
     set.setValue("spindleSpeed", ui->txtSpindleSpeed->text());
     set.setValue("lineWidth", m_settings.lineWidth());
     set.setValue("arcLength", m_settings.arcLength());
     set.setValue("arcDegree", m_settings.arcDegree());
-<<<<<<< HEAD
 //    set.setValue("arcDegreeMode", m_settings.arcDegreeMode());
     set.setValue("spindleSpeedMin", m_settings.spindleSpeedMin());
     set.setValue("spindleSpeedMax", m_settings.spindleSpeedMax());
-=======
-    set.setValue("arcDegreeMode", m_settings.arcDegreeMode());
-    set.setValue("showProgramCommands", m_settings.showProgramCommands());
-    set.setValue("showUICommands", m_settings.showUICommands());
-    set.setValue("spindleSpeedMin", m_settings.spindleSpeedMin());
-    set.setValue("spindleSpeedMax", m_settings.spindleSpeedMax());
-    set.setValue("moveOnRestore", m_settings.moveOnRestore());
->>>>>>> 1912b3bff23ba4a4fb8cfe1b53b1c0bbd8f5db65
     set.setValue("restoreMode", m_settings.restoreMode());
     set.setValue("rapidSpeed", m_settings.rapidSpeed());
     set.setValue("heightmapProbingFeed", m_settings.heightmapProbingFeed());
@@ -523,29 +405,14 @@ void frmMain::saveSettings()
     set.setValue("toolType", m_settings.toolType());
     set.setValue("fps", m_settings.fps());
     set.setValue("queryStateTime", m_settings.queryStateTime());
-<<<<<<< HEAD
-=======
-    set.setValue("autoScroll", ui->chkAutoScroll->isChecked());
->>>>>>> 1912b3bff23ba4a4fb8cfe1b53b1c0bbd8f5db65
     set.setValue("header", ui->tblProgram->horizontalHeader()->saveState());
     set.setValue("splitter", ui->splitter->saveState());
     set.setValue("formGeometry", this->saveGeometry());
     set.setValue("formSettingsSize", m_settings.size());
     set.setValue("spindleSpeed", ui->txtSpindleSpeed->value());
-<<<<<<< HEAD
     set.setValue("feed", ui->txtFeed->value());
     set.setValue("keyboardControl", ui->chkKeyboardControl->isChecked());
 //    set.setValue("autoCompletion", m_settings.autoCompletion());
-=======
-    set.setValue("feedOverride", ui->chkFeedOverride->isChecked());
-    set.setValue("feed", ui->txtFeed->value());
-    set.setValue("heightmapPanel", ui->grpHeightMap->isChecked());
-    set.setValue("spindlePanel", ui->grpSpindle->isChecked());
-    set.setValue("feedPanel", ui->grpFeed->isChecked());
-    set.setValue("jogPanel", ui->grpJog->isChecked());
-    set.setValue("keyboardControl", ui->chkKeyboardControl->isChecked());
-    set.setValue("autoCompletion", m_settings.autoCompletion());
->>>>>>> 1912b3bff23ba4a4fb8cfe1b53b1c0bbd8f5db65
     set.setValue("units", m_settings.units());
     set.setValue("storedX", m_storedX);
     set.setValue("storedY", m_storedY);
@@ -554,17 +421,10 @@ void frmMain::saveSettings()
     set.setValue("recentHeightmaps", m_recentHeightmaps);
     set.setValue("touchCommand", m_settings.touchCommand());
     set.setValue("safePositionCommand", m_settings.safePositionCommand());
-<<<<<<< HEAD
 //    set.setValue("panelHeightmapVisible", m_settings.panelHeightmap());
 //    set.setValue("panelSpindleVisible", m_settings.panelSpindle());
 //    set.setValue("panelFeedVisible", m_settings.panelFeed());
 //    set.setValue("panelJogVisible", m_settings.panelJog());
-=======
-    set.setValue("panelHeightmapVisible", m_settings.panelHeightmap());
-    set.setValue("panelSpindleVisible", m_settings.panelSpindle());
-    set.setValue("panelFeedVisible", m_settings.panelFeed());
-    set.setValue("panelJogVisible", m_settings.panelJog());
->>>>>>> 1912b3bff23ba4a4fb8cfe1b53b1c0bbd8f5db65
     set.setValue("fontSize", m_settings.fontSize());
     set.setValue("consoleMinHeight", ui->grpConsole->minimumHeight());
 
@@ -572,27 +432,14 @@ void frmMain::saveSettings()
     set.setValue("heightmapBorderY", ui->txtHeightMapBorderY->value());
     set.setValue("heightmapBorderWidth", ui->txtHeightMapBorderWidth->value());
     set.setValue("heightmapBorderHeight", ui->txtHeightMapBorderHeight->value());
-<<<<<<< HEAD
-=======
-    set.setValue("heightmapBorderShow", ui->chkHeightMapBorderShow->isChecked());
-
->>>>>>> 1912b3bff23ba4a4fb8cfe1b53b1c0bbd8f5db65
     set.setValue("heightmapGridX", ui->txtHeightMapGridX->value());
     set.setValue("heightmapGridY", ui->txtHeightMapGridY->value());
     set.setValue("heightmapGridZTop", ui->txtHeightMapGridZTop->value());
     set.setValue("heightmapGridZBottom", ui->txtHeightMapGridZBottom->value());
-<<<<<<< HEAD
-=======
-    set.setValue("heightmapGridShow", ui->chkHeightMapGridShow->isChecked());
->>>>>>> 1912b3bff23ba4a4fb8cfe1b53b1c0bbd8f5db65
 
     set.setValue("heightmapInterpolationStepX", ui->txtHeightMapInterpolationStepX->value());
     set.setValue("heightmapInterpolationStepY", ui->txtHeightMapInterpolationStepY->value());
     set.setValue("heightmapInterpolationType", ui->cboHeightMapInterpolationType->currentIndex());
-<<<<<<< HEAD
-=======
-    set.setValue("heightmapInterpolationShow", ui->chkHeightMapInterpolationShow->isChecked());
->>>>>>> 1912b3bff23ba4a4fb8cfe1b53b1c0bbd8f5db65
 
     foreach (ColorPicker* pick, m_settings.colors()) {
         set.setValue(pick->objectName().mid(3), pick->color().name());
@@ -607,14 +454,11 @@ void frmMain::saveSettings()
         QString opt(m_settings.options[i]);
         set.setValue(opt, m_settings.getOption(opt));
     }
-<<<<<<< HEAD
 
     for(const char *c : m_settings.options) {
         // Hello
     }
 
-=======
->>>>>>> 1912b3bff23ba4a4fb8cfe1b53b1c0bbd8f5db65
     for(unsigned short i = 0; i < sizeof(m_settings.optionsStringKeys) / sizeof(m_settings.optionsStringKeys[0]);i++) {
         QString opt(m_settings.optionsStringKeys[i]);
         set.setValue(opt, m_settings.getOptionString(opt));
@@ -688,12 +532,7 @@ void frmMain::updateControlsState() {
                                                          | QAbstractItemView::EditKeyPressed | QAbstractItemView::AnyKeyPressed);
 
     if (!portOpened) {
-<<<<<<< HEAD
         setMachineStatus(tr("Not connected"));
-=======
-        ui->txtStatus->setText(tr("Not connected"));
-        ui->txtStatus->setStyleSheet(QString("background-color: palette(button); color: palette(text);"));
->>>>>>> 1912b3bff23ba4a4fb8cfe1b53b1c0bbd8f5db65
     }
 
     this->setWindowTitle(m_programFileName.isEmpty() ? qApp->applicationDisplayName()
@@ -745,22 +584,12 @@ void frmMain::updateControlsState() {
     ui->chkHeightMapUse->setEnabled(!m_heightMapMode && !ui->txtHeightMap->text().isEmpty());
 
     ui->actFileSaveTransformedAs->setVisible(ui->chkHeightMapUse->isChecked());
-<<<<<<< HEAD
-=======
-    qDebug() << getTodayDirectory();
->>>>>>> 1912b3bff23ba4a4fb8cfe1b53b1c0bbd8f5db65
 }
 
 void frmMain::openPort()
 {
     if (m_serialPort.open(QIODevice::ReadWrite)) {
-<<<<<<< HEAD
         setMachineStatus(tr("Port opened"));
-=======
-        ui->txtStatus->setText(tr("Port opened"));
-        ui->txtStatus->setStyleSheet(QString("background-color: palette(button); color: palette(text);"));
-//        updateControlsState();
->>>>>>> 1912b3bff23ba4a4fb8cfe1b53b1c0bbd8f5db65
         grblReset();
     }
 }
@@ -894,15 +723,9 @@ void frmMain::onSerialPortReadyRead()
             // Update machine coordinates
             QRegExp mpx("MPos:([^,]*),([^,]*),([^,^>]*)");
             if (mpx.indexIn(data) != -1) {
-<<<<<<< HEAD
                 setMachinePosition(X, mpx.cap(1));
                 setMachinePosition(Y, mpx.cap(2));
                 setMachinePosition(Z, mpx.cap(3));
-=======
-                ui->txtMPosX->setText(mpx.cap(1));
-                ui->txtMPosY->setText(mpx.cap(2));
-                ui->txtMPosZ->setText(mpx.cap(3));
->>>>>>> 1912b3bff23ba4a4fb8cfe1b53b1c0bbd8f5db65
             }
 
             // Status
@@ -915,13 +738,7 @@ void frmMain::onSerialPortReadyRead()
 
                 // Update status
                 if (status != m_lastGrblStatus) {
-<<<<<<< HEAD
                     setMachineStatus(status);
-=======
-                    ui->txtStatus->setText(m_statusCaptions[status]);
-                    ui->txtStatus->setStyleSheet(QString("background-color: %1; color: %2;")
-                                                 .arg(m_statusBackColors[status]).arg(m_statusForeColors[status]));
->>>>>>> 1912b3bff23ba4a4fb8cfe1b53b1c0bbd8f5db65
                 }
 
                 // Update controls
@@ -1041,15 +858,9 @@ void frmMain::onSerialPortReadyRead()
                             z = sNan;
                             grblReset();
                         } else {
-<<<<<<< HEAD
                             x = getMachinePosition(X);
                             y = getMachinePosition(Y);
                             z = getMachinePosition(Z);
-=======
-                            x = ui->txtMPosX->text().toDouble();
-                            y = ui->txtMPosY->text().toDouble();
-                            z = ui->txtMPosZ->text().toDouble();
->>>>>>> 1912b3bff23ba4a4fb8cfe1b53b1c0bbd8f5db65
                         }
                         break;
                     }
@@ -1312,11 +1123,7 @@ void frmMain::onSerialPortReadyRead()
                     if (ca.command.contains("M30")) ui->tblProgram->setCurrentIndex(m_currentModel->index(0, 1));
 
                     // Toolpath shadowing on check mode
-<<<<<<< HEAD
                     if (machineStatus == CHECK) {
-=======
-                    if (m_statusCaptions.indexOf(ui->txtStatus->text()) == CHECK) {
->>>>>>> 1912b3bff23ba4a4fb8cfe1b53b1c0bbd8f5db65
                         GcodeViewParse *parser = m_currentDrawer->viewParser();
                         QList<LineSegment*> list = parser->getLineSegmentList();
 
@@ -1743,11 +1550,7 @@ void frmMain::loadFile(QList<QString> data)
         m_programModel.setData(m_programModel.index(m_programModel.rowCount() - 2, 5), QVariant(args));
     }
 
-<<<<<<< HEAD
     updateProgramEstimatedTime(m_viewParser.getLinesFromParser(&gp, m_settings.arcPrecision(), m_settings.getOption("arcDegreeMode")));
-=======
-    updateProgramEstimatedTime(m_viewParser.getLinesFromParser(&gp, m_settings.arcPrecision(), m_settings.arcDegreeMode()));
->>>>>>> 1912b3bff23ba4a4fb8cfe1b53b1c0bbd8f5db65
 
     qDebug() << "model filled:" << time.elapsed();
     time.start();
@@ -1914,21 +1717,12 @@ void frmMain::storeOffsets()
 void frmMain::restoreOffsets()
 {
     // Still have pre-reset working position
-<<<<<<< HEAD
     sendCommand(QString("G21G53G90X%1Y%2Z%3").arg(toMetric(getMachinePosition(X)))
                                        .arg(toMetric(getMachinePosition(Y)))
                                        .arg(toMetric(getMachinePosition(Z))), -1, m_settings.showUICommands());
     sendCommand(QString("G21G92X%1Y%2Z%3").arg(toMetric(getMachinePosition(X)))
                                        .arg(toMetric(getMachinePosition(Y)))
                                        .arg(toMetric(getMachinePosition(Z))), -1, m_settings.showUICommands());
-=======
-    sendCommand(QString("G21G53G90X%1Y%2Z%3").arg(toMetric(ui->txtMPosX->text().toDouble()))
-                                       .arg(toMetric(ui->txtMPosY->text().toDouble()))
-                                       .arg(toMetric(ui->txtMPosZ->text().toDouble())), -1, m_settings.showUICommands());
-    sendCommand(QString("G21G92X%1Y%2Z%3").arg(toMetric(ui->txtWPosX->text().toDouble()))
-                                       .arg(toMetric(ui->txtWPosY->text().toDouble()))
-                                       .arg(toMetric(ui->txtWPosZ->text().toDouble())), -1, m_settings.showUICommands());
->>>>>>> 1912b3bff23ba4a4fb8cfe1b53b1c0bbd8f5db65
 }
 
 void frmMain::sendNextFileCommands() {
@@ -1945,11 +1739,7 @@ void frmMain::sendNextFileCommands() {
            && m_fileCommandIndex < m_currentModel->rowCount() - 1
            && !(!m_commands.isEmpty() && m_commands.last().command.contains(QRegExp("M0*2|M30")))) {
         m_currentModel->setData(m_currentModel->index(m_fileCommandIndex, 2), tr("Sent"));
-<<<<<<< HEAD
         sendCommand(command, m_fileCommandIndex, m_settings.getOption("showProgramCommands"));
-=======
-        sendCommand(command, m_fileCommandIndex, m_settings.showProgramCommands());
->>>>>>> 1912b3bff23ba4a4fb8cfe1b53b1c0bbd8f5db65
         m_fileCommandIndex++;
         command = feedOverride(m_currentModel->data(m_currentModel->index(m_fileCommandIndex, 1)).toString());
     }
@@ -2110,17 +1900,10 @@ void frmMain::applySettings() {
     m_toolDrawer.setColor(m_settings.colors("Tool"));
     m_toolDrawer.update();
 
-<<<<<<< HEAD
     ui->glwVisualizer->setAntialiasing(m_settings.getOption("antialiasing"));
     ui->glwVisualizer->setMsaa(m_settings.getOption("msaa"));
     ui->glwVisualizer->setZBuffer(m_settings.getOption("zBuffer"));
     ui->glwVisualizer->setVsync(m_settings.getOption("vsync"));
-=======
-    ui->glwVisualizer->setAntialiasing(m_settings.antialiasing());
-    ui->glwVisualizer->setMsaa(m_settings.msaa());
-    ui->glwVisualizer->setZBuffer(m_settings.zBuffer());
-    ui->glwVisualizer->setVsync(m_settings.vsync());
->>>>>>> 1912b3bff23ba4a4fb8cfe1b53b1c0bbd8f5db65
     ui->glwVisualizer->setFps(m_settings.fps());
     ui->glwVisualizer->setColorBackground(m_settings.colors("VisualizerBackground"));
     ui->glwVisualizer->setColorText(m_settings.colors("VisualizerText"));
@@ -2130,7 +1913,6 @@ void frmMain::applySettings() {
     ui->sliSpindleSpeed->setMinimum(ui->txtSpindleSpeed->minimum() / 100);
     ui->sliSpindleSpeed->setMaximum(ui->txtSpindleSpeed->maximum() / 100);
 
-<<<<<<< HEAD
     ui->scrollArea->setVisible(m_settings.getOption("panelHeightmap") || m_settings.getOption("panelFeed")
                                || m_settings.getOption("panelJog") || m_settings.getOption("panelSpindle"));
 
@@ -2142,19 +1924,6 @@ void frmMain::applySettings() {
     ui->cboCommand->setAutoCompletion(m_settings.getOption("autoCompletion"));
 
     m_codeDrawer->setSimplify(m_settings.getOption("simplify"));
-=======
-    ui->scrollArea->setVisible(m_settings.panelHeightmap() || m_settings.panelFeed()
-                               || m_settings.panelJog() || m_settings.panelSpindle());
-
-    ui->grpHeightMap->setVisible(m_settings.panelHeightmap());
-    ui->grpSpindle->setVisible(m_settings.panelSpindle());
-    ui->grpFeed->setVisible(m_settings.panelFeed());
-    ui->grpJog->setVisible(m_settings.panelJog());
-
-    ui->cboCommand->setAutoCompletion(m_settings.autoCompletion());
-
-    m_codeDrawer->setSimplify(m_settings.simplify());
->>>>>>> 1912b3bff23ba4a4fb8cfe1b53b1c0bbd8f5db65
     m_codeDrawer->setSimplifyPrecision(m_settings.simplifyPrecision());
     m_codeDrawer->setColorNormal(m_settings.colors("ToolpathNormal"));
     m_codeDrawer->setColorDrawn(m_settings.colors("ToolpathDrawn"));
@@ -2242,11 +2011,7 @@ void frmMain::updateParser()
 
     parser->reset();
 
-<<<<<<< HEAD
     updateProgramEstimatedTime(parser->getLinesFromParser(&gp, m_settings.arcPrecision(), m_settings.getOption("arcDegreeMode")));
-=======
-    updateProgramEstimatedTime(parser->getLinesFromParser(&gp, m_settings.arcPrecision(), m_settings.arcDegreeMode()));
->>>>>>> 1912b3bff23ba4a4fb8cfe1b53b1c0bbd8f5db65
     m_currentDrawer->update();
     ui->glwVisualizer->updateExtremes(m_currentDrawer);
     updateControlsState();
@@ -2303,7 +2068,6 @@ void frmMain::on_cmdZeroZ_clicked()
     sendCommand("$#", -2, m_settings.showUICommands());
 }
 
-<<<<<<< HEAD
 //void frmMain::on_cmdRestoreOrigin_clicked()
 //{
 //    // Restore offset
@@ -2325,29 +2089,6 @@ void frmMain::on_cmdZeroZ_clicked()
 //        break;
 //    }
 //}
-=======
-void frmMain::on_cmdRestoreOrigin_clicked()
-{
-    // Restore offset
-    sendCommand(QString("G21"), -1, m_settings.showUICommands());
-    sendCommand(QString("G53G90G0X%1Y%2Z%3").arg(toMetric(ui->txtMPosX->text().toDouble()))
-                                            .arg(toMetric(ui->txtMPosY->text().toDouble()))
-                                            .arg(toMetric(ui->txtMPosZ->text().toDouble())), -1, m_settings.showUICommands());
-    sendCommand(QString("G92X%1Y%2Z%3").arg(toMetric(ui->txtMPosX->text().toDouble()) - m_storedX)
-                                        .arg(toMetric(ui->txtMPosY->text().toDouble()) - m_storedY)
-                                        .arg(toMetric(ui->txtMPosZ->text().toDouble()) - m_storedZ), -1, m_settings.showUICommands());
-
-    // Move tool
-    if (m_settings.moveOnRestore()) switch (m_settings.restoreMode()) {
-    case 0:
-        sendCommand("G0X0Y0", -1, m_settings.showUICommands());
-        break;
-    case 1:
-        sendCommand("G0X0Y0Z0", -1, m_settings.showUICommands());
-        break;
-    }
-}
->>>>>>> 1912b3bff23ba4a4fb8cfe1b53b1c0bbd8f5db65
 
 void frmMain::on_cmdReset_clicked()
 {
@@ -2360,7 +2101,6 @@ void frmMain::on_cmdUnlock_clicked()
     sendCommand("$X", -1, m_settings.showUICommands());
 }
 
-<<<<<<< HEAD
 //void frmMain::on_cmdSafePosition_clicked()
 //{
 //    QStringList list = m_settings.safePositionCommand().split(";");
@@ -2369,16 +2109,6 @@ void frmMain::on_cmdUnlock_clicked()
 //        sendCommand(cmd.trimmed(), -1, m_settings.showUICommands());
 //    }
 //}
-=======
-void frmMain::on_cmdSafePosition_clicked()
-{
-    QStringList list = m_settings.safePositionCommand().split(";");
-
-    foreach (QString cmd, list) {
-        sendCommand(cmd.trimmed(), -1, m_settings.showUICommands());
-    }
-}
->>>>>>> 1912b3bff23ba4a4fb8cfe1b53b1c0bbd8f5db65
 
 void frmMain::on_cmdSpindle_toggled(bool checked)
 {
@@ -3812,11 +3542,7 @@ void frmMain::on_cmdHeightMapBorderAuto_clicked()
 
 bool frmMain::compareCoordinates(double x, double y, double z)
 {
-<<<<<<< HEAD
     return getMachinePosition(X) == x && getMachinePosition(Y) == y && getMachinePosition(Z) == z;
-=======
-    return ui->txtMPosX->text().toDouble() == x && ui->txtMPosY->text().toDouble() == y && ui->txtMPosZ->text().toDouble() == z;
->>>>>>> 1912b3bff23ba4a4fb8cfe1b53b1c0bbd8f5db65
 }
 
 void frmMain::on_actionGenerate_g_code_triggered()
@@ -3825,10 +3551,7 @@ void frmMain::on_actionGenerate_g_code_triggered()
 
     /**
      * Base pcb2gcode params
-<<<<<<< HEAD
      * --tile-x=1 --tile-y=1 --metric=true --metricoutput=true --nog64=true --optimise=false --tolerance=0.0100 --vectorial=true --zchange=12.0000 --zchange-absolute=false --zero-start=true --zsafe=2.0000 --extra-passes=1 --mill-feed=400 --mill-speed=10000 --offset=0.2000 --voronoi=false --zwork=-0.0500 --drill-feed=200 --drill-side=front --drill-speed=10000 --milldrill=false --nog81=true --nog91-1=false --onedrill=false --zdrill=-1.8000 --bridges=0.5000 --bridgesnum=4 --cut-feed=200 --cut-infeed=0.4000 --cut-side=front --cut-speed=10000 --cutter-diameter=1.0000 --fill-outline=true --zbridges=-0.6000 --zcut=-1.8000
-=======
->>>>>>> 1912b3bff23ba4a4fb8cfe1b53b1c0bbd8f5db65
      */
     QStringList baseParams = QString(
                 "--tile-x=1 --tile-y=1 --metric=true --metricoutput=true --nog64=true --optimise=false \
