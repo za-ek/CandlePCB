@@ -56,7 +56,6 @@ public:
     {
         button->setIcon(invertIconColors(button->icon()));
     }
-
 };
 
 #endif // UTIL

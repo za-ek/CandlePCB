@@ -22,7 +22,6 @@ frmSettings::frmSettings(QWidget *parent) :
     m_intValidator.setTop(999);
     ui->cboFps->setValidator(&m_intValidator);
     ui->cboFontSize->setValidator(&m_intValidator);
-
     searchPorts();
 }
 
@@ -51,7 +50,6 @@ int frmSettings::exec()
         m_storedCombos.append(cb->currentText());
     foreach (ColorPicker* pick, this->findChildren<ColorPicker*>())
         m_storedColors.append(pick->color());
-
 
     return QDialog::exec();
 }
@@ -137,6 +135,7 @@ void frmSettings::setArcDegree(double arcDegree)
 {
     ui->txtArcDegree->setValue(arcDegree);
 }
+
 
 QString frmSettings::safePositionCommand()
 {
@@ -248,6 +247,7 @@ void frmSettings::setFps(int fps)
     ui->cboFps->setCurrentText(QString::number(fps));
 }
 
+
 int frmSettings::units()
 {
     return ui->cboUnits->currentIndex();
@@ -277,7 +277,6 @@ void frmSettings::setSimplifyPrecision(double simplifyPrecision)
 {
     ui->txtSimplifyPrecision->setValue(simplifyPrecision);
 }
-
 QString frmSettings::getOptionString(QString opt)
 {
     return m_optionsString.value(opt);

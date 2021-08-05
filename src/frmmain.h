@@ -101,10 +101,17 @@ private slots:
     void on_cmdTouch_clicked();
     void on_cmdZeroXY_clicked();
     void on_cmdZeroZ_clicked();
+<<<<<<< HEAD
 //    void on_cmdRestoreOrigin_clicked();
     void on_cmdReset_clicked();
     void on_cmdUnlock_clicked();
 //    void on_cmdSafePosition_clicked();
+=======
+    void on_cmdRestoreOrigin_clicked();
+    void on_cmdReset_clicked();
+    void on_cmdUnlock_clicked();
+    void on_cmdSafePosition_clicked();
+>>>>>>> 1912b3bff23ba4a4fb8cfe1b53b1c0bbd8f5db65
     void on_cmdSpindle_toggled(bool checked);
     void on_txtSpindleSpeed_editingFinished();
     void on_sliSpindleSpeed_valueChanged(int value);
@@ -326,8 +333,11 @@ private:
     bool dataIsEnd(QString data);
     bool dataIsReset(QString data);
 
+<<<<<<< HEAD
     void setStatusBarItems();
 
+=======
+>>>>>>> 1912b3bff23ba4a4fb8cfe1b53b1c0bbd8f5db65
     void useHeightmap(QString fileName);
 
     QTime updateProgramEstimatedTime(QList<LineSegment *> lines);
@@ -364,6 +374,7 @@ private:
     bool isHeightmapFile(QString fileName);
     bool compareCoordinates(double x, double y, double z);
     int getConsoleMinHeight();
+<<<<<<< HEAD
 
     enum coordinates {X, Y, Z};
     void setMachinePosition(coordinates axis, double val);
@@ -380,6 +391,8 @@ private:
     machine_status machineStatus = UNKNOWN;
     QLabel*machineStatusWidget = nullptr;
 
+=======
+>>>>>>> 1912b3bff23ba4a4fb8cfe1b53b1c0bbd8f5db65
 };
 
 #endif // FRMMAIN_H
