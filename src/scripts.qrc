@@ -1,0 +1,6 @@
+<RCC>
+    <qresource prefix="/">
+        <file>scripts/map.php</file>
+        <file>scripts/grayscale_svg.php</file>
+    </qresource>
+</RCC>

@@ -1,0 +1,104 @@
+cmake_minimum_required(VERSION 3.15)
+project(Candle)
+
+set(CMAKE_CXX_STANDARD 14)
+
+find_package(Qt5Widgets REQUIRED)
+set(CMAKE_PREFIX_PATH /lib/x86_64-linux-gnu/)
+
+include_directories(/lib/x86_64-linux-gnu)
+include_directories(/usr/include/qt4)
+include_directories(build-candle-Desktop-Debug)
+include_directories(src)
+include_directories(src/drawers)
+include_directories(src/parser)
+include_directories(src/tables)
+include_directories(src/utils)
+include_directories(src/widgets)
+
+add_executable(Candle
+        build-candle-Desktop-Debug/moc_colorpicker.cpp
+        build-candle-Desktop-Debug/moc_combobox.cpp
+        build-candle-Desktop-Debug/moc_frmabout.cpp
+        build-candle-Desktop-Debug/moc_frmmain.cpp
+        build-candle-Desktop-Debug/moc_frmsettings.cpp
+        build-candle-Desktop-Debug/moc_gcodedrawer.cpp
+        build-candle-Desktop-Debug/moc_gcodeparser.cpp
+        build-candle-Desktop-Debug/moc_gcodepreprocessorutils.cpp
+        build-candle-Desktop-Debug/moc_gcodetablemodel.cpp
+        build-candle-Desktop-Debug/moc_gcodeviewparse.cpp
+        build-candle-Desktop-Debug/moc_glwidget.cpp
+        build-candle-Desktop-Debug/moc_groupbox.cpp
+        build-candle-Desktop-Debug/moc_heightmaptablemodel.cpp
+        build-candle-Desktop-Debug/moc_predefs.h
+        build-candle-Desktop-Debug/moc_scrollarea.cpp
+        build-candle-Desktop-Debug/moc_slider.cpp
+        build-candle-Desktop-Debug/moc_sliderbox.cpp
+        build-candle-Desktop-Debug/moc_widget.cpp
+        build-candle-Desktop-Debug/qrc_images.cpp
+        build-candle-Desktop-Debug/qrc_shaders.cpp
+        build-candle-Desktop-Debug/ui_frmabout.h
+        build-candle-Desktop-Debug/ui_frmmain.h
+        build-candle-Desktop-Debug/ui_frmsettings.h
+        build-candle-Desktop-Debug/ui_sliderbox.h
+        src/drawers/gcodedrawer.cpp
+        src/drawers/gcodedrawer.h
+        src/drawers/heightmapborderdrawer.cpp
+        src/drawers/heightmapborderdrawer.h
+        src/drawers/heightmapgriddrawer.cpp
+        src/drawers/heightmapgriddrawer.h
+        src/drawers/heightmapinterpolationdrawer.cpp
+        src/drawers/heightmapinterpolationdrawer.h
+        src/drawers/origindrawer.cpp
+        src/drawers/origindrawer.h
+        src/drawers/selectiondrawer.cpp
+        src/drawers/selectiondrawer.h
+        src/drawers/shaderdrawable.cpp
+        src/drawers/shaderdrawable.h
+        src/drawers/tooldrawer.cpp
+        src/drawers/tooldrawer.h
+        src/parser/arcproperties.cpp
+        src/parser/arcproperties.h
+        src/parser/gcodeparser.cpp
+        src/parser/gcodeparser.h
+        src/parser/gcodepreprocessorutils.cpp
+        src/parser/gcodepreprocessorutils.h
+        src/parser/gcodeviewparse.cpp
+        src/parser/gcodeviewparse.h
+        src/parser/linesegment.cpp
+        src/parser/linesegment.h
+        src/parser/pointsegment.cpp
+        src/parser/pointsegment.h
+        src/tables/gcodetablemodel.cpp
+        src/tables/gcodetablemodel.h
+        src/tables/heightmaptablemodel.cpp
+        src/tables/heightmaptablemodel.h
+        src/utils/interpolation.h
+        src/utils/util.h
+        src/widgets/colorpicker.cpp
+        src/widgets/colorpicker.h
+        src/widgets/combobox.cpp
+        src/widgets/combobox.h
+        src/widgets/comboboxkey.cpp
+        src/widgets/comboboxkey.h
+        src/widgets/glwidget.cpp
+        src/widgets/glwidget.h
+        src/widgets/groupbox.cpp
+        src/widgets/groupbox.h
+        src/widgets/scrollarea.cpp
+        src/widgets/scrollarea.h
+        src/widgets/slider.cpp
+        src/widgets/slider.h
+        src/widgets/sliderbox.cpp
+        src/widgets/sliderbox.h
+        src/widgets/styledtoolbutton.cpp
+        src/widgets/styledtoolbutton.h
+        src/widgets/widget.cpp
+        src/widgets/widget.h
+        src/frmabout.cpp
+        src/frmabout.h
+        src/frmmain.cpp
+        src/frmmain.h
+        src/frmsettings.cpp
+        src/frmsettings.h
+        src/main.cpp)
