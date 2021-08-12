@@ -1,4 +1,4 @@
-#include "Settings.h"
+#include "settings.h"
 #include <QDebug>
 #include <QMap>
 #include <QVector>
@@ -10,14 +10,7 @@
 Settings::Settings() {}
 Settings::~Settings() {}
 
-QString Settings::get(QString option) { return values.value("s_" + option); }
-bool Settings::getBool(QString option) { return values_bool.value("b_" + option); }
-int Settings::getInt(QString option) { return values_int.value("i_" + option); }
-double Settings::getDouble(QString option) {return values_double.value(getDoubleKey(option));}
 
-void Settings::set(QString option, QString value) { values.insert("s_" + option, value); }
-void Settings::setBool(QString option, bool value) { values_bool.insert("b_" + option, value); }
-void Settings::setInt(QString option, int value) { values_int.insert("i_" + option, value); }
 void Settings::setDouble(QString option, double value) {
     QString k = getDoubleKey(option);
     if(k.mid(1,1) == "_") values_double.insert(k, value);
@@ -63,10 +56,10 @@ void Settings::restoreQSettings(QSettings *setObj)
         QString val;
         val += i;
         switch((int)i->mid(0, 1).toLocal8Bit()[0]) {
-            case 105: setInt(i->mid(2), setObj->value(val).toInt()); break; // i
-            case 98: setBool(i->mid(2), setObj->value(val).toBool()); break; // b
-            case 100: setDouble(i->mid(1,1) == "_" ? i->mid(2) : i->mid(3), setObj->value(val).toDouble()); break; // d
-            case 115: set(i->mid(2), setObj->value(val).toString()); break; // s
+            case 105: setInt(i->mid(2), setObj->value(val).toInt()); break; // i (int)
+            case 98: setBool(i->mid(2), setObj->value(val).toBool()); break; // (bool)
+            case 100: setDouble(i->mid(1,1) == "_" ? i->mid(2) : i->mid(3), setObj->value(val).toDouble()); break; // d (double)
+            case 115: set(i->mid(2), setObj->value(val).toString()); break; // s (string)
             break;
         }
         ++i;

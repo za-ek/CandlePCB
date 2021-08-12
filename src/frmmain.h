@@ -30,6 +30,9 @@
 #include "tables/heightmaptablemodel.h"
 
 #include "utils/interpolation.h"
+#include "utils/serialport.h"
+#include "utils/runtime.h"
+#include "utils/usersettings.h"
 
 #include "widgets/styledtoolbutton.h"
 
@@ -56,6 +59,13 @@ struct CommandQueue {
     QString command;
     int tableIndex;
     bool showInConsole;
+};
+
+struct Status {
+    int code;
+    QString name;
+    QString fcolor;
+    QString bcolor;
 };
 
 class frmMain : public QMainWindow
@@ -172,6 +182,9 @@ protected:
     void dropEvent(QDropEvent *de);
 
 private:
+    frmAbout _frmAbout;
+    frmSettings _frmSettings;
+
     const int BUFFERLENGTH = 127;
     const unsigned short HEIGHT_MAP_NUMBER = 0;
 
@@ -203,10 +216,9 @@ private:
     bool m_programLoading;
     bool m_settingsLoading;
 
-    QSerialPort m_serialPort;
-
-    frmSettings m_settings;
-    frmAbout m_frmAbout;
+    SerialPort m_serialPort;
+    Runtime *m_runtime;
+    Settings *m_settings = UserSettings::getInstance();
 
     QString m_settingsFileName;
     QString m_programFileName;
@@ -372,12 +384,24 @@ private:
     QLabel *machinePosition;
 
     // 0, 1, 2 ... respectively. Order matters
-    enum machine_status {UNKNOWN, IDLE, ALARM, RUN, HOME, HOLD, QUEUE, CHECK, DOOR};
-    void setMachineStatus(machine_status status);
+    enum MACHINE_STATUS {UNKNOWN, IDLE, ALARM, RUN, HOME, HOLD, QUEUE, CHECK, DOOR};
+    void setMachineStatus(MACHINE_STATUS status);
     void setMachineStatus(QString status);
     void setMachineStatus(int status);
-    machine_status machineStatus = UNKNOWN;
+    MACHINE_STATUS machineStatus = UNKNOWN;
     QLabel*machineStatusWidget = nullptr;
+
+    const Status machine_status[9] = {
+        {UNKNOWN, "Unknown", "red", "white"},
+        {IDLE, "Idle", "palette(button)", "palette(text)"},
+        {ALARM, "Alarm", "red", "white"},
+        {RUN, "Run", "lime", "black"},
+        {HOME, "Home", "lime", "black"},
+        {HOLD, "Hold", "yellow", "black"},
+        {QUEUE, "Queue", "yellow", "black"},
+        {CHECK, "Check",  "palette(button)", "palette(text)"},
+        {DOOR, "Door", "red", "white"}
+    };
 };
 
 #endif // FRMMAIN_H

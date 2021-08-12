@@ -8,6 +8,14 @@ QT       = core gui opengl serialport
 CONFIG += c++17
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
+win32:CONFIG(release, debug|release): LIBS += -L$$OUT_PWD/../libs/release/ -llibs
+else:win32:CONFIG(debug, debug|release): LIBS += -L$$OUT_PWD/../libs/debug/ -llibs
+else:unix: LIBS += -L$$OUT_PWD/../libs/ -llibs
+
+INCLUDEPATH += $$PWD/../libs
+DEPENDPATH += $$PWD/../libs
+LIBS += -L../libs/debug -llibs
+
 Release:DESTDIR = release
 Release:OBJECTS_DIR = release/.obj
 Release:MOC_DIR = release/.moc
@@ -68,7 +76,9 @@ SOURCES += main.cpp\
     parser/pointsegment.cpp \
     tables/gcodetablemodel.cpp \
     tables/heightmaptablemodel.cpp \
-    utils/Settings.cpp \
+    utils/runtime.cpp \
+    utils/serialport.cpp \
+    utils/usersettings.cpp \
     widgets/colorpicker.cpp \
     widgets/combobox.cpp \
     widgets/groupbox.cpp \
@@ -95,8 +105,10 @@ HEADERS  += frmmain.h \
     parser/pointsegment.h \
     tables/gcodetablemodel.h \
     tables/heightmaptablemodel.h \
-    utils/Settings.h \
     utils/interpolation.h \
+    utils/runtime.h \
+    utils/serialport.h \
+    utils/usersettings.h \
     utils/util.h \
     widgets/colorpicker.h \
     widgets/combobox.h \

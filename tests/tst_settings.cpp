@@ -2,7 +2,7 @@
 #include <QVector>
 #include <QString>
 #include <QSettings>
-#include "../src/utils/Settings.h"
+#include "../libs/settings.h"
 
 // add necessary includes here
 
