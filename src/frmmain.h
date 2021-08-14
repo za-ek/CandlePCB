@@ -31,8 +31,8 @@
 
 #include "utils/interpolation.h"
 #include "utils/serialport.h"
-#include "utils/runtime.h"
 #include "utils/usersettings.h"
+#include "../libs/runtime.h"
 
 #include "widgets/styledtoolbutton.h"
 
@@ -322,7 +322,6 @@ private:
     void loadFile(QString fileName);
     void loadFile(QList<QString> data);
     void clearTable();
-    void preloadSettings();
     void loadSettings();
     void saveSettings();
     bool saveChanges(bool heightMapMode);

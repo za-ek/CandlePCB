@@ -95,7 +95,7 @@ QGroupBox {
       <enum>QTabWidget::Rounded</enum>
      </property>
      <property name="currentIndex">
-      <number>0</number>
+      <number>1</number>
      </property>
      <widget class="QWidget" name="tab">
       <attribute name="title">
@@ -613,7 +613,7 @@ QGroupBox {
              </property>
              <layout class="QVBoxLayout" name="verticalLayout">
               <item>
-               <layout class="QHBoxLayout" name="horizontalLayout_3" stretch="0,1,0,0,1">
+               <layout class="QHBoxLayout" name="horizontalLayout_3" stretch="0,0,0,0,0">
                 <item>
                  <widget class="QLabel" name="label">
                   <property name="text">
@@ -859,7 +859,7 @@ QGroupBox {
                    </widget>
                   </item>
                   <item row="7" column="3">
-                   <widget class="ColorPicker" name="clpToolpathZMovement" native="true"/>
+                   <widget class="ColorPicker" name="toolpathZMovementColor" native="true"/>
                   </item>
                   <item row="2" column="0">
                    <widget class="QLabel" name="label_24">
@@ -869,10 +869,10 @@ QGroupBox {
                    </widget>
                   </item>
                   <item row="7" column="1">
-                   <widget class="ColorPicker" name="clpToolpathHighlight" native="true"/>
+                   <widget class="ColorPicker" name="toolpathHighlightColor" native="true"/>
                   </item>
                   <item row="8" column="1">
-                   <widget class="ColorPicker" name="clpToolpathStart" native="true"/>
+                   <widget class="ColorPicker" name="toolpathStartColor" native="true"/>
                   </item>
                   <item row="7" column="0">
                    <widget class="QLabel" name="label_25">
@@ -889,7 +889,7 @@ QGroupBox {
                    </widget>
                   </item>
                   <item row="8" column="3">
-                   <widget class="ColorPicker" name="clpToolpathEnd" native="true"/>
+                   <widget class="ColorPicker" name="toolpathEndColor" native="true"/>
                   </item>
                   <item row="8" column="2">
                    <widget class="QLabel" name="label_27">
@@ -899,10 +899,10 @@ QGroupBox {
                    </widget>
                   </item>
                   <item row="2" column="1">
-                   <widget class="ColorPicker" name="clpVisualizerBackground" native="true"/>
+                   <widget class="ColorPicker" name="visualizerBackgroundColor" native="true"/>
                   </item>
                   <item row="2" column="3">
-                   <widget class="ColorPicker" name="clpVisualizerText" native="true"/>
+                   <widget class="ColorPicker" name="visualizerTextColor" native="true"/>
                   </item>
                   <item row="1" column="0">
                    <widget class="QLabel" name="label_22">
@@ -926,7 +926,7 @@ QGroupBox {
                    </widget>
                   </item>
                   <item row="3" column="1">
-                   <widget class="ColorPicker" name="clpTool" native="true"/>
+                   <widget class="ColorPicker" name="toolColor" native="true"/>
                   </item>
                   <item row="4" column="0">
                    <spacer name="verticalSpacer">
@@ -952,10 +952,10 @@ QGroupBox {
                    </widget>
                   </item>
                   <item row="6" column="3">
-                   <widget class="ColorPicker" name="clpToolpathDrawn" native="true"/>
+                   <widget class="ColorPicker" name="toolpathDrawnColor" native="true"/>
                   </item>
                   <item row="6" column="1">
-                   <widget class="ColorPicker" name="clpToolpathNormal" native="true"/>
+                   <widget class="ColorPicker" name="toolpathNormalColor" native="true"/>
                   </item>
                   <item row="6" column="0">
                    <widget class="QLabel" name="label_23">

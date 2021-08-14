@@ -57,6 +57,7 @@ void Settings::restoreQSettings(QSettings *setObj)
         val += i;
         switch((int)i->mid(0, 1).toLocal8Bit()[0]) {
             case 105: setInt(i->mid(2), setObj->value(val).toInt()); break; // i (int)
+            case 108: setList(i->mid(2), setObj->value(val).toString().split(",")); // l (list)
             case 98: setBool(i->mid(2), setObj->value(val).toBool()); break; // (bool)
             case 100: setDouble(i->mid(1,1) == "_" ? i->mid(2) : i->mid(3), setObj->value(val).toDouble()); break; // d (double)
             case 115: set(i->mid(2), setObj->value(val).toString()); break; // s (string)
@@ -64,4 +65,13 @@ void Settings::restoreQSettings(QSettings *setObj)
         }
         ++i;
     }
+}
+
+bool Settings::keyExists(QString option) {
+    return originalKeys.contains(option) ||
+           originalKeys.contains("l_" + option) ||
+           originalKeys.contains("i_" + option) ||
+           originalKeys.contains("b_" + option) ||
+           originalKeys.contains("d_" + option) ||
+           originalKeys.contains("s_" + option);
 }

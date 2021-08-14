@@ -3,33 +3,9 @@
 #include <QString>
 #include <QSettings>
 #include "../libs/settings.h"
+#include "tst_settings.h"
 
 // add necessary includes here
-
-class SettingsTests : public QObject
-{
-    Q_OBJECT
-
-public:
-    SettingsTests();
-    ~SettingsTests();
-
-private slots:
-    void test_case1();
-    void test_double();
-    void test_qsettingsFill();
-    void test_qsettingsRestore();
-
-};
-
-SettingsTests::SettingsTests()
-{
-}
-
-SettingsTests::~SettingsTests()
-{
-
-}
 
 void SettingsTests::test_case1()
 {
@@ -105,9 +81,3 @@ void SettingsTests::test_qsettingsRestore()
     QVERIFY(settings.getInt("intKey") == 15);
     QVERIFY(settings.getDouble("doubleKey") == 15.5);
 }
-
-
-
-QTEST_APPLESS_MAIN(SettingsTests)
-
-#include "tst_settings.moc"

@@ -430,7 +430,7 @@ QSlider::handle:horizontal:hover {
                </widget>
               </item>
               <item row="0" column="1">
-               <widget class="QDoubleSpinBox" name="txtHeightMapBorderX">
+               <widget class="QDoubleSpinBox" name="heightmapBorderX">
                 <property name="sizePolicy">
                  <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
                   <horstretch>0</horstretch>
@@ -455,7 +455,7 @@ QSlider::handle:horizontal:hover {
                </widget>
               </item>
               <item row="1" column="3">
-               <widget class="QDoubleSpinBox" name="txtHeightMapBorderHeight">
+               <widget class="QDoubleSpinBox" name="heightmapBorderHeight">
                 <property name="sizePolicy">
                  <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
                   <horstretch>0</horstretch>
@@ -490,7 +490,7 @@ QSlider::handle:horizontal:hover {
                </widget>
               </item>
               <item row="1" column="1">
-               <widget class="QDoubleSpinBox" name="txtHeightMapBorderY">
+               <widget class="QDoubleSpinBox" name="heightMapBorderY">
                 <property name="sizePolicy">
                  <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
                   <horstretch>0</horstretch>
@@ -529,7 +529,7 @@ QSlider::handle:horizontal:hover {
                </widget>
               </item>
               <item row="0" column="3">
-               <widget class="QDoubleSpinBox" name="txtHeightMapBorderWidth">
+               <widget class="QDoubleSpinBox" name="heightmapBorderWidth">
                 <property name="sizePolicy">
                  <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
                   <horstretch>0</horstretch>
@@ -606,7 +606,7 @@ QSlider::handle:horizontal:hover {
                </widget>
               </item>
               <item row="0" column="1">
-               <widget class="QDoubleSpinBox" name="txtHeightMapGridX">
+               <widget class="QDoubleSpinBox" name="heightmapGridX">
                 <property name="sizePolicy">
                  <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
                   <horstretch>0</horstretch>
@@ -637,7 +637,7 @@ QSlider::handle:horizontal:hover {
                </widget>
               </item>
               <item row="0" column="5">
-               <widget class="QDoubleSpinBox" name="txtHeightMapGridZTop">
+               <widget class="QDoubleSpinBox" name="heightmapGridZTop">
                 <property name="sizePolicy">
                  <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
                   <horstretch>0</horstretch>
@@ -665,7 +665,7 @@ QSlider::handle:horizontal:hover {
                </widget>
               </item>
               <item row="1" column="5">
-               <widget class="QDoubleSpinBox" name="txtHeightMapGridZBottom">
+               <widget class="QDoubleSpinBox" name="heightmapGridZBottom">
                 <property name="sizePolicy">
                  <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
                   <horstretch>0</horstretch>
@@ -693,7 +693,7 @@ QSlider::handle:horizontal:hover {
                </widget>
               </item>
               <item row="1" column="1">
-               <widget class="QDoubleSpinBox" name="txtHeightMapGridY">
+               <widget class="QDoubleSpinBox" name="heightmapGridY">
                 <property name="sizePolicy">
                  <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
                   <horstretch>0</horstretch>
@@ -801,7 +801,7 @@ QSlider::handle:horizontal:hover {
                </widget>
               </item>
               <item row="1" column="1">
-               <widget class="QDoubleSpinBox" name="txtHeightMapInterpolationStepX">
+               <widget class="QDoubleSpinBox" name="heightmapInterpolationStepX">
                 <property name="sizePolicy">
                  <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
                   <horstretch>0</horstretch>
@@ -832,7 +832,7 @@ QSlider::handle:horizontal:hover {
                </widget>
               </item>
               <item row="1" column="3">
-               <widget class="QDoubleSpinBox" name="txtHeightMapInterpolationStepY">
+               <widget class="QDoubleSpinBox" name="heightmapInterpolationStepY">
                 <property name="sizePolicy">
                  <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
                   <horstretch>0</horstretch>
@@ -2599,19 +2599,19 @@ padding-right: 8;</string>
   <tabstop>cmdFit</tabstop>
   <tabstop>tblProgram</tabstop>
   <tabstop>tblHeightMap</tabstop>
-  <tabstop>txtHeightMapBorderX</tabstop>
-  <tabstop>txtHeightMapBorderWidth</tabstop>
-  <tabstop>txtHeightMapBorderY</tabstop>
-  <tabstop>txtHeightMapBorderHeight</tabstop>
+  <tabstop>heightmapBorderX</tabstop>
+  <tabstop>heightmapBorderWidth</tabstop>
+  <tabstop>heightMapBorderY</tabstop>
+  <tabstop>heightmapBorderHeight</tabstop>
   <tabstop>chkHeightMapBorderShow</tabstop>
   <tabstop>cmdHeightMapBorderAuto</tabstop>
-  <tabstop>txtHeightMapGridX</tabstop>
-  <tabstop>txtHeightMapGridZTop</tabstop>
-  <tabstop>txtHeightMapGridY</tabstop>
-  <tabstop>txtHeightMapGridZBottom</tabstop>
+  <tabstop>heightmapGridX</tabstop>
+  <tabstop>heightmapGridZTop</tabstop>
+  <tabstop>heightmapGridY</tabstop>
+  <tabstop>heightmapGridZBottom</tabstop>
   <tabstop>chkHeightMapGridShow</tabstop>
-  <tabstop>txtHeightMapInterpolationStepX</tabstop>
-  <tabstop>txtHeightMapInterpolationStepY</tabstop>
+  <tabstop>heightmapInterpolationStepX</tabstop>
+  <tabstop>heightmapInterpolationStepY</tabstop>
   <tabstop>cboHeightMapInterpolationType</tabstop>
   <tabstop>chkHeightMapInterpolationShow</tabstop>
   <tabstop>txtWPosX</tabstop>

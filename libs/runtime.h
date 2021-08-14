@@ -3,15 +3,16 @@
 
 #include <QMap>
 #include <QVector>
-#include <QVariant>
+#include <QString>
 #include <mutex>
 
-class Runtime : public QMap<QString, QVariant>
+class Runtime : public QMap<QString, QString>
 {
 private:
     inline static Runtime * _instance{nullptr};
     inline static std::mutex _mutex;
 
+    inline static QMap<QString, std::function<void(const QString)>> bindings;
 protected:
     Runtime() {}
 
@@ -22,6 +23,8 @@ public:
 
     static Runtime *getInstance();
     static void bind(QString key, std::function<void(const QString)>cb);
+
+    void insert(const QString &key, const QString &value);
 };
 
 //Runtime* Runtime::_instance{nullptr};

@@ -3,13 +3,16 @@ QT -= gui
 
 CONFIG += qt console warn_on depend_includepath testcase
 CONFIG -= app_bundle
-
-#HEADERS += ./../libs/settings.h
-#SOURCES += ./../libs/settings.cpp
+CONFIG += c++17
 
 TEMPLATE = app
 
-SOURCES +=  tst_settings.cpp
+HEADERS += tst_settings.h \
+           tst_runtime.h
+
+SOURCES +=  main.cpp \
+            tst_settings.cpp \
+            tst_runtime.cpp
 
 win32:CONFIG(release, debug|release): LIBS += -L$$OUT_PWD/../libs/release/ -llibs
 else:win32:CONFIG(debug, debug|release): LIBS += -L$$OUT_PWD/../libs/debug/ -llibs

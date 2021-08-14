@@ -32,59 +32,8 @@ public:
     bool getOption(QString opt);
     void setOption(QString opt, bool value);
 
-    constexpr const inline static char * options[] = {
-        "restoreZeroAfterHoming",
-        "checkedHeightMap",
-        "antialiasing",
-        "msaa",
-        "vsync",
-        "zBuffer",
-        "simplify",
-        "moveOnRestore",
-        "arcDegreeMode",
-        "showProgramCommands",
-        "showUICommands",
-        "autoCompletion",
-        "panelHeightmap",
-        "panelSpindle",
-        "panelFeed",
-        "panelJog",
-        "autoScroll",
-        "feedOverride",
-        "keyboardControl",
-        "heightmapBorderShow",
-        "heightmapGridShow",
-        "heightmapInterpolationShow"
-    };
-
-    constexpr const inline static char * optionsInt[] = {
-        "spindleSpeedMin",
-        "spindleSpeedMax",
-        "rapidSpeed",
-        "heightmapProbingFeed",
-        "acceleration",
-        "toolType",
-        "fps",
-        "queryStateTime",
-        "units"
-    };
-
     QString getOptionString(QString opt);
     void setOptionString(QString opt, QString value);
-    constexpr const inline static char * optionsStringKeys[] = {
-        "lastUsedFile",
-        "projectDirectory",
-        "pcb2gcodeArgs",
-        "toolColor",
-        "visualizerBackgroundColor",
-        "visualizerTextColor",
-        "toolpathNormalColor",
-        "toolpathDrawnColor",
-        "toolpathHighlightColor",
-        "toolpathZMovementColor",
-        "toolpathStartColor",
-        "toolpathEndColor",
-    };
 
 protected:
     QVector<QString> originalKeys = {

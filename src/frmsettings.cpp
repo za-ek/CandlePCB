@@ -9,6 +9,7 @@
 #include <QScrollBar>
 #include <QColorDialog>
 #include "utils/usersettings.h"
+#include "../libs/runtime.h"
 
 frmSettings::frmSettings(QWidget *parent) :
     QDialog(parent),
@@ -22,11 +23,9 @@ frmSettings::frmSettings(QWidget *parent) :
     ui->cboFps->setValidator(&m_intValidator);
     ui->cboFontSize->setValidator(&m_intValidator);
 
-    resize(QSize(m_settings->getInt("formSettingsSize_w"), m_settings->getInt("formSettingsSize_h")));
+//    resize(QSize(m_settings->getInt("formSettingsSize_w"), m_settings->getInt("formSettingsSize_h")));
 
-//    foreach (ColorPicker* pick, m_settings.colors()) {
-//        pick->setColor(QColor(set.value(pick->objectName().mid(3), "black").toString()));
-//    }
+    UserSettings::restoreUI(this);
 
     searchPorts();
 }
@@ -36,20 +35,6 @@ frmSettings::~frmSettings()
     delete ui;
 }
 
-//double frmSettings::arcPrecision()
-//{
-//    return ui->arcDegreeMode->isChecked() ? ui->txtArcDegree->value() : ui->txtArcLength->value();
-//}
-QList<ColorPicker *> frmSettings::colors()
-{
-    return this->findChildren<ColorPicker*>();
-}
-
-QColor frmSettings::colors(QString name)
-{
-    ColorPicker *pick = this->findChildren<ColorPicker*>("clp" + name).at(0);
-    if (pick) return pick->color(); else return QColor();
-}
 
 void frmSettings::searchPorts()
 {
@@ -67,23 +52,18 @@ void frmSettings::on_cmdRefresh_clicked()
 
 void frmSettings::on_cmdOK_clicked()
 {
-    Settings *s = UserSettings::getInstance();
+    Runtime *r = Runtime::getInstance();
+    if(r->value("port") != ui->cboPort->currentText()) {
+        r->insert("port", ui->cboPort->currentText());
+    }
 
-    // Save all checkboxes
-    foreach (QAbstractButton* cb, this->findChildren<QAbstractButton*>())
-        s->setBool(cb->objectName(), cb->isChecked());
+    if(r->value("baud") != ui->cboPort->currentText()) {
+        r->insert("baud", ui->cboBaud->currentText());
+    }
 
-    // All colors
-    foreach (ColorPicker* pick, this->findChildren<ColorPicker*>())
-        s->set(pick->objectName(), pick->color().name());
 
-    // All texts
-    foreach (QComboBox* cb, this->findChildren<QComboBox*>())
-        s->set(cb->objectName(), cb->currentText());
-
-//    foreach (QAbstractSpinBox* sb, this->findChildren<QAbstractSpinBox*>())
-//        s->set(sb->objectName(), sb->property("value").toDouble());
-
+    UserSettings::saveUI(this);
+    UserSettings::save();
     this->accept();
 }
 
@@ -103,3 +83,8 @@ void frmSettings::on_cboFontSize_currentTextChanged(const QString &arg1)
 {
     qApp->setStyleSheet(QString(qApp->styleSheet()).replace(QRegExp("font-size:\\s*\\d+"), "font-size: " + arg1));
 }
+
+//double frmSettings::arcPrecision()
+//{
+//    return ui->arcDegreeMode->isChecked() ? ui->txtArcDegree->value() : ui->txtArcLength->value();
+//}

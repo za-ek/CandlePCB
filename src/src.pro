@@ -76,7 +76,6 @@ SOURCES += main.cpp\
     parser/pointsegment.cpp \
     tables/gcodetablemodel.cpp \
     tables/heightmaptablemodel.cpp \
-    utils/runtime.cpp \
     utils/serialport.cpp \
     utils/usersettings.cpp \
     widgets/colorpicker.cpp \
@@ -106,7 +105,6 @@ HEADERS  += frmmain.h \
     tables/gcodetablemodel.h \
     tables/heightmaptablemodel.h \
     utils/interpolation.h \
-    utils/runtime.h \
     utils/serialport.h \
     utils/usersettings.h \
     utils/util.h \

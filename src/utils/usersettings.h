@@ -3,6 +3,7 @@
 
 #include "settings.h"
 #include <QMap>
+#include <QWidget>
 #include <QVector>
 #include <QVariant>
 #include <mutex>
@@ -22,6 +23,10 @@ public:
     void operator=(const UserSettings &) = delete;
 
     static Settings* getInstance();
+    static void save();
+
+    static void restoreUI(QWidget *w);
+    static void saveUI(QWidget *w);
 };
 
 //Settings* UserSettings::_instance{nullptr};
