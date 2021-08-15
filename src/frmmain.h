@@ -30,7 +30,7 @@
 #include "tables/heightmaptablemodel.h"
 
 #include "utils/interpolation.h"
-#include "utils/serialport.h"
+#include "utils/grblport.h"
 #include "utils/usersettings.h"
 #include "../libs/runtime.h"
 
@@ -83,10 +83,15 @@ private slots:
     void updateHeightMapInterpolationDrawer(bool reset = false);
     void placeVisualizerButtons();
 
-    void onSerialPortReadyRead();
-    void onSerialPortError(QSerialPort::SerialPortError);
+    void setWorkCoordinates(double x, double y, double z);
+    void setMachinePosition(double x, double y, double z);
+    void setMachineStatus(MACHINE_STATUS status);
+    void resetCompleted();
+    void dataReceived(QString data);
+    void onError(int err_n, QString err);
+
     void onTimerConnection();
-    void onTimerStateQuery();
+    void onSerialPortReadyRead();
     void onCmdJogStepClicked();
     void onVisualizatorRotationChanged();
     void onScroolBarAction(int action);
@@ -216,7 +221,7 @@ private:
     bool m_programLoading;
     bool m_settingsLoading;
 
-    SerialPort m_serialPort;
+    GRBLPort m_serialPort;
     Runtime *m_runtime;
     Settings *m_settings = UserSettings::getInstance();
 
@@ -228,7 +233,6 @@ private:
     bool m_heightMapChanged = false;
 
     QTimer m_timerConnection;
-    QTimer m_timerStateQuery;
     QBasicTimer m_timerToolAnimation;
 
     QStringList m_status;
@@ -326,9 +330,7 @@ private:
     void saveSettings();
     bool saveChanges(bool heightMapMode);
     void updateControlsState();
-    void openPort();
     void sendCommand(QString command, int tableIndex = -1, bool showInConsole = true);
-    void grblReset();
     int bufferLength();
     void sendNextFileCommands();
     void applySettings();
@@ -372,19 +374,12 @@ private:
     void restoreOffsets();
     bool isGCodeFile(QString fileName);
     bool isHeightmapFile(QString fileName);
-    bool compareCoordinates(double x, double y, double z);
     int getConsoleMinHeight();
 
-    enum coordinates {X, Y, Z};
-    void setMachinePosition(coordinates axis, double val);
-    void setMachinePosition(coordinates axis, QString val);
     double getMachinePosition(coordinates axis);
     double machine_coordinates[3] = {0, 0, 0};
     QLabel *machinePosition;
 
-    // 0, 1, 2 ... respectively. Order matters
-    enum MACHINE_STATUS {UNKNOWN, IDLE, ALARM, RUN, HOME, HOLD, QUEUE, CHECK, DOOR};
-    void setMachineStatus(MACHINE_STATUS status);
     void setMachineStatus(QString status);
     void setMachineStatus(int status);
     MACHINE_STATUS machineStatus = UNKNOWN;

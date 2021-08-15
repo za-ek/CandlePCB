@@ -76,7 +76,7 @@ SOURCES += main.cpp\
     parser/pointsegment.cpp \
     tables/gcodetablemodel.cpp \
     tables/heightmaptablemodel.cpp \
-    utils/serialport.cpp \
+    utils/grblport.cpp \
     utils/usersettings.cpp \
     widgets/colorpicker.cpp \
     widgets/combobox.cpp \
@@ -104,8 +104,8 @@ HEADERS  += frmmain.h \
     parser/pointsegment.h \
     tables/gcodetablemodel.h \
     tables/heightmaptablemodel.h \
+    utils/grblport.h \
     utils/interpolation.h \
-    utils/serialport.h \
     utils/usersettings.h \
     utils/util.h \
     widgets/colorpicker.h \
