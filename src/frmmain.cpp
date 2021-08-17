@@ -1,4 +1,4 @@
-// This file is a part of "Candle" application.
+    // This file is a part of "Candle" application.
 // Copyright 2015-2016 Hayrullin Denis Ravilevich
 
 //#define INITTIME //QTime time; time.start();
@@ -74,9 +74,9 @@ frmMain::frmMain(QWidget *parent) :
     ui->cmdLeft->setParent(ui->glwVisualizer);
 
     ui->cmdHeightMapBorderAuto->setMinimumHeight(ui->chkHeightMapBorderShow->sizeHint().height());
-    ui->cmdHeightMapCreate->setMinimumHeight(ui->cmdFileOpen->sizeHint().height());
-    ui->cmdHeightMapLoad->setMinimumHeight(ui->cmdFileOpen->sizeHint().height());
-    ui->cmdHeightMapMode->setMinimumHeight(ui->cmdFileOpen->sizeHint().height());
+    ui->heightmapCreate->setMinimumHeight(ui->cmdFileOpen->sizeHint().height());
+    ui->heightmapLoad->setMinimumHeight(ui->cmdFileOpen->sizeHint().height());
+    ui->heightmapMode->setMinimumHeight(ui->cmdFileOpen->sizeHint().height());
 
     connect(ui->cboCommand, SIGNAL(returnPressed()), this, SLOT(onCboCommandReturnPressed()));
 
@@ -135,11 +135,9 @@ frmMain::frmMain(QWidget *parent) :
     ui->tblProgram->hideColumn(5);
 //    ui->tblProgram->showColumn(4);
     m_runtime->bind("port", [&](const QString &v) {
-        qDebug() << "Port changed " << v;
         this->m_serialPort.setPortName(v); m_serialPort.openPort(); updateControlsState();
     });
     m_runtime->bind("baud", [&](const QString &v) {
-        qDebug() << "Baud changed " << v;
         this->m_serialPort.setBaudRate(v); m_serialPort.openPort(); updateControlsState();
     });
 
@@ -149,8 +147,7 @@ frmMain::frmMain(QWidget *parent) :
     connect(&m_serialPort, SIGNAL(resetCompleted()), this, SLOT(resetCompleted()));
     connect(&m_serialPort, SIGNAL(statusChanged(MACHINE_STATUS)), this, SLOT(setMachineStatus(MACHINE_STATUS)));
     connect(&m_serialPort, SIGNAL(receivedCoordinates(double,double,double)), this, SLOT(setMachinePosition(double, double, double)));
-    connect(&m_serialPort, SIGNAL(readyRead()), &m_serialPort, SLOT(onReady()));
-    connect(&m_serialPort, SIGNAL(receivedError(QSerialPort::SerialPortError)), this, SLOT(onError()));
+    connect(&m_serialPort, SIGNAL(receivedError(int, QString)), this, SLOT(onError(int, QString)));
 
     // Apply settings
     foreach (StyledToolButton* button, ui->grpJog->findChildren<StyledToolButton*>(QRegExp("cmdJogStep\\d")))
@@ -186,6 +183,12 @@ frmMain::frmMain(QWidget *parent) :
         if(v.toString().isEmpty()) v = "8";
         qApp->setStyleSheet(QString(qApp->styleSheet()).replace(QRegExp("font-size:\\s*\\d+"), "font-size: " + v.toString()));
     });
+
+    qDebug() << "Port: " << Runtime::getInstance()->value("port");
+    m_serialPort.setPortName(Runtime::getInstance()->value("port"));
+    m_serialPort.setBaudRate(Runtime::getInstance()->value("baud"));
+    m_serialPort.openPort();
+    updateControlsState();
 }
 
 frmMain::~frmMain()
@@ -206,14 +209,16 @@ void frmMain::setStatusBarItems()
 }
 void frmMain::setMachineStatus(MACHINE_STATUS status)
 {
+    qDebug() << "RECEIVED STATUS: " << status;
+    if(status == ALARM) {
+        ui->cmdUnlock->setStyleSheet("background-color: red");
+    } else {
+        ui->cmdUnlock->setStyleSheet(QString("background-color: palette(button); color: palette(text);"));
+    }
+    ui->cmdUnlock->repaint();
+
     if(status != machineStatus) {
         machineStatus = status;
-        if(status == ALARM) {
-            ui->cmdUnlock->setStyleSheet("background-color: red;");
-        } else {
-            qDebug() << status;
-            ui->cmdUnlock->setStyleSheet(QString("background-color: palette(button); color: palette(text);"));
-        }
         machineStatusWidget->setText(tr(machine_status[status].name.toLocal8Bit()));
         machineStatusWidget->setStyleSheet(QString("background-color: %1; color: %2;")
                                      .arg(machine_status[status].bcolor).arg(machine_status[status].fcolor));
@@ -274,7 +279,7 @@ void frmMain::setMachineStatus(MACHINE_STATUS status)
             } else if (m_heightMapMode) {
                 saveHeightMap((getTodayDirectory() + "/%1.map").arg(++m_heghtMapIndex));
                 resetHeightmap();
-                on_cmdHeightMapMode_toggled(false);
+                on_heightmapMode_toggled(false);
 
                 // Generate target heightmap
                 // Run php file stored in resources
@@ -294,7 +299,7 @@ void frmMain::setMachineStatus(MACHINE_STATUS status)
                     qDebug() << "Error open temp file";
                 }
 
-                ui->chkHeightMapUse->setChecked(true);
+                ui->heightmapUse->setChecked(true);
                 useHeightmap(getTodayDirectory() + "/target.map");
             } else {
                 QMessageBox::information(this, qApp->applicationDisplayName(), tr("Job done.\nTime elapsed: %1")
@@ -509,8 +514,8 @@ void frmMain::updateControlsState() {
     style()->unpolish(ui->grpProgram);
     ui->grpProgram->ensurePolished();
 
-    ui->grpHeightMapSettings->setVisible(m_heightMapMode);
-    ui->grpHeightMapSettings->setEnabled(!m_processingFile);
+    ui->grpHeightmapSettings->setVisible(m_heightMapMode);
+    ui->grpHeightmapSettings->setEnabled(!m_processingFile);
 
     ui->chkTestMode->setVisible(!m_heightMapMode);
     ui->chkAutoScroll->setVisible(ui->splitter->sizes()[1] && !m_heightMapMode);
@@ -518,14 +523,14 @@ void frmMain::updateControlsState() {
     ui->tblHeightMap->setVisible(m_heightMapMode);
     ui->tblProgram->setVisible(!m_heightMapMode);
 
-    ui->widgetHeightMap->setEnabled(!m_processingFile && m_programModel.rowCount() > 1);
-    ui->cmdHeightMapMode->setEnabled(!ui->txtHeightMap->text().isEmpty());
+    ui->widgetHeightmap->setEnabled(!m_processingFile && m_programModel.rowCount() > 1);
+    ui->heightmapMode->setEnabled(!ui->heightmapFile->text().isEmpty());
 
     ui->cmdFileSend->setText(m_heightMapMode ? tr("Probe") : tr("Send"));
 
-    ui->chkHeightMapUse->setEnabled(!m_heightMapMode && !ui->txtHeightMap->text().isEmpty());
+    ui->heightmapUse->setEnabled(!m_heightMapMode && !ui->heightmapFile->text().isEmpty());
 
-    ui->actFileSaveTransformedAs->setVisible(ui->chkHeightMapUse->isChecked());
+    ui->actFileSaveTransformedAs->setVisible(ui->heightmapUse->isChecked());
 }
 
 void frmMain::sendCommand(QString command, int tableIndex, bool showInConsole)
@@ -581,7 +586,7 @@ void frmMain::sendCommand(QString command, int tableIndex, bool showInConsole)
         m_fileEndSent = true;
     }
 
-    m_serialPort.write((command + "\r").toLatin1());
+    m_serialPort.write(command + "\r");
 }
 
 void frmMain::resetCompleted()
@@ -688,7 +693,6 @@ void frmMain::placeVisualizerButtons()
     ui->cmdTop->move(ui->cmdIsometric->geometry().left() - ui->cmdTop->width() - 8, 8);
     ui->cmdLeft->move(ui->glwVisualizer->width() - ui->cmdLeft->width() - 8, ui->cmdIsometric->geometry().bottom() + 8);
     ui->cmdFront->move(ui->cmdLeft->geometry().left() - ui->cmdFront->width() - 8, ui->cmdIsometric->geometry().bottom() + 8);
-//    ui->cmdFit->move(ui->cmdTop->geometry().left() - ui->cmdFit->width() - 10, 10);
     ui->cmdFit->move(ui->glwVisualizer->width() - ui->cmdFit->width() - 8, ui->cmdLeft->geometry().bottom() + 8);
 }
 
@@ -896,7 +900,7 @@ void frmMain::resetHeightmap()
     ui->tblHeightMap->setModel(NULL);
     m_heightMapModel.resize(1, 1);
 
-    ui->txtHeightMap->clear();
+    ui->heightmapFile->clear();
     m_heightMapFileName.clear();
     m_heightMapChanged = false;
 }
@@ -921,10 +925,10 @@ void frmMain::loadFile(QList<QString> data)
     m_currentDrawer = m_codeDrawer;
 
     // Update interface
-    ui->chkHeightMapUse->setChecked(false);
-    ui->grpHeightMap->setProperty("overrided", false);
-    style()->unpolish(ui->grpHeightMap);
-    ui->grpHeightMap->ensurePolished();
+    ui->heightmapUse->setChecked(false);
+    ui->grpHeightmap->setProperty("overrided", false);
+    style()->unpolish(ui->grpHeightmap);
+    ui->grpHeightmap->ensurePolished();
 
     // Reset tableview
     QByteArray headerState = ui->tblProgram->horizontalHeader()->saveState();
@@ -1316,7 +1320,7 @@ void frmMain::applySettings() {
     ui->scrollArea->setVisible(s->getBool("panelHeightmap") || s->getBool("panelFeed")
                                || s->getBool("panelJog") || s->getBool("panelSpindle"));
 
-    ui->grpHeightMap->setVisible(s->getBool("panelHeightmap"));
+    ui->grpHeightmap->setVisible(s->getBool("panelHeightmap"));
     ui->grpSpindle->setVisible(s->getBool("panelSpindle"));
     ui->grpFeed->setVisible(s->getBool("panelFeed"));
     ui->grpJog->setVisible(s->getBool("panelJog"));
@@ -1644,10 +1648,10 @@ void frmMain::on_cmdFileReset_clicked()
 
         ui->glwVisualizer->setSpendTime(QTime(0, 0, 0));
     } else {
-        ui->txtHeightMapGridX->setEnabled(true);
-        ui->txtHeightMapGridY->setEnabled(true);
-        ui->txtHeightMapGridZBottom->setEnabled(true);
-        ui->txtHeightMapGridZTop->setEnabled(true);
+        ui->heightmapGridX->setEnabled(true);
+        ui->heightmapGridY->setEnabled(true);
+        ui->heightmapGridZBottom->setEnabled(true);
+        ui->heightmapGridZTop->setEnabled(true);
 
         delete m_heightMapInterpolationDrawer.data();
         m_heightMapInterpolationDrawer.setData(NULL);
@@ -1682,10 +1686,10 @@ void frmMain::on_actFileNew_triggered()
         ui->glwVisualizer->setEstimatedTime(QTime(0, 0, 0));
 
         m_programFileName = "";
-        ui->chkHeightMapUse->setChecked(false);
-        ui->grpHeightMap->setProperty("overrided", false);
-        style()->unpolish(ui->grpHeightMap);
-        ui->grpHeightMap->ensurePolished();
+        ui->heightmapUse->setChecked(false);
+        ui->grpHeightmap->setProperty("overrided", false);
+        style()->unpolish(ui->grpHeightmap);
+        ui->grpHeightmap->ensurePolished();
 
         // Reset tableview
         QByteArray headerState = ui->tblProgram->horizontalHeader()->saveState();
@@ -1703,7 +1707,7 @@ void frmMain::on_actFileNew_triggered()
     } else {
         m_heightMapModel.clear();
         on_cmdFileReset_clicked();
-        ui->txtHeightMap->setText(tr("Untitled"));
+        ui->heightmapFile->setText(tr("Untitled"));
         m_heightMapFileName.clear();
 
         updateHeightMapBorderDrawer();
@@ -1768,7 +1772,7 @@ void frmMain::on_actFileSaveAs_triggered()
         QString fileName = (QFileDialog::getSaveFileName(this, tr("Save file as"), "", tr("Heightmap files (*.map)")));
 
         if (!fileName.isEmpty()) if (saveHeightMap(fileName)) {
-            ui->txtHeightMap->setText(fileName.mid(fileName.lastIndexOf("/") + 1));
+            ui->heightmapFile->setText(fileName.mid(fileName.lastIndexOf("/") + 1));
             m_heightMapFileName = fileName;
             m_heightMapChanged = false;
 
@@ -1859,7 +1863,7 @@ bool frmMain::dataIsFloating(QString data) {
 QString frmMain::feedOverride(QString command)
 {
     // Feed override if not in heightmap probing mode
-    if (!ui->cmdHeightMapMode->isChecked()) command = GcodePreprocessorUtils::overrideSpeed(command, ui->chkFeedOverride->isChecked() ?
+    if (!ui->heightmapMode->isChecked()) command = GcodePreprocessorUtils::overrideSpeed(command, ui->chkFeedOverride->isChecked() ?
         ui->txtFeed->value() : 100, &m_originalFeed);
 
     return command;
@@ -2233,19 +2237,19 @@ double frmMain::toMetric(double value)
     return UserSettings::getInstance()->get("units") == 0 ? value : value * 25.4;
 }
 
-void frmMain::on_grpHeightMap_toggled(bool arg1)
+void frmMain::on_grpHeightmap_toggled(bool arg1)
 {
-    ui->widgetHeightMap->setVisible(arg1);
+    ui->widgetHeightmap->setVisible(arg1);
 }
 
 QRectF frmMain::borderRectFromTextboxes()
 {
     QRectF rect;
 
-    rect.setX(ui->txtHeightMapBorderX->value());
-    rect.setY(ui->txtHeightMapBorderY->value());
-    rect.setWidth(ui->txtHeightMapBorderWidth->value());
-    rect.setHeight(ui->txtHeightMapBorderHeight->value());
+    rect.setX(ui->heightmapBorderX->value());
+    rect.setY(ui->heightmapBorderY->value());
+    rect.setWidth(ui->heightmapBorderWidth->value());
+    rect.setHeight(ui->heightmapBorderHeight->value());
 
     return rect;
 }
@@ -2298,15 +2302,15 @@ bool frmMain::updateHeightMapGrid()
     // Update grid drawer
     QRectF borderRect = borderRectFromTextboxes();
     m_heightMapGridDrawer.setBorderRect(borderRect);
-    m_heightMapGridDrawer.setGridSize(QPointF(ui->txtHeightMapGridX->value(), ui->txtHeightMapGridY->value()));
-    m_heightMapGridDrawer.setZBottom(ui->txtHeightMapGridZBottom->value());
-    m_heightMapGridDrawer.setZTop(ui->txtHeightMapGridZTop->value());
+    m_heightMapGridDrawer.setGridSize(QPointF(ui->heightmapGridX->value(), ui->heightmapGridY->value()));
+    m_heightMapGridDrawer.setZBottom(ui->heightmapGridZBottom->value());
+    m_heightMapGridDrawer.setZTop(ui->heightmapGridZTop->value());
 
     // Reset model
-//    int gridPointsX = trunc(borderRect.width() / ui->txtHeightMapGridX->value()) + 1;
-//    int gridPointsY = trunc(borderRect.height() / ui->txtHeightMapGridY->value()) + 1;
-    int gridPointsX = ui->txtHeightMapGridX->value();
-    int gridPointsY = ui->txtHeightMapGridY->value();
+//    int gridPointsX = trunc(borderRect.width() / ui->heightmapGridX->value()) + 1;
+//    int gridPointsY = trunc(borderRect.height() / ui->heightmapGridY->value()) + 1;
+    int gridPointsX = ui->heightmapGridX->value();
+    int gridPointsY = ui->heightmapGridY->value();
 
     m_heightMapModel.resize(gridPointsX, gridPointsY);
     ui->tblHeightMap->setModel(NULL);
@@ -2327,13 +2331,13 @@ bool frmMain::updateHeightMapGrid()
     m_probeModel.insertRow(0);
 
     m_probeModel.setData(m_probeModel.index(m_probeModel.rowCount() - 1, 1), QString("G21G90F%1G0Z%2").
-                         arg(UserSettings::getInstance()->getInt("heightmapProbingFeed")).arg(ui->txtHeightMapGridZTop->value()));
+                         arg(UserSettings::getInstance()->getInt("heightmapProbingFeed")).arg(ui->heightmapGridZTop->value()));
     m_probeModel.setData(m_probeModel.index(m_probeModel.rowCount() - 1, 1), QString("G0X0Y0"));
-//                         .arg(ui->txtHeightMapGridZTop->value()));
+//                         .arg(ui->heightmapGridZTop->value()));
     m_probeModel.setData(m_probeModel.index(m_probeModel.rowCount() - 1, 1), QString("G38.2Z%1")
-                         .arg(ui->txtHeightMapGridZBottom->value()));
+                         .arg(ui->heightmapGridZBottom->value()));
     m_probeModel.setData(m_probeModel.index(m_probeModel.rowCount() - 1, 1), QString("G0Z%1")
-                         .arg(ui->txtHeightMapGridZTop->value()));
+                         .arg(ui->heightmapGridZTop->value()));
 
     double x, y;
 
@@ -2344,9 +2348,9 @@ bool frmMain::updateHeightMapGrid()
             m_probeModel.setData(m_probeModel.index(m_probeModel.rowCount() - 1, 1), QString("G0X%1Y%2")
                                  .arg(x, 0, 'f', 3).arg(y, 0, 'f', 3));
             m_probeModel.setData(m_probeModel.index(m_probeModel.rowCount() - 1, 1), QString("G38.2Z%1")
-                                 .arg(ui->txtHeightMapGridZBottom->value()));
+                                 .arg(ui->heightmapGridZBottom->value()));
             m_probeModel.setData(m_probeModel.index(m_probeModel.rowCount() - 1, 1), QString("G0Z%1")
-                                 .arg(ui->txtHeightMapGridZTop->value()));
+                                 .arg(ui->heightmapGridZTop->value()));
         }
     }
 
@@ -2369,8 +2373,8 @@ void frmMain::updateHeightMapInterpolationDrawer(bool reset)
 
     QVector<QVector<double>> *interpolationData = new QVector<QVector<double>>;
 
-    int interpolationPointsX = ui->txtHeightMapInterpolationStepX->value();// * (ui->txtHeightMapGridX->value() - 1) + 1;
-    int interpolationPointsY = ui->txtHeightMapInterpolationStepY->value();// * (ui->txtHeightMapGridY->value() - 1) + 1;
+    int interpolationPointsX = ui->heightmapInterpolationStepX->value();// * (ui->heightmapGridX->value() - 1) + 1;
+    int interpolationPointsY = ui->heightmapInterpolationStepY->value();// * (ui->heightmapGridY->value() - 1) + 1;
 
     double interpolationStepX = interpolationPointsX > 1 ? borderRect.width() / (interpolationPointsX - 1) : 0;
     double interpolationStepY = interpolationPointsY > 1 ? borderRect.height() / (interpolationPointsY - 1) : 0;
@@ -2402,65 +2406,65 @@ void frmMain::updateHeightMapInterpolationDrawer(bool reset)
     m_programHeightmapModel.clear();
 }
 
-void frmMain::on_chkHeightMapBorderShow_toggled(bool checked)
+void frmMain::on_heightmapBorderShow_toggled(bool checked)
 {
     Q_UNUSED(checked)
 
     updateControlsState();
 }
 
-void frmMain::on_txtHeightMapBorderX_valueChanged(double arg1)
+void frmMain::on_heightmapBorderX_valueChanged(double arg1)
 {
     updateHeightMapBorderDrawer();
     updateHeightMapGrid(arg1);
 }
 
-void frmMain::on_txtHeightMapBorderWidth_valueChanged(double arg1)
+void frmMain::on_heightmapBorderWidth_valueChanged(double arg1)
 {
     updateHeightMapBorderDrawer();
     updateHeightMapGrid(arg1);
 }
 
-void frmMain::on_txtHeightMapBorderY_valueChanged(double arg1)
+void frmMain::on_heightmapBorderY_valueChanged(double arg1)
 {
     updateHeightMapBorderDrawer();
     updateHeightMapGrid(arg1);
 }
 
-void frmMain::on_txtHeightMapBorderHeight_valueChanged(double arg1)
+void frmMain::on_heightmapBorderHeight_valueChanged(double arg1)
 {
     updateHeightMapBorderDrawer();
     updateHeightMapGrid(arg1);
 }
 
-void frmMain::on_chkHeightMapGridShow_toggled(bool checked)
+void frmMain::on_heightmapGridShow_toggled(bool checked)
 {
     Q_UNUSED(checked)
 
     updateControlsState();
 }
 
-void frmMain::on_txtHeightMapGridX_valueChanged(double arg1)
+void frmMain::on_heightmapGridX_valueChanged(double arg1)
 {
     updateHeightMapGrid(arg1);
 }
 
-void frmMain::on_txtHeightMapGridY_valueChanged(double arg1)
+void frmMain::on_heightmapGridY_valueChanged(double arg1)
 {
     updateHeightMapGrid(arg1);
 }
 
-void frmMain::on_txtHeightMapGridZBottom_valueChanged(double arg1)
+void frmMain::on_heightmapGridZBottom_valueChanged(double arg1)
 {
     updateHeightMapGrid(arg1);
 }
 
-void frmMain::on_txtHeightMapGridZTop_valueChanged(double arg1)
+void frmMain::on_heightmapGridZTop_valueChanged(double arg1)
 {
     updateHeightMapGrid(arg1);
 }
 
-void frmMain::on_cmdHeightMapMode_toggled(bool checked)
+void frmMain::on_heightmapMode_toggled(bool checked)
 {
     // Update flag
     m_heightMapMode = checked;
@@ -2471,8 +2475,8 @@ void frmMain::on_cmdHeightMapMode_toggled(bool checked)
     m_lastDrawnLineIndex = 0;
 
     // Reset/restore g-code program modification on edit mode enter/exit
-    if (ui->chkHeightMapUse->isChecked()) {
-        on_chkHeightMapUse_clicked(!checked); // Update gcode program parser
+    if (ui->heightmapUse->isChecked()) {
+        on_heightmapUse_clicked(!checked); // Update gcode program parser
 //        m_codeDrawer->updateData(); // Force update data to properly shadowing
     }
 
@@ -2484,7 +2488,7 @@ void frmMain::on_cmdHeightMapMode_toggled(bool checked)
         updateParser();  // Update probe program parser
     } else {
         m_probeParser.reset();
-        if (!ui->chkHeightMapUse->isChecked()) {
+        if (!ui->heightmapUse->isChecked()) {
             ui->tblProgram->setModel(&m_programModel);
             connect(ui->tblProgram->selectionModel(), SIGNAL(currentChanged(QModelIndex,QModelIndex)), this, SLOT(onTableCurrentChanged(QModelIndex,QModelIndex)));
             ui->tblProgram->selectRow(0);
@@ -2493,7 +2497,7 @@ void frmMain::on_cmdHeightMapMode_toggled(bool checked)
             m_currentModel = &m_programModel;
             m_currentDrawer = m_codeDrawer;
 
-            if (!ui->chkHeightMapUse->isChecked()) {
+            if (!ui->heightmapUse->isChecked()) {
                 ui->glwVisualizer->updateExtremes(m_codeDrawer);
                 updateProgramEstimatedTime(m_currentDrawer->viewParser()->getLineSegmentList());
             }
@@ -2510,7 +2514,7 @@ void frmMain::on_cmdHeightMapMode_toggled(bool checked)
     }
     // Update only vertex color.
     // If chkHeightMapUse was checked codeDrawer updated via updateParser
-    if (!ui->chkHeightMapUse->isChecked()) m_codeDrawer->update(indexes);
+    if (!ui->heightmapUse->isChecked()) m_codeDrawer->update(indexes);
 
     updateRecentFilesMenu();
     updateControlsState();
@@ -2525,17 +2529,17 @@ bool frmMain::saveHeightMap(QString fileName)
     if (!file.open(QIODevice::WriteOnly)) return false;
 
     QTextStream textStream(&file);
-    textStream << ui->txtHeightMapBorderX->text() << ";"
-               << ui->txtHeightMapBorderY->text() << ";"
-               << ui->txtHeightMapBorderWidth->text() << ";"
-               << ui->txtHeightMapBorderHeight->text() << "\r\n";
-    textStream << ui->txtHeightMapGridX->text() << ";"
-               << ui->txtHeightMapGridY->text() << ";"
-               << ui->txtHeightMapGridZBottom->text() << ";"
-               << ui->txtHeightMapGridZTop->text() << "\r\n";
-    textStream << ui->cboHeightMapInterpolationType->currentIndex() << ";"
-               << ui->txtHeightMapInterpolationStepX->text() << ";"
-                << ui->txtHeightMapInterpolationStepY->text() << "\r\n";
+    textStream << ui->heightmapBorderX->text() << ";"
+               << ui->heightmapBorderY->text() << ";"
+               << ui->heightmapBorderWidth->text() << ";"
+               << ui->heightmapBorderHeight->text() << "\r\n";
+    textStream << ui->heightmapGridX->text() << ";"
+               << ui->heightmapGridY->text() << ";"
+               << ui->heightmapGridZBottom->text() << ";"
+               << ui->heightmapGridZTop->text() << "\r\n";
+    textStream << ui->heightmapInterpolationType->currentIndex() << ";"
+               << ui->heightmapInterpolationStepX->text() << ";"
+                << ui->heightmapInterpolationStepY->text() << "\r\n";
 
     for (int i = 0; i < m_heightMapModel.rowCount(); i++) {
         for (int j = 0; j < m_heightMapModel.columnCount(); j++) {
@@ -2564,27 +2568,27 @@ void frmMain::loadHeightMap(QString fileName)
     m_settingsLoading = true;
 
     // Storing previous values
-    ui->txtHeightMapBorderX->setValue(qQNaN());
-    ui->txtHeightMapBorderY->setValue(qQNaN());
-    ui->txtHeightMapBorderWidth->setValue(qQNaN());
-    ui->txtHeightMapBorderHeight->setValue(qQNaN());
+    ui->heightmapBorderX->setValue(qQNaN());
+    ui->heightmapBorderY->setValue(qQNaN());
+    ui->heightmapBorderWidth->setValue(qQNaN());
+    ui->heightmapBorderHeight->setValue(qQNaN());
 
-    ui->txtHeightMapGridX->setValue(qQNaN());
-    ui->txtHeightMapGridY->setValue(qQNaN());
-    ui->txtHeightMapGridZBottom->setValue(qQNaN());
-    ui->txtHeightMapGridZTop->setValue(qQNaN());
+    ui->heightmapGridX->setValue(qQNaN());
+    ui->heightmapGridY->setValue(qQNaN());
+    ui->heightmapGridZBottom->setValue(qQNaN());
+    ui->heightmapGridZTop->setValue(qQNaN());
 
     QList<QString> list = textStream.readLine().split(";");
-    ui->txtHeightMapBorderX->setValue(list[0].toDouble());
-    ui->txtHeightMapBorderY->setValue(list[1].toDouble());
-    ui->txtHeightMapBorderWidth->setValue(list[2].toDouble());
-    ui->txtHeightMapBorderHeight->setValue(list[3].toDouble());
+    ui->heightmapBorderX->setValue(list[0].toDouble());
+    ui->heightmapBorderY->setValue(list[1].toDouble());
+    ui->heightmapBorderWidth->setValue(list[2].toDouble());
+    ui->heightmapBorderHeight->setValue(list[3].toDouble());
 
     list = textStream.readLine().split(";");
-    ui->txtHeightMapGridX->setValue(list[0].toDouble());
-    ui->txtHeightMapGridY->setValue(list[1].toDouble());
-    ui->txtHeightMapGridZBottom->setValue(list[2].toDouble());
-    ui->txtHeightMapGridZTop->setValue(list[3].toDouble());
+    ui->heightmapGridX->setValue(list[0].toDouble());
+    ui->heightmapGridY->setValue(list[1].toDouble());
+    ui->heightmapGridZBottom->setValue(list[2].toDouble());
+    ui->heightmapGridZTop->setValue(list[3].toDouble());
 
     m_settingsLoading = false;
 
@@ -2597,15 +2601,15 @@ void frmMain::loadHeightMap(QString fileName)
 
 //    ui->chkHeightMapBorderAuto->setChecked(false);
 //    ui->chkHeightMapBorderAuto->setEnabled(false);
-//    ui->txtHeightMapBorderX->setEnabled(false);
-//    ui->txtHeightMapBorderY->setEnabled(false);
-//    ui->txtHeightMapBorderWidth->setEnabled(false);
-//    ui->txtHeightMapBorderHeight->setEnabled(false);
+//    ui->heightmapBorderX->setEnabled(false);
+//    ui->heightmapBorderY->setEnabled(false);
+//    ui->heightmapBorderWidth->setEnabled(false);
+//    ui->heightmapBorderHeight->setEnabled(false);
 
-//    ui->txtHeightMapGridX->setEnabled(false);
-//    ui->txtHeightMapGridY->setEnabled(false);
-//    ui->txtHeightMapGridZBottom->setEnabled(false);
-//    ui->txtHeightMapGridZTop->setEnabled(false);
+//    ui->heightmapGridX->setEnabled(false);
+//    ui->heightmapGridY->setEnabled(false);
+//    ui->heightmapGridZBottom->setEnabled(false);
+//    ui->heightmapGridZTop->setEnabled(false);
 
     for (int i = 0; i < m_heightMapModel.rowCount(); i++) {
         QList<QString> row = textStream.readLine().split(";");
@@ -2616,25 +2620,25 @@ void frmMain::loadHeightMap(QString fileName)
 
     file.close();
 
-    ui->txtHeightMap->setText(fileName.mid(fileName.lastIndexOf("/") + 1));
+    ui->heightmapFile->setText(fileName.mid(fileName.lastIndexOf("/") + 1));
     m_heightMapFileName = fileName;
     m_heightMapChanged = false;
 
-    ui->cboHeightMapInterpolationType->setCurrentIndex(list[0].toInt());
-    ui->txtHeightMapInterpolationStepX->setValue(list[1].toDouble());
-    ui->txtHeightMapInterpolationStepY->setValue(list[2].toDouble());
+    ui->heightmapInterpolationType->setCurrentIndex(list[0].toInt());
+    ui->heightmapInterpolationStepX->setValue(list[1].toDouble());
+    ui->heightmapInterpolationStepY->setValue(list[2].toDouble());
 
     updateHeightMapInterpolationDrawer();
 }
 
-void frmMain::on_chkHeightMapInterpolationShow_toggled(bool checked)
+void frmMain::on_heightmapInterpolationShow_toggled(bool checked)
 {
     Q_UNUSED(checked)
 
     updateControlsState();
 }
 
-void frmMain::on_cmdHeightMapLoad_clicked()
+void frmMain::on_heightmapLoad_clicked()
 {
     if (!saveChanges(true)) {
         return;
@@ -2652,11 +2656,11 @@ void frmMain::useHeightmap(QString fileName)
         loadHeightMap(fileName);
 
         // If using heightmap
-        if (ui->chkHeightMapUse->isChecked() && !m_heightMapMode) {
+        if (ui->heightmapUse->isChecked() && !m_heightMapMode) {
             // Restore original file
-            on_chkHeightMapUse_clicked(false);
+            on_heightmapUse_clicked(false);
             // Apply heightmap
-            on_chkHeightMapUse_clicked(true);
+            on_heightmapUse_clicked(true);
         }
 
         updateRecentFilesMenu();
@@ -2664,27 +2668,27 @@ void frmMain::useHeightmap(QString fileName)
     }
 }
 
-void frmMain::on_txtHeightMapInterpolationStepX_valueChanged(double arg1)
+void frmMain::on_heightmapInterpolationStepX_valueChanged(double arg1)
 {
     Q_UNUSED(arg1)
 
     updateHeightMapInterpolationDrawer();
 }
 
-void frmMain::on_txtHeightMapInterpolationStepY_valueChanged(double arg1)
+void frmMain::on_heightmapInterpolationStepY_valueChanged(double arg1)
 {
     Q_UNUSED(arg1)
 
     updateHeightMapInterpolationDrawer();
 }
 
-void frmMain::on_chkHeightMapUse_clicked(bool checked)
+void frmMain::on_heightmapUse_clicked(bool checked)
 {
 //    static bool fileChanged;
 
-    ui->grpHeightMap->setProperty("overrided", checked);
-    style()->unpolish(ui->grpHeightMap);
-    ui->grpHeightMap->ensurePolished();
+    ui->grpHeightmap->setProperty("overrided", checked);
+    style()->unpolish(ui->grpHeightmap);
+    ui->grpHeightmap->ensurePolished();
 
     if (checked) {
 
@@ -2880,8 +2884,8 @@ QList<LineSegment*> frmMain::subdivideSegment(LineSegment* segment)
 
     QRectF borderRect = borderRectFromTextboxes();
 
-    double interpolationStepX = borderRect.width() / (ui->txtHeightMapInterpolationStepX->value() - 1);
-    double interpolationStepY = borderRect.height() / (ui->txtHeightMapInterpolationStepY->value() - 1);
+    double interpolationStepX = borderRect.width() / (ui->heightmapInterpolationStepX->value() - 1);
+    double interpolationStepY = borderRect.height() / (ui->heightmapInterpolationStepY->value() - 1);
 
     double length;
 
@@ -2921,21 +2925,21 @@ QList<LineSegment*> frmMain::subdivideSegment(LineSegment* segment)
     return list;
 }
 
-void frmMain::on_cmdHeightMapCreate_clicked()
+void frmMain::on_heightmapCreate_clicked()
 {
-    ui->cmdHeightMapMode->setChecked(true);
+    ui->heightmapMode->setChecked(true);
     on_actFileNew_triggered();
 }
 
-void frmMain::on_cmdHeightMapBorderAuto_clicked()
+void frmMain::on_heightmapBorderAuto_clicked()
 {
     QRectF rect = borderRectFromExtremes();
 
     if (!qIsNaN(rect.width()) && !qIsNaN(rect.height())) {
-        ui->txtHeightMapBorderX->setValue(rect.x());
-        ui->txtHeightMapBorderY->setValue(rect.y());
-        ui->txtHeightMapBorderWidth->setValue(rect.width());
-        ui->txtHeightMapBorderHeight->setValue(rect.height());
+        ui->heightmapBorderX->setValue(rect.x());
+        ui->heightmapBorderY->setValue(rect.y());
+        ui->heightmapBorderWidth->setValue(rect.width());
+        ui->heightmapBorderHeight->setValue(rect.height());
     }
 }
 
@@ -3072,8 +3076,6 @@ void frmMain::setWorkCoordinates(double x, double y, double z)
 }
 
 void frmMain::dataReceived(QString data) {
-    // Data response
-    emit dataReceived(data);
     // Processed commands
     if (m_commands.length() > 0 && !dataIsFloating(data)
             && !(m_commands[0].command != "[CTRL+X]" && dataIsReset(data))) {
@@ -3321,7 +3323,7 @@ void frmMain::dataReceived(QString data) {
 
     } else {
         // Unprocessed responses
-        qDebug() << "floating response:" << data;
+        qDebug() << "Unprocessed response:" << data;
 
         // Handle hardware reset
         if (dataIsReset(data)) {

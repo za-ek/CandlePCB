@@ -4,6 +4,7 @@
 #include "libs_global.h"
 #include <QSettings>
 #include <QVector>
+#include <QDebug>
 
 /**
  * @brief The settings class
@@ -29,17 +30,25 @@ public:
     void setInt     (QString option, int value) { values_int.insert("i_" + option, value); }
     void setDouble  (QString option, double  value);
     void setList    (QString option, QStringList value) { values_list.insert("l_" + option, value.join(",")); }
+    void setT       (QString prefix, QString option, QVariant value) {
+        if(!values_t.contains(prefix)) {
+            values_t.insert(prefix, QMap<QString, QVariant>());
+        }
+        values_t[values_t.find(prefix).key()].insert(option, value);
+    }
 
     QString get     (QString option) { return values.value("s_" + option); }
     bool getBool    (QString option) { return values_bool.value("b_" + option); }
     int getInt      (QString option) { return values_int.value("i_" + option); }
     double getDouble(QString option) { return values_double.value(getDoubleKey(option)); }
     QStringList getList(QString option) { return values_list.value("l_" + option).split(","); }
+    QVariant getT   (QString prefix, QString option) { return values_t.value(prefix).value(option); }
 
     bool keyExists  (QString option);
 
     void fillQSettings (QSettings *set);
     void restoreQSettings(QSettings *set);
+    void mergeQSettings(QSettings *set);
 
     void setKeys(QVector<QString> keys) {originalKeys = keys;}
 private:
@@ -48,8 +57,10 @@ private:
     QMap<QString, int>      values_int;
     QMap<QString, double>   values_double;
     QMap<QString, bool>     values_bool;
+    QMap<QString, QMap<QString, QVariant>> values_t;
 
     QString getDoubleKey(QString doubleKey);
+    void fillByKeys(QVector<QString> list, QSettings * s);
 protected:
     QVector<QString> originalKeys;
 };

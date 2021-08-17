@@ -130,4 +130,5 @@ RESOURCES += \
 CONFIG += c++11
 
 DISTFILES += \
-    CHANGELOG.md
+    CHANGELOG.md \
+    default.ini

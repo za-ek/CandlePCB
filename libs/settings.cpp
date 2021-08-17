@@ -36,23 +36,34 @@ QString Settings::getDoubleKey(QString doubleKey)
 
 void Settings::fillQSettings(QSettings *set)
 {
-    QMap<QString, QString>::const_iterator i = values.constBegin();
-    while (i != values.constEnd()) {set->setValue(i.key(), i.value());++i;}
-
-    QMap<QString, bool>::const_iterator i2 = values_bool.constBegin();
-    while (i2 != values_bool.constEnd()) {set->setValue(i2.key(), i2.value());++i2;}
-
-    QMap<QString, int>::const_iterator i3 = values_int.constBegin();
-    while (i3 != values_int.constEnd()) {set->setValue(i3.key(), i3.value());++i3;}
-
-    QMap<QString, double>::const_iterator i4 = values_double.constBegin();
-    while (i4 != values_double.constEnd()) {set->setValue(i4.key(), i4.value());++i4;}
+    foreach(const QString & s, values.keys()) set->setValue(s, values.value(s));
+    foreach(const QString & s, values_bool.keys()) set->setValue(s, values_bool.value(s));
+    foreach(const QString & s, values_int.keys()) set->setValue(s, values_int.value(s));
+    foreach(const QString & s, values_double.keys()) set->setValue(s, values_double.value(s));
+    foreach(const QString & k, values_t.keys())
+        foreach(const QString & s, values_t[values_t.find(k).key()].keys()) {
+            set->setValue(k + "_" + s, values_t[values_t.find(k).key()].value(s));
+        }
 }
 
 void Settings::restoreQSettings(QSettings *setObj)
 {
-    QVector<QString>::const_iterator i = originalKeys.constBegin();
-    while(i != originalKeys.constEnd()) {
+    fillByKeys(originalKeys, setObj);
+//    foreach(const QString &s, setObj->allKeys()) {
+//        if(originalKeys.indexOf(s) == -1) {
+//            qDebug() << "!!!!!!!!!!!" << s;
+////            setT(s.mid(0,1), s.mid(2), setObj->value(s));
+//        }
+//    }
+}
+
+void Settings::mergeQSettings(QSettings * s) {
+    fillByKeys(s->allKeys().toVector(), s);
+}
+
+void Settings::fillByKeys(QVector<QString> list, QSettings *setObj) {
+    QVector<QString>::const_iterator i = list.constBegin();
+    while(i != list.constEnd()) {
         QString val;
         val += i;
         switch((int)i->mid(0, 1).toLocal8Bit()[0]) {
@@ -61,6 +72,8 @@ void Settings::restoreQSettings(QSettings *setObj)
             case 98: setBool(i->mid(2), setObj->value(val).toBool()); break; // (bool)
             case 100: setDouble(i->mid(1,1) == "_" ? i->mid(2) : i->mid(3), setObj->value(val).toDouble()); break; // d (double)
             case 115: set(i->mid(2), setObj->value(val).toString()); break; // s (string)
+        default:
+            setT(i->mid(0,1), i->mid(2), setObj->value(val));
             break;
         }
         ++i;
@@ -69,9 +82,9 @@ void Settings::restoreQSettings(QSettings *setObj)
 
 bool Settings::keyExists(QString option) {
     return originalKeys.contains(option) ||
-           originalKeys.contains("l_" + option) ||
-           originalKeys.contains("i_" + option) ||
-           originalKeys.contains("b_" + option) ||
-           originalKeys.contains("d_" + option) ||
-           originalKeys.contains("s_" + option);
+            values_list.contains("l_" + option) ||
+            values_int.contains("i_" + option) ||
+            values_bool.contains("b_" + option) ||
+            values_double.contains("d_" + option) ||
+            values.contains("s_" + option);
 }

@@ -26,6 +26,13 @@ frmSettings::frmSettings(QWidget *parent) :
 //    resize(QSize(m_settings->getInt("formSettingsSize_w"), m_settings->getInt("formSettingsSize_h")));
 
     UserSettings::restoreUI(this);
+    Settings * set = UserSettings::getInstance();
+
+    QString c;
+    foreach (ColorPicker* pick, findChildren<ColorPicker*>()) {
+        c = set->get(pick->objectName());
+        pick->setColor(QColor(c == "" ? "white" : c));
+    }
 
     searchPorts();
 }
@@ -38,10 +45,10 @@ frmSettings::~frmSettings()
 
 void frmSettings::searchPorts()
 {
-    ui->cboPort->clear();
+    ui->port->clear();
 
     foreach (QSerialPortInfo info ,QSerialPortInfo::availablePorts()) {
-        ui->cboPort->insertItem(0, info.portName());
+        ui->port->insertItem(0, info.portName());
     }
 }
 
@@ -53,14 +60,13 @@ void frmSettings::on_cmdRefresh_clicked()
 void frmSettings::on_cmdOK_clicked()
 {
     Runtime *r = Runtime::getInstance();
-    if(r->value("port") != ui->cboPort->currentText()) {
-        r->insert("port", ui->cboPort->currentText());
+    if(r->value("port") != ui->port->currentText()) {
+        r->insert("port", ui->port->currentText());
     }
 
-    if(r->value("baud") != ui->cboPort->currentText()) {
-        r->insert("baud", ui->cboBaud->currentText());
+    if(r->value("baud") != ui->baud->currentText()) {
+        r->insert("baud", ui->baud->currentText());
     }
-
 
     UserSettings::saveUI(this);
     UserSettings::save();
@@ -77,7 +83,11 @@ void frmSettings::on_cmdDefaults_clicked()
     if (QMessageBox::warning(this, qApp->applicationDisplayName(), tr("Reset settings to default values?"),
                              QMessageBox::Yes | QMessageBox::No | QMessageBox::Cancel) != QMessageBox::Yes) return;
 
-    // Set defaults
+    // Set defaults from file
+    Settings * set = UserSettings::getInstance();
+    QSettings defaultIni(":/default.ini", QSettings::IniFormat);
+    m_settings->mergeQSettings(&defaultIni);
+    UserSettings::restoreUI(this);
 }
 void frmSettings::on_cboFontSize_currentTextChanged(const QString &arg1)
 {

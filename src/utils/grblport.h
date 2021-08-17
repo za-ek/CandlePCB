@@ -15,7 +15,6 @@ class GRBLPort : public QObject
 public:
     GRBLPort();
     ~GRBLPort() { if(_port.isOpen()) _port.close(); }
-    void onReady();
     void resetDevice();
     void abort() { if(_status != IDLE) _aborting = true; }
 
@@ -24,7 +23,7 @@ public:
     /**
      * Pass functions to port
      */
-    void write(QString s) { _port.write(s.toLocal8Bit()); }
+    void write(QString s) { _port.write(s.toLatin1()); }
     void setPortName(QString n) { _port.setPortName(n); }
     void setBaudRate(QString n) { _port.setBaudRate(n.toInt()); }
     bool isOpen() { return _port.isOpen(); }
@@ -45,6 +44,7 @@ private:
 
 private slots:
     void onTimerStateQuery();
+    void onReady();
     void onSerialPortError(QSerialPort::SerialPortError e);
 
 signals:

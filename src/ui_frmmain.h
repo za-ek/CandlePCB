@@ -79,19 +79,19 @@ public:
     QVBoxLayout *verticalLayout_7;
     QTableView *tblProgram;
     QTableView *tblHeightMap;
-    QGroupBox *grpHeightMapSettings;
+    QGroupBox *grpHeightmapSettings;
     QHBoxLayout *horizontalLayout_20;
     QVBoxLayout *verticalLayout_18;
     QLabel *label_5;
     QGridLayout *gridLayout;
     QLabel *label_6;
-    QDoubleSpinBox *txtHeightMapBorderX;
-    QDoubleSpinBox *txtHeightMapBorderHeight;
+    QDoubleSpinBox *heightmapBorderX;
+    QDoubleSpinBox *heightmapBorderHeight;
     QLabel *label_9;
-    QDoubleSpinBox *txtHeightMapBorderY;
+    QDoubleSpinBox *heightmapBorderY;
     QLabel *label_7;
     QLabel *label_8;
-    QDoubleSpinBox *txtHeightMapBorderWidth;
+    QDoubleSpinBox *heightmapBorderWidth;
     QHBoxLayout *horizontalLayout_18;
     QCheckBox *chkHeightMapBorderShow;
     StyledToolButton *cmdHeightMapBorderAuto;
@@ -99,10 +99,10 @@ public:
     QLabel *label_10;
     QGridLayout *gridLayout_4;
     QLabel *label_12;
-    QDoubleSpinBox *txtHeightMapGridX;
-    QDoubleSpinBox *txtHeightMapGridZTop;
-    QDoubleSpinBox *txtHeightMapGridZBottom;
-    QDoubleSpinBox *txtHeightMapGridY;
+    QDoubleSpinBox *heightmapGridX;
+    QDoubleSpinBox *heightmapGridZTop;
+    QDoubleSpinBox *heightmapGridZBottom;
+    QDoubleSpinBox *heightmapGridY;
     QLabel *label_11;
     QLabel *label_13;
     QLabel *label_14;
@@ -114,11 +114,11 @@ public:
     QGridLayout *gridLayout_6;
     QLabel *label_19;
     QLabel *label_18;
-    QDoubleSpinBox *txtHeightMapInterpolationStepX;
-    QDoubleSpinBox *txtHeightMapInterpolationStepY;
+    QDoubleSpinBox *heightmapInterpolationStepX;
+    QDoubleSpinBox *heightmapInterpolationStepY;
     QHBoxLayout *horizontalLayout_23;
     QLabel *label_17;
-    QComboBox *cboHeightMapInterpolationType;
+    QComboBox *heightmapInterpolationType;
     QHBoxLayout *horizontalLayout_24;
     QCheckBox *chkHeightMapInterpolationShow;
     QSpacerItem *horizontalSpacer_8;
@@ -142,7 +142,8 @@ public:
     QLineEdit *txtWPosX;
     QLineEdit *txtWPosY;
     QLineEdit *txtWPosZ;
-    QGridLayout *grpControl;
+    QGroupBox *grpControl;
+    QGridLayout *grpControl_3;
     StyledToolButton *cmdHome;
     StyledToolButton *cmdZeroXY;
     StyledToolButton *cmdTouch;
@@ -154,18 +155,18 @@ public:
     ScrollArea *scrollArea;
     Widget *scrollAreaWidgetContents;
     QVBoxLayout *verticalLayout_21;
-    GroupBox *grpHeightMap;
+    GroupBox *grpHeightmap;
     QVBoxLayout *verticalLayout_16;
-    QWidget *widgetHeightMap;
+    QWidget *widgetHeightmap;
     QVBoxLayout *verticalLayout_15;
-    QCheckBox *chkHeightMapUse;
-    QLineEdit *txtHeightMap;
+    QCheckBox *heightmapUse;
+    QLineEdit *heightmapFile;
     QHBoxLayout *horizontalLayout_22;
     QLabel *label_15;
     QHBoxLayout *horizontalLayout_21;
-    StyledToolButton *cmdHeightMapCreate;
-    StyledToolButton *cmdHeightMapMode;
-    StyledToolButton *cmdHeightMapLoad;
+    StyledToolButton *heightmapCreate;
+    StyledToolButton *heightmapMode;
+    StyledToolButton *heightmapLoad;
     GroupBox *grpSpindle;
     QHBoxLayout *horizontalLayout_2;
     QWidget *widgetSpindle;
@@ -241,7 +242,7 @@ public:
     {
         if (frmMain->objectName().isEmpty())
             frmMain->setObjectName(QString::fromUtf8("frmMain"));
-        frmMain->resize(910, 853);
+        frmMain->resize(912, 853);
         frmMain->setAcceptDrops(true);
         frmMain->setStyleSheet(QString::fromUtf8("/*QWidget {\n"
 "	font-size: 9pt;\n"
@@ -490,9 +491,9 @@ public:
 
         verticalLayout_17->addWidget(splitter);
 
-        grpHeightMapSettings = new QGroupBox(grpProgram);
-        grpHeightMapSettings->setObjectName(QString::fromUtf8("grpHeightMapSettings"));
-        horizontalLayout_20 = new QHBoxLayout(grpHeightMapSettings);
+        grpHeightmapSettings = new QGroupBox(grpProgram);
+        grpHeightmapSettings->setObjectName(QString::fromUtf8("grpHeightmapSettings"));
+        horizontalLayout_20 = new QHBoxLayout(grpHeightmapSettings);
         horizontalLayout_20->setSpacing(11);
         horizontalLayout_20->setContentsMargins(11, 11, 11, 11);
         horizontalLayout_20->setObjectName(QString::fromUtf8("horizontalLayout_20"));
@@ -500,7 +501,7 @@ public:
         verticalLayout_18 = new QVBoxLayout();
         verticalLayout_18->setSpacing(6);
         verticalLayout_18->setObjectName(QString::fromUtf8("verticalLayout_18"));
-        label_5 = new QLabel(grpHeightMapSettings);
+        label_5 = new QLabel(grpHeightmapSettings);
         label_5->setObjectName(QString::fromUtf8("label_5"));
 
         verticalLayout_18->addWidget(label_5);
@@ -508,78 +509,78 @@ public:
         gridLayout = new QGridLayout();
         gridLayout->setSpacing(6);
         gridLayout->setObjectName(QString::fromUtf8("gridLayout"));
-        label_6 = new QLabel(grpHeightMapSettings);
+        label_6 = new QLabel(grpHeightmapSettings);
         label_6->setObjectName(QString::fromUtf8("label_6"));
 
         gridLayout->addWidget(label_6, 0, 0, 1, 1);
 
-        txtHeightMapBorderX = new QDoubleSpinBox(grpHeightMapSettings);
-        txtHeightMapBorderX->setObjectName(QString::fromUtf8("txtHeightMapBorderX"));
+        heightmapBorderX = new QDoubleSpinBox(grpHeightmapSettings);
+        heightmapBorderX->setObjectName(QString::fromUtf8("heightmapBorderX"));
         QSizePolicy sizePolicy1(QSizePolicy::Expanding, QSizePolicy::Fixed);
         sizePolicy1.setHorizontalStretch(0);
         sizePolicy1.setVerticalStretch(0);
-        sizePolicy1.setHeightForWidth(txtHeightMapBorderX->sizePolicy().hasHeightForWidth());
-        txtHeightMapBorderX->setSizePolicy(sizePolicy1);
-        txtHeightMapBorderX->setLocale(QLocale(QLocale::C, QLocale::AnyCountry));
-        txtHeightMapBorderX->setAlignment(Qt::AlignCenter);
-        txtHeightMapBorderX->setButtonSymbols(QAbstractSpinBox::NoButtons);
-        txtHeightMapBorderX->setMinimum(-999.000000000000000);
-        txtHeightMapBorderX->setMaximum(999.000000000000000);
+        sizePolicy1.setHeightForWidth(heightmapBorderX->sizePolicy().hasHeightForWidth());
+        heightmapBorderX->setSizePolicy(sizePolicy1);
+        heightmapBorderX->setLocale(QLocale(QLocale::C, QLocale::AnyCountry));
+        heightmapBorderX->setAlignment(Qt::AlignCenter);
+        heightmapBorderX->setButtonSymbols(QAbstractSpinBox::NoButtons);
+        heightmapBorderX->setMinimum(-999.000000000000000);
+        heightmapBorderX->setMaximum(999.000000000000000);
 
-        gridLayout->addWidget(txtHeightMapBorderX, 0, 1, 1, 1);
+        gridLayout->addWidget(heightmapBorderX, 0, 1, 1, 1);
 
-        txtHeightMapBorderHeight = new QDoubleSpinBox(grpHeightMapSettings);
-        txtHeightMapBorderHeight->setObjectName(QString::fromUtf8("txtHeightMapBorderHeight"));
-        sizePolicy1.setHeightForWidth(txtHeightMapBorderHeight->sizePolicy().hasHeightForWidth());
-        txtHeightMapBorderHeight->setSizePolicy(sizePolicy1);
-        txtHeightMapBorderHeight->setLocale(QLocale(QLocale::C, QLocale::AnyCountry));
-        txtHeightMapBorderHeight->setAlignment(Qt::AlignCenter);
-        txtHeightMapBorderHeight->setButtonSymbols(QAbstractSpinBox::NoButtons);
-        txtHeightMapBorderHeight->setMinimum(-999.000000000000000);
-        txtHeightMapBorderHeight->setMaximum(999.000000000000000);
-        txtHeightMapBorderHeight->setValue(10.000000000000000);
+        heightmapBorderHeight = new QDoubleSpinBox(grpHeightmapSettings);
+        heightmapBorderHeight->setObjectName(QString::fromUtf8("heightmapBorderHeight"));
+        sizePolicy1.setHeightForWidth(heightmapBorderHeight->sizePolicy().hasHeightForWidth());
+        heightmapBorderHeight->setSizePolicy(sizePolicy1);
+        heightmapBorderHeight->setLocale(QLocale(QLocale::C, QLocale::AnyCountry));
+        heightmapBorderHeight->setAlignment(Qt::AlignCenter);
+        heightmapBorderHeight->setButtonSymbols(QAbstractSpinBox::NoButtons);
+        heightmapBorderHeight->setMinimum(-999.000000000000000);
+        heightmapBorderHeight->setMaximum(999.000000000000000);
+        heightmapBorderHeight->setValue(10.000000000000000);
 
-        gridLayout->addWidget(txtHeightMapBorderHeight, 1, 3, 1, 1);
+        gridLayout->addWidget(heightmapBorderHeight, 1, 3, 1, 1);
 
-        label_9 = new QLabel(grpHeightMapSettings);
+        label_9 = new QLabel(grpHeightmapSettings);
         label_9->setObjectName(QString::fromUtf8("label_9"));
 
         gridLayout->addWidget(label_9, 1, 2, 1, 1);
 
-        txtHeightMapBorderY = new QDoubleSpinBox(grpHeightMapSettings);
-        txtHeightMapBorderY->setObjectName(QString::fromUtf8("txtHeightMapBorderY"));
-        sizePolicy1.setHeightForWidth(txtHeightMapBorderY->sizePolicy().hasHeightForWidth());
-        txtHeightMapBorderY->setSizePolicy(sizePolicy1);
-        txtHeightMapBorderY->setLocale(QLocale(QLocale::C, QLocale::AnyCountry));
-        txtHeightMapBorderY->setAlignment(Qt::AlignCenter);
-        txtHeightMapBorderY->setButtonSymbols(QAbstractSpinBox::NoButtons);
-        txtHeightMapBorderY->setMinimum(-999.000000000000000);
-        txtHeightMapBorderY->setMaximum(999.000000000000000);
+        heightmapBorderY = new QDoubleSpinBox(grpHeightmapSettings);
+        heightmapBorderY->setObjectName(QString::fromUtf8("heightmapBorderY"));
+        sizePolicy1.setHeightForWidth(heightmapBorderY->sizePolicy().hasHeightForWidth());
+        heightmapBorderY->setSizePolicy(sizePolicy1);
+        heightmapBorderY->setLocale(QLocale(QLocale::C, QLocale::AnyCountry));
+        heightmapBorderY->setAlignment(Qt::AlignCenter);
+        heightmapBorderY->setButtonSymbols(QAbstractSpinBox::NoButtons);
+        heightmapBorderY->setMinimum(-999.000000000000000);
+        heightmapBorderY->setMaximum(999.000000000000000);
 
-        gridLayout->addWidget(txtHeightMapBorderY, 1, 1, 1, 1);
+        gridLayout->addWidget(heightmapBorderY, 1, 1, 1, 1);
 
-        label_7 = new QLabel(grpHeightMapSettings);
+        label_7 = new QLabel(grpHeightmapSettings);
         label_7->setObjectName(QString::fromUtf8("label_7"));
 
         gridLayout->addWidget(label_7, 1, 0, 1, 1);
 
-        label_8 = new QLabel(grpHeightMapSettings);
+        label_8 = new QLabel(grpHeightmapSettings);
         label_8->setObjectName(QString::fromUtf8("label_8"));
 
         gridLayout->addWidget(label_8, 0, 2, 1, 1);
 
-        txtHeightMapBorderWidth = new QDoubleSpinBox(grpHeightMapSettings);
-        txtHeightMapBorderWidth->setObjectName(QString::fromUtf8("txtHeightMapBorderWidth"));
-        sizePolicy1.setHeightForWidth(txtHeightMapBorderWidth->sizePolicy().hasHeightForWidth());
-        txtHeightMapBorderWidth->setSizePolicy(sizePolicy1);
-        txtHeightMapBorderWidth->setLocale(QLocale(QLocale::C, QLocale::AnyCountry));
-        txtHeightMapBorderWidth->setAlignment(Qt::AlignCenter);
-        txtHeightMapBorderWidth->setButtonSymbols(QAbstractSpinBox::NoButtons);
-        txtHeightMapBorderWidth->setMinimum(-999.000000000000000);
-        txtHeightMapBorderWidth->setMaximum(999.000000000000000);
-        txtHeightMapBorderWidth->setValue(10.000000000000000);
+        heightmapBorderWidth = new QDoubleSpinBox(grpHeightmapSettings);
+        heightmapBorderWidth->setObjectName(QString::fromUtf8("heightmapBorderWidth"));
+        sizePolicy1.setHeightForWidth(heightmapBorderWidth->sizePolicy().hasHeightForWidth());
+        heightmapBorderWidth->setSizePolicy(sizePolicy1);
+        heightmapBorderWidth->setLocale(QLocale(QLocale::C, QLocale::AnyCountry));
+        heightmapBorderWidth->setAlignment(Qt::AlignCenter);
+        heightmapBorderWidth->setButtonSymbols(QAbstractSpinBox::NoButtons);
+        heightmapBorderWidth->setMinimum(-999.000000000000000);
+        heightmapBorderWidth->setMaximum(999.000000000000000);
+        heightmapBorderWidth->setValue(10.000000000000000);
 
-        gridLayout->addWidget(txtHeightMapBorderWidth, 0, 3, 1, 1);
+        gridLayout->addWidget(heightmapBorderWidth, 0, 3, 1, 1);
 
 
         verticalLayout_18->addLayout(gridLayout);
@@ -587,13 +588,13 @@ public:
         horizontalLayout_18 = new QHBoxLayout();
         horizontalLayout_18->setSpacing(6);
         horizontalLayout_18->setObjectName(QString::fromUtf8("horizontalLayout_18"));
-        chkHeightMapBorderShow = new QCheckBox(grpHeightMapSettings);
+        chkHeightMapBorderShow = new QCheckBox(grpHeightmapSettings);
         chkHeightMapBorderShow->setObjectName(QString::fromUtf8("chkHeightMapBorderShow"));
         chkHeightMapBorderShow->setChecked(true);
 
         horizontalLayout_18->addWidget(chkHeightMapBorderShow);
 
-        cmdHeightMapBorderAuto = new StyledToolButton(grpHeightMapSettings);
+        cmdHeightMapBorderAuto = new StyledToolButton(grpHeightmapSettings);
         cmdHeightMapBorderAuto->setObjectName(QString::fromUtf8("cmdHeightMapBorderAuto"));
         cmdHeightMapBorderAuto->setMinimumSize(QSize(44, 18));
 
@@ -608,7 +609,7 @@ public:
         verticalLayout_19 = new QVBoxLayout();
         verticalLayout_19->setSpacing(6);
         verticalLayout_19->setObjectName(QString::fromUtf8("verticalLayout_19"));
-        label_10 = new QLabel(grpHeightMapSettings);
+        label_10 = new QLabel(grpHeightmapSettings);
         label_10->setObjectName(QString::fromUtf8("label_10"));
 
         verticalLayout_19->addWidget(label_10);
@@ -616,76 +617,76 @@ public:
         gridLayout_4 = new QGridLayout();
         gridLayout_4->setSpacing(6);
         gridLayout_4->setObjectName(QString::fromUtf8("gridLayout_4"));
-        label_12 = new QLabel(grpHeightMapSettings);
+        label_12 = new QLabel(grpHeightmapSettings);
         label_12->setObjectName(QString::fromUtf8("label_12"));
 
         gridLayout_4->addWidget(label_12, 0, 0, 1, 1);
 
-        txtHeightMapGridX = new QDoubleSpinBox(grpHeightMapSettings);
-        txtHeightMapGridX->setObjectName(QString::fromUtf8("txtHeightMapGridX"));
-        sizePolicy1.setHeightForWidth(txtHeightMapGridX->sizePolicy().hasHeightForWidth());
-        txtHeightMapGridX->setSizePolicy(sizePolicy1);
-        txtHeightMapGridX->setLocale(QLocale(QLocale::C, QLocale::AnyCountry));
-        txtHeightMapGridX->setAlignment(Qt::AlignCenter);
-        txtHeightMapGridX->setButtonSymbols(QAbstractSpinBox::NoButtons);
-        txtHeightMapGridX->setDecimals(0);
-        txtHeightMapGridX->setMinimum(2.000000000000000);
-        txtHeightMapGridX->setMaximum(1000.000000000000000);
-        txtHeightMapGridX->setValue(2.000000000000000);
+        heightmapGridX = new QDoubleSpinBox(grpHeightmapSettings);
+        heightmapGridX->setObjectName(QString::fromUtf8("heightmapGridX"));
+        sizePolicy1.setHeightForWidth(heightmapGridX->sizePolicy().hasHeightForWidth());
+        heightmapGridX->setSizePolicy(sizePolicy1);
+        heightmapGridX->setLocale(QLocale(QLocale::C, QLocale::AnyCountry));
+        heightmapGridX->setAlignment(Qt::AlignCenter);
+        heightmapGridX->setButtonSymbols(QAbstractSpinBox::NoButtons);
+        heightmapGridX->setDecimals(0);
+        heightmapGridX->setMinimum(2.000000000000000);
+        heightmapGridX->setMaximum(1000.000000000000000);
+        heightmapGridX->setValue(2.000000000000000);
 
-        gridLayout_4->addWidget(txtHeightMapGridX, 0, 1, 1, 1);
+        gridLayout_4->addWidget(heightmapGridX, 0, 1, 1, 1);
 
-        txtHeightMapGridZTop = new QDoubleSpinBox(grpHeightMapSettings);
-        txtHeightMapGridZTop->setObjectName(QString::fromUtf8("txtHeightMapGridZTop"));
-        sizePolicy1.setHeightForWidth(txtHeightMapGridZTop->sizePolicy().hasHeightForWidth());
-        txtHeightMapGridZTop->setSizePolicy(sizePolicy1);
-        txtHeightMapGridZTop->setLocale(QLocale(QLocale::C, QLocale::AnyCountry));
-        txtHeightMapGridZTop->setAlignment(Qt::AlignCenter);
-        txtHeightMapGridZTop->setButtonSymbols(QAbstractSpinBox::NoButtons);
-        txtHeightMapGridZTop->setMinimum(-999.000000000000000);
-        txtHeightMapGridZTop->setMaximum(999.000000000000000);
-        txtHeightMapGridZTop->setValue(1.000000000000000);
+        heightmapGridZTop = new QDoubleSpinBox(grpHeightmapSettings);
+        heightmapGridZTop->setObjectName(QString::fromUtf8("heightmapGridZTop"));
+        sizePolicy1.setHeightForWidth(heightmapGridZTop->sizePolicy().hasHeightForWidth());
+        heightmapGridZTop->setSizePolicy(sizePolicy1);
+        heightmapGridZTop->setLocale(QLocale(QLocale::C, QLocale::AnyCountry));
+        heightmapGridZTop->setAlignment(Qt::AlignCenter);
+        heightmapGridZTop->setButtonSymbols(QAbstractSpinBox::NoButtons);
+        heightmapGridZTop->setMinimum(-999.000000000000000);
+        heightmapGridZTop->setMaximum(999.000000000000000);
+        heightmapGridZTop->setValue(1.000000000000000);
 
-        gridLayout_4->addWidget(txtHeightMapGridZTop, 0, 5, 1, 1);
+        gridLayout_4->addWidget(heightmapGridZTop, 0, 5, 1, 1);
 
-        txtHeightMapGridZBottom = new QDoubleSpinBox(grpHeightMapSettings);
-        txtHeightMapGridZBottom->setObjectName(QString::fromUtf8("txtHeightMapGridZBottom"));
-        sizePolicy1.setHeightForWidth(txtHeightMapGridZBottom->sizePolicy().hasHeightForWidth());
-        txtHeightMapGridZBottom->setSizePolicy(sizePolicy1);
-        txtHeightMapGridZBottom->setLocale(QLocale(QLocale::C, QLocale::AnyCountry));
-        txtHeightMapGridZBottom->setAlignment(Qt::AlignCenter);
-        txtHeightMapGridZBottom->setButtonSymbols(QAbstractSpinBox::NoButtons);
-        txtHeightMapGridZBottom->setMinimum(-999.000000000000000);
-        txtHeightMapGridZBottom->setMaximum(999.000000000000000);
-        txtHeightMapGridZBottom->setValue(-1.000000000000000);
+        heightmapGridZBottom = new QDoubleSpinBox(grpHeightmapSettings);
+        heightmapGridZBottom->setObjectName(QString::fromUtf8("heightmapGridZBottom"));
+        sizePolicy1.setHeightForWidth(heightmapGridZBottom->sizePolicy().hasHeightForWidth());
+        heightmapGridZBottom->setSizePolicy(sizePolicy1);
+        heightmapGridZBottom->setLocale(QLocale(QLocale::C, QLocale::AnyCountry));
+        heightmapGridZBottom->setAlignment(Qt::AlignCenter);
+        heightmapGridZBottom->setButtonSymbols(QAbstractSpinBox::NoButtons);
+        heightmapGridZBottom->setMinimum(-999.000000000000000);
+        heightmapGridZBottom->setMaximum(999.000000000000000);
+        heightmapGridZBottom->setValue(-1.000000000000000);
 
-        gridLayout_4->addWidget(txtHeightMapGridZBottom, 1, 5, 1, 1);
+        gridLayout_4->addWidget(heightmapGridZBottom, 1, 5, 1, 1);
 
-        txtHeightMapGridY = new QDoubleSpinBox(grpHeightMapSettings);
-        txtHeightMapGridY->setObjectName(QString::fromUtf8("txtHeightMapGridY"));
-        sizePolicy1.setHeightForWidth(txtHeightMapGridY->sizePolicy().hasHeightForWidth());
-        txtHeightMapGridY->setSizePolicy(sizePolicy1);
-        txtHeightMapGridY->setLocale(QLocale(QLocale::C, QLocale::AnyCountry));
-        txtHeightMapGridY->setAlignment(Qt::AlignCenter);
-        txtHeightMapGridY->setButtonSymbols(QAbstractSpinBox::NoButtons);
-        txtHeightMapGridY->setDecimals(0);
-        txtHeightMapGridY->setMinimum(2.000000000000000);
-        txtHeightMapGridY->setMaximum(1000.000000000000000);
-        txtHeightMapGridY->setValue(2.000000000000000);
+        heightmapGridY = new QDoubleSpinBox(grpHeightmapSettings);
+        heightmapGridY->setObjectName(QString::fromUtf8("heightmapGridY"));
+        sizePolicy1.setHeightForWidth(heightmapGridY->sizePolicy().hasHeightForWidth());
+        heightmapGridY->setSizePolicy(sizePolicy1);
+        heightmapGridY->setLocale(QLocale(QLocale::C, QLocale::AnyCountry));
+        heightmapGridY->setAlignment(Qt::AlignCenter);
+        heightmapGridY->setButtonSymbols(QAbstractSpinBox::NoButtons);
+        heightmapGridY->setDecimals(0);
+        heightmapGridY->setMinimum(2.000000000000000);
+        heightmapGridY->setMaximum(1000.000000000000000);
+        heightmapGridY->setValue(2.000000000000000);
 
-        gridLayout_4->addWidget(txtHeightMapGridY, 1, 1, 1, 1);
+        gridLayout_4->addWidget(heightmapGridY, 1, 1, 1, 1);
 
-        label_11 = new QLabel(grpHeightMapSettings);
+        label_11 = new QLabel(grpHeightmapSettings);
         label_11->setObjectName(QString::fromUtf8("label_11"));
 
         gridLayout_4->addWidget(label_11, 1, 3, 1, 1);
 
-        label_13 = new QLabel(grpHeightMapSettings);
+        label_13 = new QLabel(grpHeightmapSettings);
         label_13->setObjectName(QString::fromUtf8("label_13"));
 
         gridLayout_4->addWidget(label_13, 1, 0, 1, 1);
 
-        label_14 = new QLabel(grpHeightMapSettings);
+        label_14 = new QLabel(grpHeightmapSettings);
         label_14->setObjectName(QString::fromUtf8("label_14"));
 
         gridLayout_4->addWidget(label_14, 0, 3, 1, 1);
@@ -696,7 +697,7 @@ public:
         horizontalLayout_19 = new QHBoxLayout();
         horizontalLayout_19->setSpacing(6);
         horizontalLayout_19->setObjectName(QString::fromUtf8("horizontalLayout_19"));
-        chkHeightMapGridShow = new QCheckBox(grpHeightMapSettings);
+        chkHeightMapGridShow = new QCheckBox(grpHeightmapSettings);
         chkHeightMapGridShow->setObjectName(QString::fromUtf8("chkHeightMapGridShow"));
         chkHeightMapGridShow->setChecked(true);
 
@@ -715,7 +716,7 @@ public:
         verticalLayout_20 = new QVBoxLayout();
         verticalLayout_20->setSpacing(6);
         verticalLayout_20->setObjectName(QString::fromUtf8("verticalLayout_20"));
-        label_16 = new QLabel(grpHeightMapSettings);
+        label_16 = new QLabel(grpHeightmapSettings);
         label_16->setObjectName(QString::fromUtf8("label_16"));
 
         verticalLayout_20->addWidget(label_16);
@@ -723,43 +724,43 @@ public:
         gridLayout_6 = new QGridLayout();
         gridLayout_6->setSpacing(6);
         gridLayout_6->setObjectName(QString::fromUtf8("gridLayout_6"));
-        label_19 = new QLabel(grpHeightMapSettings);
+        label_19 = new QLabel(grpHeightmapSettings);
         label_19->setObjectName(QString::fromUtf8("label_19"));
 
         gridLayout_6->addWidget(label_19, 1, 2, 1, 1);
 
-        label_18 = new QLabel(grpHeightMapSettings);
+        label_18 = new QLabel(grpHeightmapSettings);
         label_18->setObjectName(QString::fromUtf8("label_18"));
 
         gridLayout_6->addWidget(label_18, 1, 0, 1, 1);
 
-        txtHeightMapInterpolationStepX = new QDoubleSpinBox(grpHeightMapSettings);
-        txtHeightMapInterpolationStepX->setObjectName(QString::fromUtf8("txtHeightMapInterpolationStepX"));
-        sizePolicy1.setHeightForWidth(txtHeightMapInterpolationStepX->sizePolicy().hasHeightForWidth());
-        txtHeightMapInterpolationStepX->setSizePolicy(sizePolicy1);
-        txtHeightMapInterpolationStepX->setLocale(QLocale(QLocale::C, QLocale::AnyCountry));
-        txtHeightMapInterpolationStepX->setAlignment(Qt::AlignCenter);
-        txtHeightMapInterpolationStepX->setButtonSymbols(QAbstractSpinBox::NoButtons);
-        txtHeightMapInterpolationStepX->setDecimals(0);
-        txtHeightMapInterpolationStepX->setMinimum(2.000000000000000);
-        txtHeightMapInterpolationStepX->setMaximum(1000.000000000000000);
-        txtHeightMapInterpolationStepX->setValue(2.000000000000000);
+        heightmapInterpolationStepX = new QDoubleSpinBox(grpHeightmapSettings);
+        heightmapInterpolationStepX->setObjectName(QString::fromUtf8("heightmapInterpolationStepX"));
+        sizePolicy1.setHeightForWidth(heightmapInterpolationStepX->sizePolicy().hasHeightForWidth());
+        heightmapInterpolationStepX->setSizePolicy(sizePolicy1);
+        heightmapInterpolationStepX->setLocale(QLocale(QLocale::C, QLocale::AnyCountry));
+        heightmapInterpolationStepX->setAlignment(Qt::AlignCenter);
+        heightmapInterpolationStepX->setButtonSymbols(QAbstractSpinBox::NoButtons);
+        heightmapInterpolationStepX->setDecimals(0);
+        heightmapInterpolationStepX->setMinimum(2.000000000000000);
+        heightmapInterpolationStepX->setMaximum(1000.000000000000000);
+        heightmapInterpolationStepX->setValue(2.000000000000000);
 
-        gridLayout_6->addWidget(txtHeightMapInterpolationStepX, 1, 1, 1, 1);
+        gridLayout_6->addWidget(heightmapInterpolationStepX, 1, 1, 1, 1);
 
-        txtHeightMapInterpolationStepY = new QDoubleSpinBox(grpHeightMapSettings);
-        txtHeightMapInterpolationStepY->setObjectName(QString::fromUtf8("txtHeightMapInterpolationStepY"));
-        sizePolicy1.setHeightForWidth(txtHeightMapInterpolationStepY->sizePolicy().hasHeightForWidth());
-        txtHeightMapInterpolationStepY->setSizePolicy(sizePolicy1);
-        txtHeightMapInterpolationStepY->setLocale(QLocale(QLocale::C, QLocale::AnyCountry));
-        txtHeightMapInterpolationStepY->setAlignment(Qt::AlignCenter);
-        txtHeightMapInterpolationStepY->setButtonSymbols(QAbstractSpinBox::NoButtons);
-        txtHeightMapInterpolationStepY->setDecimals(0);
-        txtHeightMapInterpolationStepY->setMinimum(2.000000000000000);
-        txtHeightMapInterpolationStepY->setMaximum(1000.000000000000000);
-        txtHeightMapInterpolationStepY->setValue(2.000000000000000);
+        heightmapInterpolationStepY = new QDoubleSpinBox(grpHeightmapSettings);
+        heightmapInterpolationStepY->setObjectName(QString::fromUtf8("heightmapInterpolationStepY"));
+        sizePolicy1.setHeightForWidth(heightmapInterpolationStepY->sizePolicy().hasHeightForWidth());
+        heightmapInterpolationStepY->setSizePolicy(sizePolicy1);
+        heightmapInterpolationStepY->setLocale(QLocale(QLocale::C, QLocale::AnyCountry));
+        heightmapInterpolationStepY->setAlignment(Qt::AlignCenter);
+        heightmapInterpolationStepY->setButtonSymbols(QAbstractSpinBox::NoButtons);
+        heightmapInterpolationStepY->setDecimals(0);
+        heightmapInterpolationStepY->setMinimum(2.000000000000000);
+        heightmapInterpolationStepY->setMaximum(1000.000000000000000);
+        heightmapInterpolationStepY->setValue(2.000000000000000);
 
-        gridLayout_6->addWidget(txtHeightMapInterpolationStepY, 1, 3, 1, 1);
+        gridLayout_6->addWidget(heightmapInterpolationStepY, 1, 3, 1, 1);
 
 
         verticalLayout_20->addLayout(gridLayout_6);
@@ -767,19 +768,19 @@ public:
         horizontalLayout_23 = new QHBoxLayout();
         horizontalLayout_23->setSpacing(6);
         horizontalLayout_23->setObjectName(QString::fromUtf8("horizontalLayout_23"));
-        label_17 = new QLabel(grpHeightMapSettings);
+        label_17 = new QLabel(grpHeightmapSettings);
         label_17->setObjectName(QString::fromUtf8("label_17"));
 
         horizontalLayout_23->addWidget(label_17);
 
-        cboHeightMapInterpolationType = new QComboBox(grpHeightMapSettings);
-        cboHeightMapInterpolationType->addItem(QString());
-        cboHeightMapInterpolationType->setObjectName(QString::fromUtf8("cboHeightMapInterpolationType"));
-        cboHeightMapInterpolationType->setEnabled(false);
-        sizePolicy1.setHeightForWidth(cboHeightMapInterpolationType->sizePolicy().hasHeightForWidth());
-        cboHeightMapInterpolationType->setSizePolicy(sizePolicy1);
+        heightmapInterpolationType = new QComboBox(grpHeightmapSettings);
+        heightmapInterpolationType->addItem(QString());
+        heightmapInterpolationType->setObjectName(QString::fromUtf8("heightmapInterpolationType"));
+        heightmapInterpolationType->setEnabled(false);
+        sizePolicy1.setHeightForWidth(heightmapInterpolationType->sizePolicy().hasHeightForWidth());
+        heightmapInterpolationType->setSizePolicy(sizePolicy1);
 
-        horizontalLayout_23->addWidget(cboHeightMapInterpolationType);
+        horizontalLayout_23->addWidget(heightmapInterpolationType);
 
 
         verticalLayout_20->addLayout(horizontalLayout_23);
@@ -787,7 +788,7 @@ public:
         horizontalLayout_24 = new QHBoxLayout();
         horizontalLayout_24->setSpacing(6);
         horizontalLayout_24->setObjectName(QString::fromUtf8("horizontalLayout_24"));
-        chkHeightMapInterpolationShow = new QCheckBox(grpHeightMapSettings);
+        chkHeightMapInterpolationShow = new QCheckBox(grpHeightmapSettings);
         chkHeightMapInterpolationShow->setObjectName(QString::fromUtf8("chkHeightMapInterpolationShow"));
 
         horizontalLayout_24->addWidget(chkHeightMapInterpolationShow);
@@ -806,7 +807,7 @@ public:
         horizontalLayout_20->setStretch(1, 1);
         horizontalLayout_20->setStretch(2, 1);
 
-        verticalLayout_17->addWidget(grpHeightMapSettings);
+        verticalLayout_17->addWidget(grpHeightmapSettings);
 
         horizontalLayout_3 = new QHBoxLayout();
         horizontalLayout_3->setSpacing(6);
@@ -926,11 +927,14 @@ public:
 
         verticalLayout_6->addLayout(verticalLayout_4);
 
-        grpControl = new QGridLayout();
-        grpControl->setSpacing(6);
+        grpControl = new QGroupBox(grpState);
         grpControl->setObjectName(QString::fromUtf8("grpControl"));
-        grpControl->setHorizontalSpacing(0);
-        cmdHome = new StyledToolButton(grpState);
+        grpControl_3 = new QGridLayout(grpControl);
+        grpControl_3->setSpacing(6);
+        grpControl_3->setContentsMargins(11, 11, 11, 11);
+        grpControl_3->setObjectName(QString::fromUtf8("grpControl_3"));
+        grpControl_3->setHorizontalSpacing(0);
+        cmdHome = new StyledToolButton(grpControl);
         cmdHome->setObjectName(QString::fromUtf8("cmdHome"));
         cmdHome->setMinimumSize(QSize(32, 32));
         QIcon icon5;
@@ -938,9 +942,9 @@ public:
         cmdHome->setIcon(icon5);
         cmdHome->setIconSize(QSize(30, 30));
 
-        grpControl->addWidget(cmdHome, 0, 1, 1, 1);
+        grpControl_3->addWidget(cmdHome, 0, 1, 1, 1);
 
-        cmdZeroXY = new StyledToolButton(grpState);
+        cmdZeroXY = new StyledToolButton(grpControl);
         cmdZeroXY->setObjectName(QString::fromUtf8("cmdZeroXY"));
         cmdZeroXY->setMinimumSize(QSize(32, 32));
         QIcon icon6;
@@ -948,9 +952,9 @@ public:
         cmdZeroXY->setIcon(icon6);
         cmdZeroXY->setIconSize(QSize(30, 30));
 
-        grpControl->addWidget(cmdZeroXY, 0, 3, 1, 1);
+        grpControl_3->addWidget(cmdZeroXY, 0, 3, 1, 1);
 
-        cmdTouch = new StyledToolButton(grpState);
+        cmdTouch = new StyledToolButton(grpControl);
         cmdTouch->setObjectName(QString::fromUtf8("cmdTouch"));
         cmdTouch->setMinimumSize(QSize(32, 32));
         QIcon icon7;
@@ -958,9 +962,9 @@ public:
         cmdTouch->setIcon(icon7);
         cmdTouch->setIconSize(QSize(30, 30));
 
-        grpControl->addWidget(cmdTouch, 0, 2, 1, 1);
+        grpControl_3->addWidget(cmdTouch, 0, 2, 1, 1);
 
-        cmdZeroZ = new StyledToolButton(grpState);
+        cmdZeroZ = new StyledToolButton(grpControl);
         cmdZeroZ->setObjectName(QString::fromUtf8("cmdZeroZ"));
         cmdZeroZ->setMinimumSize(QSize(32, 32));
         QIcon icon8;
@@ -968,9 +972,9 @@ public:
         cmdZeroZ->setIcon(icon8);
         cmdZeroZ->setIconSize(QSize(30, 30));
 
-        grpControl->addWidget(cmdZeroZ, 0, 4, 1, 1);
+        grpControl_3->addWidget(cmdZeroZ, 0, 4, 1, 1);
 
-        cmdReset = new StyledToolButton(grpState);
+        cmdReset = new StyledToolButton(grpControl);
         cmdReset->setObjectName(QString::fromUtf8("cmdReset"));
         cmdReset->setMinimumSize(QSize(32, 32));
         QIcon icon9;
@@ -978,9 +982,9 @@ public:
         cmdReset->setIcon(icon9);
         cmdReset->setIconSize(QSize(30, 30));
 
-        grpControl->addWidget(cmdReset, 0, 5, 1, 1);
+        grpControl_3->addWidget(cmdReset, 0, 5, 1, 1);
 
-        cmdUnlock = new StyledToolButton(grpState);
+        cmdUnlock = new StyledToolButton(grpControl);
         cmdUnlock->setObjectName(QString::fromUtf8("cmdUnlock"));
         cmdUnlock->setEnabled(true);
         cmdUnlock->setMinimumSize(QSize(32, 32));
@@ -990,10 +994,10 @@ public:
         cmdUnlock->setIcon(icon10);
         cmdUnlock->setIconSize(QSize(24, 24));
 
-        grpControl->addWidget(cmdUnlock, 0, 6, 1, 1);
+        grpControl_3->addWidget(cmdUnlock, 0, 6, 1, 1);
 
 
-        verticalLayout_6->addLayout(grpControl);
+        verticalLayout_6->addWidget(grpControl);
 
 
         horizontalLayout_27->addWidget(grpState);
@@ -1041,39 +1045,39 @@ public:
         verticalLayout_21->setContentsMargins(11, 11, 11, 11);
         verticalLayout_21->setObjectName(QString::fromUtf8("verticalLayout_21"));
         verticalLayout_21->setContentsMargins(0, 0, 4, 0);
-        grpHeightMap = new GroupBox(scrollAreaWidgetContents);
-        grpHeightMap->setObjectName(QString::fromUtf8("grpHeightMap"));
-        grpHeightMap->setCheckable(true);
-        grpHeightMap->setProperty("overrided", QVariant(false));
-        verticalLayout_16 = new QVBoxLayout(grpHeightMap);
+        grpHeightmap = new GroupBox(scrollAreaWidgetContents);
+        grpHeightmap->setObjectName(QString::fromUtf8("grpHeightmap"));
+        grpHeightmap->setCheckable(true);
+        grpHeightmap->setProperty("overrided", QVariant(false));
+        verticalLayout_16 = new QVBoxLayout(grpHeightmap);
         verticalLayout_16->setSpacing(6);
         verticalLayout_16->setContentsMargins(11, 11, 11, 11);
         verticalLayout_16->setObjectName(QString::fromUtf8("verticalLayout_16"));
         verticalLayout_16->setContentsMargins(8, 8, 8, 9);
-        widgetHeightMap = new QWidget(grpHeightMap);
-        widgetHeightMap->setObjectName(QString::fromUtf8("widgetHeightMap"));
-        verticalLayout_15 = new QVBoxLayout(widgetHeightMap);
+        widgetHeightmap = new QWidget(grpHeightmap);
+        widgetHeightmap->setObjectName(QString::fromUtf8("widgetHeightmap"));
+        verticalLayout_15 = new QVBoxLayout(widgetHeightmap);
         verticalLayout_15->setSpacing(7);
         verticalLayout_15->setContentsMargins(11, 11, 11, 11);
         verticalLayout_15->setObjectName(QString::fromUtf8("verticalLayout_15"));
         verticalLayout_15->setContentsMargins(0, 0, 0, 0);
-        chkHeightMapUse = new QCheckBox(widgetHeightMap);
-        chkHeightMapUse->setObjectName(QString::fromUtf8("chkHeightMapUse"));
+        heightmapUse = new QCheckBox(widgetHeightmap);
+        heightmapUse->setObjectName(QString::fromUtf8("heightmapUse"));
 
-        verticalLayout_15->addWidget(chkHeightMapUse);
+        verticalLayout_15->addWidget(heightmapUse);
 
-        txtHeightMap = new QLineEdit(widgetHeightMap);
-        txtHeightMap->setObjectName(QString::fromUtf8("txtHeightMap"));
-        txtHeightMap->setFocusPolicy(Qt::NoFocus);
-        txtHeightMap->setAlignment(Qt::AlignCenter);
-        txtHeightMap->setReadOnly(true);
+        heightmapFile = new QLineEdit(widgetHeightmap);
+        heightmapFile->setObjectName(QString::fromUtf8("heightmapFile"));
+        heightmapFile->setFocusPolicy(Qt::NoFocus);
+        heightmapFile->setAlignment(Qt::AlignCenter);
+        heightmapFile->setReadOnly(true);
 
-        verticalLayout_15->addWidget(txtHeightMap);
+        verticalLayout_15->addWidget(heightmapFile);
 
         horizontalLayout_22 = new QHBoxLayout();
         horizontalLayout_22->setSpacing(6);
         horizontalLayout_22->setObjectName(QString::fromUtf8("horizontalLayout_22"));
-        label_15 = new QLabel(widgetHeightMap);
+        label_15 = new QLabel(widgetHeightmap);
         label_15->setObjectName(QString::fromUtf8("label_15"));
 
         horizontalLayout_22->addWidget(label_15);
@@ -1084,39 +1088,39 @@ public:
         horizontalLayout_21 = new QHBoxLayout();
         horizontalLayout_21->setSpacing(6);
         horizontalLayout_21->setObjectName(QString::fromUtf8("horizontalLayout_21"));
-        cmdHeightMapCreate = new StyledToolButton(widgetHeightMap);
-        cmdHeightMapCreate->setObjectName(QString::fromUtf8("cmdHeightMapCreate"));
-        sizePolicy2.setHeightForWidth(cmdHeightMapCreate->sizePolicy().hasHeightForWidth());
-        cmdHeightMapCreate->setSizePolicy(sizePolicy2);
-        cmdHeightMapCreate->setMinimumSize(QSize(0, 25));
+        heightmapCreate = new StyledToolButton(widgetHeightmap);
+        heightmapCreate->setObjectName(QString::fromUtf8("heightmapCreate"));
+        sizePolicy2.setHeightForWidth(heightmapCreate->sizePolicy().hasHeightForWidth());
+        heightmapCreate->setSizePolicy(sizePolicy2);
+        heightmapCreate->setMinimumSize(QSize(0, 25));
 
-        horizontalLayout_21->addWidget(cmdHeightMapCreate);
+        horizontalLayout_21->addWidget(heightmapCreate);
 
-        cmdHeightMapMode = new StyledToolButton(widgetHeightMap);
-        cmdHeightMapMode->setObjectName(QString::fromUtf8("cmdHeightMapMode"));
-        sizePolicy2.setHeightForWidth(cmdHeightMapMode->sizePolicy().hasHeightForWidth());
-        cmdHeightMapMode->setSizePolicy(sizePolicy2);
-        cmdHeightMapMode->setMinimumSize(QSize(42, 25));
-        cmdHeightMapMode->setCheckable(true);
+        heightmapMode = new StyledToolButton(widgetHeightmap);
+        heightmapMode->setObjectName(QString::fromUtf8("heightmapMode"));
+        sizePolicy2.setHeightForWidth(heightmapMode->sizePolicy().hasHeightForWidth());
+        heightmapMode->setSizePolicy(sizePolicy2);
+        heightmapMode->setMinimumSize(QSize(42, 25));
+        heightmapMode->setCheckable(true);
 
-        horizontalLayout_21->addWidget(cmdHeightMapMode);
+        horizontalLayout_21->addWidget(heightmapMode);
 
-        cmdHeightMapLoad = new StyledToolButton(widgetHeightMap);
-        cmdHeightMapLoad->setObjectName(QString::fromUtf8("cmdHeightMapLoad"));
-        sizePolicy2.setHeightForWidth(cmdHeightMapLoad->sizePolicy().hasHeightForWidth());
-        cmdHeightMapLoad->setSizePolicy(sizePolicy2);
-        cmdHeightMapLoad->setMinimumSize(QSize(0, 25));
+        heightmapLoad = new StyledToolButton(widgetHeightmap);
+        heightmapLoad->setObjectName(QString::fromUtf8("heightmapLoad"));
+        sizePolicy2.setHeightForWidth(heightmapLoad->sizePolicy().hasHeightForWidth());
+        heightmapLoad->setSizePolicy(sizePolicy2);
+        heightmapLoad->setMinimumSize(QSize(0, 25));
 
-        horizontalLayout_21->addWidget(cmdHeightMapLoad);
+        horizontalLayout_21->addWidget(heightmapLoad);
 
 
         verticalLayout_15->addLayout(horizontalLayout_21);
 
 
-        verticalLayout_16->addWidget(widgetHeightMap);
+        verticalLayout_16->addWidget(widgetHeightmap);
 
 
-        verticalLayout_21->addWidget(grpHeightMap);
+        verticalLayout_21->addWidget(grpHeightmap);
 
         grpSpindle = new GroupBox(scrollAreaWidgetContents);
         grpSpindle->setObjectName(QString::fromUtf8("grpSpindle"));
@@ -1604,7 +1608,7 @@ public:
         frmMain->setCentralWidget(centralWidget);
         menuBar = new QMenuBar(frmMain);
         menuBar->setObjectName(QString::fromUtf8("menuBar"));
-        menuBar->setGeometry(QRect(0, 0, 910, 22));
+        menuBar->setGeometry(QRect(0, 0, 912, 22));
         mnuFile = new QMenu(menuBar);
         mnuFile->setObjectName(QString::fromUtf8("mnuFile"));
         mnuRecent = new QMenu(mnuFile);
@@ -1632,21 +1636,21 @@ public:
         QWidget::setTabOrder(cmdLeft, cmdFit);
         QWidget::setTabOrder(cmdFit, tblProgram);
         QWidget::setTabOrder(tblProgram, tblHeightMap);
-        QWidget::setTabOrder(tblHeightMap, txtHeightMapBorderX);
-        QWidget::setTabOrder(txtHeightMapBorderX, txtHeightMapBorderWidth);
-        QWidget::setTabOrder(txtHeightMapBorderWidth, txtHeightMapBorderY);
-        QWidget::setTabOrder(txtHeightMapBorderY, txtHeightMapBorderHeight);
-        QWidget::setTabOrder(txtHeightMapBorderHeight, chkHeightMapBorderShow);
+        QWidget::setTabOrder(tblHeightMap, heightmapBorderX);
+        QWidget::setTabOrder(heightmapBorderX, heightmapBorderWidth);
+        QWidget::setTabOrder(heightmapBorderWidth, heightmapBorderY);
+        QWidget::setTabOrder(heightmapBorderY, heightmapBorderHeight);
+        QWidget::setTabOrder(heightmapBorderHeight, chkHeightMapBorderShow);
         QWidget::setTabOrder(chkHeightMapBorderShow, cmdHeightMapBorderAuto);
-        QWidget::setTabOrder(cmdHeightMapBorderAuto, txtHeightMapGridX);
-        QWidget::setTabOrder(txtHeightMapGridX, txtHeightMapGridZTop);
-        QWidget::setTabOrder(txtHeightMapGridZTop, txtHeightMapGridY);
-        QWidget::setTabOrder(txtHeightMapGridY, txtHeightMapGridZBottom);
-        QWidget::setTabOrder(txtHeightMapGridZBottom, chkHeightMapGridShow);
-        QWidget::setTabOrder(chkHeightMapGridShow, txtHeightMapInterpolationStepX);
-        QWidget::setTabOrder(txtHeightMapInterpolationStepX, txtHeightMapInterpolationStepY);
-        QWidget::setTabOrder(txtHeightMapInterpolationStepY, cboHeightMapInterpolationType);
-        QWidget::setTabOrder(cboHeightMapInterpolationType, chkHeightMapInterpolationShow);
+        QWidget::setTabOrder(cmdHeightMapBorderAuto, heightmapGridX);
+        QWidget::setTabOrder(heightmapGridX, heightmapGridZTop);
+        QWidget::setTabOrder(heightmapGridZTop, heightmapGridY);
+        QWidget::setTabOrder(heightmapGridY, heightmapGridZBottom);
+        QWidget::setTabOrder(heightmapGridZBottom, chkHeightMapGridShow);
+        QWidget::setTabOrder(chkHeightMapGridShow, heightmapInterpolationStepX);
+        QWidget::setTabOrder(heightmapInterpolationStepX, heightmapInterpolationStepY);
+        QWidget::setTabOrder(heightmapInterpolationStepY, heightmapInterpolationType);
+        QWidget::setTabOrder(heightmapInterpolationType, chkHeightMapInterpolationShow);
         QWidget::setTabOrder(chkHeightMapInterpolationShow, txtWPosX);
         QWidget::setTabOrder(txtWPosX, txtWPosY);
         QWidget::setTabOrder(txtWPosY, txtWPosZ);
@@ -1655,9 +1659,9 @@ public:
         QWidget::setTabOrder(cmdTouch, cmdZeroXY);
         QWidget::setTabOrder(cmdZeroXY, cmdZeroZ);
         QWidget::setTabOrder(cmdZeroZ, scrollArea);
-        QWidget::setTabOrder(scrollArea, chkHeightMapUse);
-        QWidget::setTabOrder(chkHeightMapUse, cmdHeightMapCreate);
-        QWidget::setTabOrder(cmdHeightMapCreate, grpSpindle);
+        QWidget::setTabOrder(scrollArea, heightmapUse);
+        QWidget::setTabOrder(heightmapUse, heightmapCreate);
+        QWidget::setTabOrder(heightmapCreate, grpSpindle);
         QWidget::setTabOrder(grpSpindle, txtSpindleSpeed);
         QWidget::setTabOrder(txtSpindleSpeed, cmdSpindle);
         QWidget::setTabOrder(cmdSpindle, sliSpindleSpeed);
@@ -1684,7 +1688,7 @@ public:
         QWidget::setTabOrder(txtConsole, cboCommand);
         QWidget::setTabOrder(cboCommand, cmdCommandSend);
         QWidget::setTabOrder(cmdCommandSend, cmdClearConsole);
-        QWidget::setTabOrder(cmdClearConsole, grpHeightMap);
+        QWidget::setTabOrder(cmdClearConsole, grpHeightmap);
 
         menuBar->addAction(mnuFile->menuAction());
         menuBar->addAction(mnuService->menuAction());
@@ -1756,7 +1760,7 @@ public:
         cmdFit->setToolTip(QApplication::translate("frmMain", "Fit", nullptr));
 #endif // QT_NO_TOOLTIP
         cmdFit->setText(QString());
-        grpHeightMapSettings->setTitle(QApplication::translate("frmMain", "Heightmap settings", nullptr));
+        grpHeightmapSettings->setTitle(QApplication::translate("frmMain", "Heightmap settings", nullptr));
         label_5->setText(QApplication::translate("frmMain", "Border:", nullptr));
         label_6->setText(QApplication::translate("frmMain", "X:", nullptr));
         label_9->setText(QApplication::translate("frmMain", "H:", nullptr));
@@ -1774,7 +1778,7 @@ public:
         label_19->setText(QApplication::translate("frmMain", "Y:", nullptr));
         label_18->setText(QApplication::translate("frmMain", "X:", nullptr));
         label_17->setText(QApplication::translate("frmMain", "Type:", nullptr));
-        cboHeightMapInterpolationType->setItemText(0, QApplication::translate("frmMain", "Bicubic", nullptr));
+        heightmapInterpolationType->setItemText(0, QApplication::translate("frmMain", "Bicubic", nullptr));
 
         chkHeightMapInterpolationShow->setText(QApplication::translate("frmMain", "Show", nullptr));
         chkTestMode->setText(QApplication::translate("frmMain", "Check mode", nullptr));
@@ -1813,14 +1817,14 @@ public:
         cmdUnlock->setToolTip(QApplication::translate("frmMain", "Unlock", nullptr));
 #endif // QT_NO_TOOLTIP
         cmdUnlock->setText(QApplication::translate("frmMain", "...", nullptr));
-        grpHeightMap->setTitle(QApplication::translate("frmMain", "Heightmap", nullptr));
-        chkHeightMapUse->setText(QApplication::translate("frmMain", "Use heightmap", nullptr));
-        txtHeightMap->setText(QString());
-        txtHeightMap->setPlaceholderText(QApplication::translate("frmMain", "Absent", nullptr));
+        grpHeightmap->setTitle(QApplication::translate("frmMain", "Heightmap", nullptr));
+        heightmapUse->setText(QApplication::translate("frmMain", "Use heightmap", nullptr));
+        heightmapFile->setText(QString());
+        heightmapFile->setPlaceholderText(QApplication::translate("frmMain", "Absent", nullptr));
         label_15->setText(QApplication::translate("frmMain", "Map:", nullptr));
-        cmdHeightMapCreate->setText(QApplication::translate("frmMain", "Create", nullptr));
-        cmdHeightMapMode->setText(QApplication::translate("frmMain", "Edit mode", nullptr));
-        cmdHeightMapLoad->setText(QApplication::translate("frmMain", "Open", nullptr));
+        heightmapCreate->setText(QApplication::translate("frmMain", "Create", nullptr));
+        heightmapMode->setText(QApplication::translate("frmMain", "Edit mode", nullptr));
+        heightmapLoad->setText(QApplication::translate("frmMain", "Open", nullptr));
         grpSpindle->setTitle(QApplication::translate("frmMain", "Spindle", nullptr));
         lblSpindleSpeed->setText(QApplication::translate("frmMain", "Speed:", nullptr));
 #ifndef QT_NO_TOOLTIP

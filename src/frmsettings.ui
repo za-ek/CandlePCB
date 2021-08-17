@@ -126,7 +126,7 @@ QGroupBox {
               <item>
                <layout class="QGridLayout" name="gridLayout_2" columnstretch="0,0,0,0,0">
                 <item row="1" column="4">
-                 <widget class="QSpinBox" name="txtAcceleration">
+                 <widget class="QSpinBox" name="acceleration">
                   <property name="font">
                    <font>
                     <pointsize>9</pointsize>
@@ -144,7 +144,7 @@ QGroupBox {
                  </widget>
                 </item>
                 <item row="1" column="1">
-                 <widget class="QSpinBox" name="txtRapidSpeed">
+                 <widget class="QSpinBox" name="rapidSpeed">
                   <property name="font">
                    <font>
                     <pointsize>9</pointsize>
@@ -219,7 +219,7 @@ QGroupBox {
                  </widget>
                 </item>
                 <item row="0" column="1">
-                 <widget class="QSpinBox" name="txtQueryStateTime">
+                 <widget class="QSpinBox" name="queryStateTime">
                   <property name="font">
                    <font>
                     <pointsize>9</pointsize>
@@ -291,7 +291,7 @@ QGroupBox {
                  </widget>
                 </item>
                 <item row="0" column="4">
-                 <widget class="QDoubleSpinBox" name="txtArcDegree">
+                 <widget class="QDoubleSpinBox" name="arcDegree">
                   <property name="enabled">
                    <bool>false</bool>
                   </property>
@@ -326,7 +326,7 @@ QGroupBox {
                  </spacer>
                 </item>
                 <item row="0" column="1">
-                 <widget class="QDoubleSpinBox" name="txtArcLength">
+                 <widget class="QDoubleSpinBox" name="arcLength">
                   <property name="enabled">
                    <bool>true</bool>
                   </property>
@@ -376,7 +376,7 @@ QGroupBox {
                </widget>
               </item>
               <item>
-               <widget class="QLineEdit" name="txtTouchCommand">
+               <widget class="QLineEdit" name="touchCommand">
                 <property name="alignment">
                  <set>Qt::AlignCenter</set>
                 </property>
@@ -399,7 +399,7 @@ QGroupBox {
                </widget>
               </item>
               <item>
-               <widget class="QLineEdit" name="txtSafeCommand">
+               <widget class="QLineEdit" name="safeCommand">
                 <property name="alignment">
                  <set>Qt::AlignCenter</set>
                 </property>
@@ -465,7 +465,7 @@ QGroupBox {
               <item>
                <layout class="QGridLayout" name="gridLayout_8" columnstretch="0,1,0,0,1">
                 <item row="0" column="1">
-                 <widget class="QSpinBox" name="txtSpindleSpeedMin">
+                 <widget class="QSpinBox" name="spindleSpeedMin">
                   <property name="font">
                    <font>
                     <pointsize>9</pointsize>
@@ -497,7 +497,7 @@ QGroupBox {
                  </widget>
                 </item>
                 <item row="0" column="4">
-                 <widget class="QSpinBox" name="txtSpindleSpeedMax">
+                 <widget class="QSpinBox" name="spindleSpeedMax">
                   <property name="font">
                    <font>
                     <pointsize>9</pointsize>
@@ -571,7 +571,7 @@ QGroupBox {
                  </spacer>
                 </item>
                 <item row="3" column="2">
-                 <widget class="QSpinBox" name="txtHeightMapProbingFeed">
+                 <widget class="QSpinBox" name="heightMapProbingFeed">
                   <property name="font">
                    <font>
                     <pointsize>9</pointsize>
@@ -622,7 +622,7 @@ QGroupBox {
                  </widget>
                 </item>
                 <item>
-                 <widget class="QComboBox" name="cboPort">
+                 <widget class="QComboBox" name="port">
                   <property name="editable">
                    <bool>true</bool>
                   </property>
@@ -656,7 +656,7 @@ QGroupBox {
                  </widget>
                 </item>
                 <item>
-                 <widget class="QComboBox" name="cboBaud">
+                 <widget class="QComboBox" name="baud">
                   <property name="editable">
                    <bool>true</bool>
                   </property>
@@ -1270,7 +1270,7 @@ QGroupBox {
                    </widget>
                   </item>
                   <item>
-                   <widget class="QDoubleSpinBox" name="txtLineWidth">
+                   <widget class="QDoubleSpinBox" name="lineWidth">
                     <property name="alignment">
                      <set>Qt::AlignCenter</set>
                     </property>
@@ -1305,7 +1305,7 @@ QGroupBox {
                  </widget>
                 </item>
                 <item row="2" column="4">
-                 <widget class="QDoubleSpinBox" name="txtSimplifyPrecision">
+                 <widget class="QDoubleSpinBox" name="simplifyPrecision">
                   <property name="enabled">
                    <bool>false</bool>
                   </property>
@@ -1335,7 +1335,7 @@ QGroupBox {
              </property>
              <layout class="QGridLayout" name="gridLayout">
               <item row="0" column="5">
-               <widget class="QDoubleSpinBox" name="txtToolAngle">
+               <widget class="QDoubleSpinBox" name="toolAngle">
                 <property name="sizePolicy">
                  <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
                   <horstretch>0</horstretch>
@@ -1357,7 +1357,7 @@ QGroupBox {
                </widget>
               </item>
               <item row="1" column="5">
-               <widget class="QDoubleSpinBox" name="txtToolLength">
+               <widget class="QDoubleSpinBox" name="toolLength">
                 <property name="sizePolicy">
                  <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
                   <horstretch>0</horstretch>
@@ -1393,7 +1393,7 @@ QGroupBox {
                </widget>
               </item>
               <item row="1" column="1">
-               <widget class="QDoubleSpinBox" name="txtToolDiameter">
+               <widget class="QDoubleSpinBox" name="toolDiameter">
                 <property name="sizePolicy">
                  <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
                   <horstretch>0</horstretch>
@@ -1541,13 +1541,13 @@ QGroupBox {
   </customwidget>
  </customwidgets>
  <tabstops>
-  <tabstop>cboPort</tabstop>
+  <tabstop>port</tabstop>
   <tabstop>cmdRefresh</tabstop>
-  <tabstop>cboBaud</tabstop>
+  <tabstop>baud</tabstop>
   <tabstop>cboToolType</tabstop>
-  <tabstop>txtToolAngle</tabstop>
-  <tabstop>txtToolDiameter</tabstop>
-  <tabstop>txtToolLength</tabstop>
+  <tabstop>toolAngle</tabstop>
+  <tabstop>toolDiameter</tabstop>
+  <tabstop>toolLength</tabstop>
   <tabstop>cmdDefaults</tabstop>
   <tabstop>cmdOK</tabstop>
   <tabstop>cmdCancel</tabstop>
@@ -1607,7 +1607,7 @@ QGroupBox {
   <connection>
    <sender>arcDegreeMode</sender>
    <signal>toggled(bool)</signal>
-   <receiver>txtArcDegree</receiver>
+   <receiver>arcDegree</receiver>
    <slot>setEnabled(bool)</slot>
    <hints>
     <hint type="sourcelabel">
@@ -1639,7 +1639,7 @@ QGroupBox {
   <connection>
    <sender>simplify</sender>
    <signal>toggled(bool)</signal>
-   <receiver>txtSimplifyPrecision</receiver>
+   <receiver>simplifyPrecision</receiver>
    <slot>setEnabled(bool)</slot>
    <hints>
     <hint type="sourcelabel">

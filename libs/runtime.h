@@ -13,6 +13,7 @@ private:
     inline static std::mutex _mutex;
 
     inline static QMap<QString, std::function<void(const QString)>> bindings;
+    inline static std::function<void(const QString, const QString)> fn = nullptr;
 protected:
     Runtime() {}
 
@@ -23,6 +24,7 @@ public:
 
     static Runtime *getInstance();
     static void bind(QString key, std::function<void(const QString)>cb);
+    static void bind(std::function<void(const QString, const QString)>cb);
 
     void insert(const QString &key, const QString &value);
 };

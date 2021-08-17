@@ -1,4 +1,5 @@
 #include "colorpicker.h"
+#include <QDebug>
 
 ColorPicker::ColorPicker(QWidget *parent) :
     QWidget(parent)
@@ -6,6 +7,7 @@ ColorPicker::ColorPicker(QWidget *parent) :
     m_layout = new QHBoxLayout(this);
     m_frame = new QFrame(this);
     m_button = new QToolButton(this);
+    m_color = QColor(0, 0, 0, 255);
 
     m_frame->setFrameShape(QFrame::Box);
 
@@ -31,8 +33,7 @@ void ColorPicker::setColor(const QColor &color)
 
 void ColorPicker::onButtonClicked()
 {
-    QColor color = QColorDialog::getColor(m_color, this);
-
+    QColor color = QColorDialog::getColor(m_color, this, QString(), QColorDialog::DontUseNativeDialog);
     if (color.isValid()) {
         setColor(color);
         emit colorSelected(color);

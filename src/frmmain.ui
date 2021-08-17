@@ -391,7 +391,7 @@ QSlider::handle:horizontal:hover {
         </widget>
        </item>
        <item>
-        <widget class="QGroupBox" name="grpHeightMapSettings">
+        <widget class="QGroupBox" name="grpHeightmapSettings">
          <property name="title">
           <string>Heightmap settings</string>
          </property>
@@ -490,7 +490,7 @@ QSlider::handle:horizontal:hover {
                </widget>
               </item>
               <item row="1" column="1">
-               <widget class="QDoubleSpinBox" name="heightMapBorderY">
+               <widget class="QDoubleSpinBox" name="heightmapBorderY">
                 <property name="sizePolicy">
                  <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
                   <horstretch>0</horstretch>
@@ -874,7 +874,7 @@ QSlider::handle:horizontal:hover {
                </widget>
               </item>
               <item>
-               <widget class="QComboBox" name="cboHeightMapInterpolationType">
+               <widget class="QComboBox" name="heightmapInterpolationType">
                 <property name="enabled">
                  <bool>false</bool>
                 </property>
@@ -1360,7 +1360,7 @@ QSlider::handle:horizontal:hover {
             <number>0</number>
            </property>
            <item>
-            <widget class="GroupBox" name="grpHeightMap">
+            <widget class="GroupBox" name="grpHeightmap">
              <property name="title">
               <string>Heightmap</string>
              </property>
@@ -1384,7 +1384,7 @@ QSlider::handle:horizontal:hover {
                <number>9</number>
               </property>
               <item>
-               <widget class="QWidget" name="widgetHeightMap" native="true">
+               <widget class="QWidget" name="widgetHeightmap" native="true">
                 <layout class="QVBoxLayout" name="verticalLayout_15">
                  <property name="spacing">
                   <number>7</number>
@@ -1402,14 +1402,14 @@ QSlider::handle:horizontal:hover {
                   <number>0</number>
                  </property>
                  <item>
-                  <widget class="QCheckBox" name="chkHeightMapUse">
+                  <widget class="QCheckBox" name="heightmapUse">
                    <property name="text">
                     <string>Use heightmap</string>
                    </property>
                   </widget>
                  </item>
                  <item>
-                  <widget class="QLineEdit" name="txtHeightMap">
+                  <widget class="QLineEdit" name="heightmapFile">
                    <property name="focusPolicy">
                     <enum>Qt::NoFocus</enum>
                    </property>
@@ -1441,7 +1441,7 @@ QSlider::handle:horizontal:hover {
                  <item>
                   <layout class="QHBoxLayout" name="horizontalLayout_21">
                    <item>
-                    <widget class="StyledToolButton" name="cmdHeightMapCreate">
+                    <widget class="StyledToolButton" name="heightmapCreate">
                      <property name="sizePolicy">
                       <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
                        <horstretch>0</horstretch>
@@ -1460,7 +1460,7 @@ QSlider::handle:horizontal:hover {
                     </widget>
                    </item>
                    <item>
-                    <widget class="StyledToolButton" name="cmdHeightMapMode">
+                    <widget class="StyledToolButton" name="heightmapMode">
                      <property name="sizePolicy">
                       <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
                        <horstretch>0</horstretch>
@@ -1482,7 +1482,7 @@ QSlider::handle:horizontal:hover {
                     </widget>
                    </item>
                    <item>
-                    <widget class="StyledToolButton" name="cmdHeightMapLoad">
+                    <widget class="StyledToolButton" name="heightmapLoad">
                      <property name="sizePolicy">
                       <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
                        <horstretch>0</horstretch>
@@ -2552,6 +2552,12 @@ padding-right: 8;</string>
  <layoutdefault spacing="6" margin="11"/>
  <customwidgets>
   <customwidget>
+   <class>GroupBox</class>
+   <extends>QGroupBox</extends>
+   <header location="global">widgets/groupbox.h</header>
+   <container>1</container>
+  </customwidget>
+  <customwidget>
    <class>ScrollArea</class>
    <extends>QScrollArea</extends>
    <header location="global">widgets/scrollarea.h</header>
@@ -2561,12 +2567,6 @@ padding-right: 8;</string>
    <class>Widget</class>
    <extends>QWidget</extends>
    <header location="global">widgets/widget.h</header>
-   <container>1</container>
-  </customwidget>
-  <customwidget>
-   <class>GroupBox</class>
-   <extends>QGroupBox</extends>
-   <header location="global">widgets/groupbox.h</header>
    <container>1</container>
   </customwidget>
   <customwidget>
@@ -2603,7 +2603,7 @@ padding-right: 8;</string>
   <tabstop>tblHeightMap</tabstop>
   <tabstop>heightmapBorderX</tabstop>
   <tabstop>heightmapBorderWidth</tabstop>
-  <tabstop>heightMapBorderY</tabstop>
+  <tabstop>heightmapBorderY</tabstop>
   <tabstop>heightmapBorderHeight</tabstop>
   <tabstop>chkHeightMapBorderShow</tabstop>
   <tabstop>cmdHeightMapBorderAuto</tabstop>
@@ -2614,7 +2614,7 @@ padding-right: 8;</string>
   <tabstop>chkHeightMapGridShow</tabstop>
   <tabstop>heightmapInterpolationStepX</tabstop>
   <tabstop>heightmapInterpolationStepY</tabstop>
-  <tabstop>cboHeightMapInterpolationType</tabstop>
+  <tabstop>heightmapInterpolationType</tabstop>
   <tabstop>chkHeightMapInterpolationShow</tabstop>
   <tabstop>txtWPosX</tabstop>
   <tabstop>txtWPosY</tabstop>
@@ -2624,8 +2624,8 @@ padding-right: 8;</string>
   <tabstop>cmdZeroXY</tabstop>
   <tabstop>cmdZeroZ</tabstop>
   <tabstop>scrollArea</tabstop>
-  <tabstop>chkHeightMapUse</tabstop>
-  <tabstop>cmdHeightMapCreate</tabstop>
+  <tabstop>heightmapUse</tabstop>
+  <tabstop>heightmapCreate</tabstop>
   <tabstop>grpSpindle</tabstop>
   <tabstop>txtSpindleSpeed</tabstop>
   <tabstop>cmdSpindle</tabstop>
@@ -2653,7 +2653,7 @@ padding-right: 8;</string>
   <tabstop>cboCommand</tabstop>
   <tabstop>cmdCommandSend</tabstop>
   <tabstop>cmdClearConsole</tabstop>
-  <tabstop>grpHeightMap</tabstop>
+  <tabstop>grpHeightmap</tabstop>
  </tabstops>
  <resources>
   <include location="images.qrc"/>

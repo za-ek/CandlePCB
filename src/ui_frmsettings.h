@@ -54,14 +54,14 @@ public:
     GroupBox *grpGRBL;
     QVBoxLayout *verticalLayout_5;
     QGridLayout *gridLayout_2;
-    QSpinBox *txtAcceleration;
-    QSpinBox *txtRapidSpeed;
+    QSpinBox *acceleration;
+    QSpinBox *rapidSpeed;
     QComboBox *cboUnits;
     QLabel *label_10;
     QSpacerItem *horizontalSpacer_6;
     QLabel *label_14;
     QLabel *label_11;
-    QSpinBox *txtQueryStateTime;
+    QSpinBox *queryStateTime;
     QLabel *label_15;
     GroupBox *grpParser;
     QVBoxLayout *verticalLayout_8;
@@ -70,26 +70,26 @@ public:
     QSpacerItem *horizontalSpacer_14;
     QGridLayout *gridLayout_7;
     QRadioButton *radArcLengthMode;
-    QDoubleSpinBox *txtArcDegree;
+    QDoubleSpinBox *arcDegree;
     QSpacerItem *horizontalSpacer_15;
-    QDoubleSpinBox *txtArcLength;
+    QDoubleSpinBox *arcLength;
     QRadioButton *arcDegreeMode;
     GroupBox *groupBox_2;
     QVBoxLayout *verticalLayout_9;
     QLabel *label_17;
-    QLineEdit *txtTouchCommand;
+    QLineEdit *touchCommand;
     QLabel *label_33;
-    QLineEdit *txtSafeCommand;
+    QLineEdit *safeCommand;
     QGridLayout *gridLayout_4;
     QHBoxLayout *horizontalLayout_8;
     QCheckBox *moveOnRestore;
     QComboBox *cboRestoreMode;
     QSpacerItem *horizontalSpacer_16;
     QGridLayout *gridLayout_8;
-    QSpinBox *txtSpindleSpeedMin;
+    QSpinBox *spindleSpeedMin;
     QLabel *label_13;
     QLabel *label_12;
-    QSpinBox *txtSpindleSpeedMax;
+    QSpinBox *spindleSpeedMax;
     QSpacerItem *horizontalSpacer_9;
     QCheckBox *restoreZeroAfterHoming;
     GroupBox *groupBox_4;
@@ -97,16 +97,16 @@ public:
     QGridLayout *gridLayout_9;
     QLabel *label_38;
     QSpacerItem *horizontalSpacer_8;
-    QSpinBox *txtHeightMapProbingFeed;
+    QSpinBox *heightMapProbingFeed;
     QCheckBox *checkedHeightMap;
     GroupBox *grpConnection;
     QVBoxLayout *verticalLayout;
     QHBoxLayout *horizontalLayout_3;
     QLabel *label;
-    QComboBox *cboPort;
+    QComboBox *port;
     QToolButton *cmdRefresh;
     QLabel *label_2;
-    QComboBox *cboBaud;
+    QComboBox *baud;
     QGroupBox *groupBox_3;
     QVBoxLayout *verticalLayout_10;
     QHBoxLayout *horizontalLayout_6;
@@ -130,24 +130,24 @@ public:
     QGridLayout *gridLayout_6;
     QLabel *label_20;
     QLabel *label_21;
-    ColorPicker *clpToolpathZMovement;
+    ColorPicker *toolpathZMovementColor;
     QLabel *label_24;
-    ColorPicker *clpToolpathHighlight;
-    ColorPicker *clpToolpathStart;
+    ColorPicker *toolpathHighlightColor;
+    ColorPicker *toolpathStartColor;
     QLabel *label_25;
     QLabel *label_26;
-    ColorPicker *clpToolpathEnd;
+    ColorPicker *toolpathEndColor;
     QLabel *label_27;
-    ColorPicker *clpVisualizerBackground;
-    ColorPicker *clpVisualizerText;
+    ColorPicker *visualizerBackgroundColor;
+    ColorPicker *visualizerTextColor;
     QLabel *label_22;
     QLabel *label_28;
     QLabel *label_19;
-    ColorPicker *clpTool;
+    ColorPicker *toolColor;
     QSpacerItem *verticalSpacer;
     QLabel *label_16;
-    ColorPicker *clpToolpathDrawn;
-    ColorPicker *clpToolpathNormal;
+    ColorPicker *toolpathDrawnColor;
+    ColorPicker *toolpathNormalColor;
     QLabel *label_23;
     QGroupBox *grpConsole;
     QVBoxLayout *verticalLayout_12;
@@ -183,17 +183,17 @@ public:
     QCheckBox *simplify;
     QHBoxLayout *horizontalLayout_4;
     QLabel *label_5;
-    QDoubleSpinBox *txtLineWidth;
+    QDoubleSpinBox *lineWidth;
     QCheckBox *msaa;
     QCheckBox *zBuffer;
-    QDoubleSpinBox *txtSimplifyPrecision;
+    QDoubleSpinBox *simplifyPrecision;
     GroupBox *grpTool;
     QGridLayout *gridLayout;
-    QDoubleSpinBox *txtToolAngle;
-    QDoubleSpinBox *txtToolLength;
+    QDoubleSpinBox *toolAngle;
+    QDoubleSpinBox *toolLength;
     QLabel *label_3;
     QLabel *lblToolLength;
-    QDoubleSpinBox *txtToolDiameter;
+    QDoubleSpinBox *toolDiameter;
     QLabel *label_4;
     QLabel *lblToolAngle;
     QComboBox *cboToolType;
@@ -273,7 +273,7 @@ public:
         scrollArea_3->setWidgetResizable(true);
         scrollAreaWidgetContents_4 = new QWidget();
         scrollAreaWidgetContents_4->setObjectName(QString::fromUtf8("scrollAreaWidgetContents_4"));
-        scrollAreaWidgetContents_4->setGeometry(QRect(0, -244, 464, 680));
+        scrollAreaWidgetContents_4->setGeometry(QRect(0, 0, 464, 680));
         gridLayout_20 = new QGridLayout(scrollAreaWidgetContents_4);
         gridLayout_20->setObjectName(QString::fromUtf8("gridLayout_20"));
         grpGRBL = new GroupBox(scrollAreaWidgetContents_4);
@@ -282,25 +282,25 @@ public:
         verticalLayout_5->setObjectName(QString::fromUtf8("verticalLayout_5"));
         gridLayout_2 = new QGridLayout();
         gridLayout_2->setObjectName(QString::fromUtf8("gridLayout_2"));
-        txtAcceleration = new QSpinBox(grpGRBL);
-        txtAcceleration->setObjectName(QString::fromUtf8("txtAcceleration"));
+        acceleration = new QSpinBox(grpGRBL);
+        acceleration->setObjectName(QString::fromUtf8("acceleration"));
         QFont font;
         font.setPointSize(9);
-        txtAcceleration->setFont(font);
-        txtAcceleration->setAlignment(Qt::AlignCenter);
-        txtAcceleration->setButtonSymbols(QAbstractSpinBox::NoButtons);
-        txtAcceleration->setMaximum(99999);
+        acceleration->setFont(font);
+        acceleration->setAlignment(Qt::AlignCenter);
+        acceleration->setButtonSymbols(QAbstractSpinBox::NoButtons);
+        acceleration->setMaximum(99999);
 
-        gridLayout_2->addWidget(txtAcceleration, 1, 4, 1, 1);
+        gridLayout_2->addWidget(acceleration, 1, 4, 1, 1);
 
-        txtRapidSpeed = new QSpinBox(grpGRBL);
-        txtRapidSpeed->setObjectName(QString::fromUtf8("txtRapidSpeed"));
-        txtRapidSpeed->setFont(font);
-        txtRapidSpeed->setAlignment(Qt::AlignCenter);
-        txtRapidSpeed->setButtonSymbols(QAbstractSpinBox::NoButtons);
-        txtRapidSpeed->setMaximum(99999);
+        rapidSpeed = new QSpinBox(grpGRBL);
+        rapidSpeed->setObjectName(QString::fromUtf8("rapidSpeed"));
+        rapidSpeed->setFont(font);
+        rapidSpeed->setAlignment(Qt::AlignCenter);
+        rapidSpeed->setButtonSymbols(QAbstractSpinBox::NoButtons);
+        rapidSpeed->setMaximum(99999);
 
-        gridLayout_2->addWidget(txtRapidSpeed, 1, 1, 1, 1);
+        gridLayout_2->addWidget(rapidSpeed, 1, 1, 1, 1);
 
         cboUnits = new QComboBox(grpGRBL);
         cboUnits->addItem(QString());
@@ -333,14 +333,14 @@ public:
 
         gridLayout_2->addWidget(label_11, 0, 0, 1, 1);
 
-        txtQueryStateTime = new QSpinBox(grpGRBL);
-        txtQueryStateTime->setObjectName(QString::fromUtf8("txtQueryStateTime"));
-        txtQueryStateTime->setFont(font);
-        txtQueryStateTime->setAlignment(Qt::AlignCenter);
-        txtQueryStateTime->setButtonSymbols(QAbstractSpinBox::NoButtons);
-        txtQueryStateTime->setMaximum(9999);
+        queryStateTime = new QSpinBox(grpGRBL);
+        queryStateTime->setObjectName(QString::fromUtf8("queryStateTime"));
+        queryStateTime->setFont(font);
+        queryStateTime->setAlignment(Qt::AlignCenter);
+        queryStateTime->setButtonSymbols(QAbstractSpinBox::NoButtons);
+        queryStateTime->setMaximum(9999);
 
-        gridLayout_2->addWidget(txtQueryStateTime, 0, 1, 1, 1);
+        gridLayout_2->addWidget(queryStateTime, 0, 1, 1, 1);
 
         label_15 = new QLabel(grpGRBL);
         label_15->setObjectName(QString::fromUtf8("label_15"));
@@ -379,29 +379,29 @@ public:
 
         gridLayout_7->addWidget(radArcLengthMode, 0, 0, 1, 1);
 
-        txtArcDegree = new QDoubleSpinBox(grpParser);
-        txtArcDegree->setObjectName(QString::fromUtf8("txtArcDegree"));
-        txtArcDegree->setEnabled(false);
-        txtArcDegree->setAlignment(Qt::AlignCenter);
-        txtArcDegree->setButtonSymbols(QAbstractSpinBox::NoButtons);
-        txtArcDegree->setDecimals(2);
-        txtArcDegree->setMaximum(180.000000000000000);
+        arcDegree = new QDoubleSpinBox(grpParser);
+        arcDegree->setObjectName(QString::fromUtf8("arcDegree"));
+        arcDegree->setEnabled(false);
+        arcDegree->setAlignment(Qt::AlignCenter);
+        arcDegree->setButtonSymbols(QAbstractSpinBox::NoButtons);
+        arcDegree->setDecimals(2);
+        arcDegree->setMaximum(180.000000000000000);
 
-        gridLayout_7->addWidget(txtArcDegree, 0, 4, 1, 1);
+        gridLayout_7->addWidget(arcDegree, 0, 4, 1, 1);
 
         horizontalSpacer_15 = new QSpacerItem(6, 20, QSizePolicy::Fixed, QSizePolicy::Minimum);
 
         gridLayout_7->addItem(horizontalSpacer_15, 0, 2, 1, 1);
 
-        txtArcLength = new QDoubleSpinBox(grpParser);
-        txtArcLength->setObjectName(QString::fromUtf8("txtArcLength"));
-        txtArcLength->setEnabled(true);
-        txtArcLength->setAlignment(Qt::AlignCenter);
-        txtArcLength->setButtonSymbols(QAbstractSpinBox::NoButtons);
-        txtArcLength->setDecimals(2);
-        txtArcLength->setMaximum(99.000000000000000);
+        arcLength = new QDoubleSpinBox(grpParser);
+        arcLength->setObjectName(QString::fromUtf8("arcLength"));
+        arcLength->setEnabled(true);
+        arcLength->setAlignment(Qt::AlignCenter);
+        arcLength->setButtonSymbols(QAbstractSpinBox::NoButtons);
+        arcLength->setDecimals(2);
+        arcLength->setMaximum(99.000000000000000);
 
-        gridLayout_7->addWidget(txtArcLength, 0, 1, 1, 1);
+        gridLayout_7->addWidget(arcLength, 0, 1, 1, 1);
 
         arcDegreeMode = new QRadioButton(grpParser);
         arcDegreeMode->setObjectName(QString::fromUtf8("arcDegreeMode"));
@@ -425,11 +425,11 @@ public:
 
         verticalLayout_9->addWidget(label_17);
 
-        txtTouchCommand = new QLineEdit(groupBox_2);
-        txtTouchCommand->setObjectName(QString::fromUtf8("txtTouchCommand"));
-        txtTouchCommand->setAlignment(Qt::AlignCenter);
+        touchCommand = new QLineEdit(groupBox_2);
+        touchCommand->setObjectName(QString::fromUtf8("touchCommand"));
+        touchCommand->setAlignment(Qt::AlignCenter);
 
-        verticalLayout_9->addWidget(txtTouchCommand);
+        verticalLayout_9->addWidget(touchCommand);
 
         label_33 = new QLabel(groupBox_2);
         label_33->setObjectName(QString::fromUtf8("label_33"));
@@ -438,11 +438,11 @@ public:
 
         verticalLayout_9->addWidget(label_33);
 
-        txtSafeCommand = new QLineEdit(groupBox_2);
-        txtSafeCommand->setObjectName(QString::fromUtf8("txtSafeCommand"));
-        txtSafeCommand->setAlignment(Qt::AlignCenter);
+        safeCommand = new QLineEdit(groupBox_2);
+        safeCommand->setObjectName(QString::fromUtf8("safeCommand"));
+        safeCommand->setAlignment(Qt::AlignCenter);
 
-        verticalLayout_9->addWidget(txtSafeCommand);
+        verticalLayout_9->addWidget(safeCommand);
 
         gridLayout_4 = new QGridLayout();
         gridLayout_4->setObjectName(QString::fromUtf8("gridLayout_4"));
@@ -480,14 +480,14 @@ public:
 
         gridLayout_8 = new QGridLayout();
         gridLayout_8->setObjectName(QString::fromUtf8("gridLayout_8"));
-        txtSpindleSpeedMin = new QSpinBox(groupBox_2);
-        txtSpindleSpeedMin->setObjectName(QString::fromUtf8("txtSpindleSpeedMin"));
-        txtSpindleSpeedMin->setFont(font);
-        txtSpindleSpeedMin->setAlignment(Qt::AlignCenter);
-        txtSpindleSpeedMin->setButtonSymbols(QAbstractSpinBox::NoButtons);
-        txtSpindleSpeedMin->setMaximum(99999);
+        spindleSpeedMin = new QSpinBox(groupBox_2);
+        spindleSpeedMin->setObjectName(QString::fromUtf8("spindleSpeedMin"));
+        spindleSpeedMin->setFont(font);
+        spindleSpeedMin->setAlignment(Qt::AlignCenter);
+        spindleSpeedMin->setButtonSymbols(QAbstractSpinBox::NoButtons);
+        spindleSpeedMin->setMaximum(99999);
 
-        gridLayout_8->addWidget(txtSpindleSpeedMin, 0, 1, 1, 1);
+        gridLayout_8->addWidget(spindleSpeedMin, 0, 1, 1, 1);
 
         label_13 = new QLabel(groupBox_2);
         label_13->setObjectName(QString::fromUtf8("label_13"));
@@ -499,14 +499,14 @@ public:
 
         gridLayout_8->addWidget(label_12, 0, 0, 1, 1);
 
-        txtSpindleSpeedMax = new QSpinBox(groupBox_2);
-        txtSpindleSpeedMax->setObjectName(QString::fromUtf8("txtSpindleSpeedMax"));
-        txtSpindleSpeedMax->setFont(font);
-        txtSpindleSpeedMax->setAlignment(Qt::AlignCenter);
-        txtSpindleSpeedMax->setButtonSymbols(QAbstractSpinBox::NoButtons);
-        txtSpindleSpeedMax->setMaximum(99999);
+        spindleSpeedMax = new QSpinBox(groupBox_2);
+        spindleSpeedMax->setObjectName(QString::fromUtf8("spindleSpeedMax"));
+        spindleSpeedMax->setFont(font);
+        spindleSpeedMax->setAlignment(Qt::AlignCenter);
+        spindleSpeedMax->setButtonSymbols(QAbstractSpinBox::NoButtons);
+        spindleSpeedMax->setMaximum(99999);
 
-        gridLayout_8->addWidget(txtSpindleSpeedMax, 0, 4, 1, 1);
+        gridLayout_8->addWidget(spindleSpeedMax, 0, 4, 1, 1);
 
         horizontalSpacer_9 = new QSpacerItem(6, 20, QSizePolicy::Fixed, QSizePolicy::Minimum);
 
@@ -540,14 +540,14 @@ public:
 
         gridLayout_9->addItem(horizontalSpacer_8, 3, 1, 1, 1);
 
-        txtHeightMapProbingFeed = new QSpinBox(groupBox_4);
-        txtHeightMapProbingFeed->setObjectName(QString::fromUtf8("txtHeightMapProbingFeed"));
-        txtHeightMapProbingFeed->setFont(font);
-        txtHeightMapProbingFeed->setAlignment(Qt::AlignCenter);
-        txtHeightMapProbingFeed->setButtonSymbols(QAbstractSpinBox::NoButtons);
-        txtHeightMapProbingFeed->setMaximum(99999);
+        heightMapProbingFeed = new QSpinBox(groupBox_4);
+        heightMapProbingFeed->setObjectName(QString::fromUtf8("heightMapProbingFeed"));
+        heightMapProbingFeed->setFont(font);
+        heightMapProbingFeed->setAlignment(Qt::AlignCenter);
+        heightMapProbingFeed->setButtonSymbols(QAbstractSpinBox::NoButtons);
+        heightMapProbingFeed->setMaximum(99999);
 
-        gridLayout_9->addWidget(txtHeightMapProbingFeed, 3, 2, 1, 1);
+        gridLayout_9->addWidget(heightMapProbingFeed, 3, 2, 1, 1);
 
         gridLayout_9->setColumnStretch(1, 1);
         gridLayout_9->setColumnStretch(2, 1);
@@ -578,11 +578,11 @@ public:
 
         horizontalLayout_3->addWidget(label);
 
-        cboPort = new QComboBox(grpConnection);
-        cboPort->setObjectName(QString::fromUtf8("cboPort"));
-        cboPort->setEditable(true);
+        port = new QComboBox(grpConnection);
+        port->setObjectName(QString::fromUtf8("port"));
+        port->setEditable(true);
 
-        horizontalLayout_3->addWidget(cboPort);
+        horizontalLayout_3->addWidget(port);
 
         cmdRefresh = new QToolButton(grpConnection);
         cmdRefresh->setObjectName(QString::fromUtf8("cmdRefresh"));
@@ -603,20 +603,18 @@ public:
 
         horizontalLayout_3->addWidget(label_2);
 
-        cboBaud = new QComboBox(grpConnection);
-        cboBaud->addItem(QString());
-        cboBaud->addItem(QString());
-        cboBaud->addItem(QString());
-        cboBaud->addItem(QString());
-        cboBaud->addItem(QString());
-        cboBaud->addItem(QString());
-        cboBaud->setObjectName(QString::fromUtf8("cboBaud"));
-        cboBaud->setEditable(true);
+        baud = new QComboBox(grpConnection);
+        baud->addItem(QString());
+        baud->addItem(QString());
+        baud->addItem(QString());
+        baud->addItem(QString());
+        baud->addItem(QString());
+        baud->addItem(QString());
+        baud->setObjectName(QString::fromUtf8("baud"));
+        baud->setEditable(true);
 
-        horizontalLayout_3->addWidget(cboBaud);
+        horizontalLayout_3->addWidget(baud);
 
-        horizontalLayout_3->setStretch(1, 1);
-        horizontalLayout_3->setStretch(4, 1);
 
         verticalLayout->addLayout(horizontalLayout_3);
 
@@ -729,25 +727,25 @@ public:
 
         gridLayout_6->addWidget(label_21, 5, 0, 1, 1);
 
-        clpToolpathZMovement = new ColorPicker(grpColors);
-        clpToolpathZMovement->setObjectName(QString::fromUtf8("clpToolpathZMovement"));
+        toolpathZMovementColor = new ColorPicker(grpColors);
+        toolpathZMovementColor->setObjectName(QString::fromUtf8("toolpathZMovementColor"));
 
-        gridLayout_6->addWidget(clpToolpathZMovement, 7, 3, 1, 1);
+        gridLayout_6->addWidget(toolpathZMovementColor, 7, 3, 1, 1);
 
         label_24 = new QLabel(grpColors);
         label_24->setObjectName(QString::fromUtf8("label_24"));
 
         gridLayout_6->addWidget(label_24, 2, 0, 1, 1);
 
-        clpToolpathHighlight = new ColorPicker(grpColors);
-        clpToolpathHighlight->setObjectName(QString::fromUtf8("clpToolpathHighlight"));
+        toolpathHighlightColor = new ColorPicker(grpColors);
+        toolpathHighlightColor->setObjectName(QString::fromUtf8("toolpathHighlightColor"));
 
-        gridLayout_6->addWidget(clpToolpathHighlight, 7, 1, 1, 1);
+        gridLayout_6->addWidget(toolpathHighlightColor, 7, 1, 1, 1);
 
-        clpToolpathStart = new ColorPicker(grpColors);
-        clpToolpathStart->setObjectName(QString::fromUtf8("clpToolpathStart"));
+        toolpathStartColor = new ColorPicker(grpColors);
+        toolpathStartColor->setObjectName(QString::fromUtf8("toolpathStartColor"));
 
-        gridLayout_6->addWidget(clpToolpathStart, 8, 1, 1, 1);
+        gridLayout_6->addWidget(toolpathStartColor, 8, 1, 1, 1);
 
         label_25 = new QLabel(grpColors);
         label_25->setObjectName(QString::fromUtf8("label_25"));
@@ -759,25 +757,25 @@ public:
 
         gridLayout_6->addWidget(label_26, 8, 0, 1, 1);
 
-        clpToolpathEnd = new ColorPicker(grpColors);
-        clpToolpathEnd->setObjectName(QString::fromUtf8("clpToolpathEnd"));
+        toolpathEndColor = new ColorPicker(grpColors);
+        toolpathEndColor->setObjectName(QString::fromUtf8("toolpathEndColor"));
 
-        gridLayout_6->addWidget(clpToolpathEnd, 8, 3, 1, 1);
+        gridLayout_6->addWidget(toolpathEndColor, 8, 3, 1, 1);
 
         label_27 = new QLabel(grpColors);
         label_27->setObjectName(QString::fromUtf8("label_27"));
 
         gridLayout_6->addWidget(label_27, 8, 2, 1, 1);
 
-        clpVisualizerBackground = new ColorPicker(grpColors);
-        clpVisualizerBackground->setObjectName(QString::fromUtf8("clpVisualizerBackground"));
+        visualizerBackgroundColor = new ColorPicker(grpColors);
+        visualizerBackgroundColor->setObjectName(QString::fromUtf8("visualizerBackgroundColor"));
 
-        gridLayout_6->addWidget(clpVisualizerBackground, 2, 1, 1, 1);
+        gridLayout_6->addWidget(visualizerBackgroundColor, 2, 1, 1, 1);
 
-        clpVisualizerText = new ColorPicker(grpColors);
-        clpVisualizerText->setObjectName(QString::fromUtf8("clpVisualizerText"));
+        visualizerTextColor = new ColorPicker(grpColors);
+        visualizerTextColor->setObjectName(QString::fromUtf8("visualizerTextColor"));
 
-        gridLayout_6->addWidget(clpVisualizerText, 2, 3, 1, 1);
+        gridLayout_6->addWidget(visualizerTextColor, 2, 3, 1, 1);
 
         label_22 = new QLabel(grpColors);
         label_22->setObjectName(QString::fromUtf8("label_22"));
@@ -794,10 +792,10 @@ public:
 
         gridLayout_6->addWidget(label_19, 3, 0, 1, 1);
 
-        clpTool = new ColorPicker(grpColors);
-        clpTool->setObjectName(QString::fromUtf8("clpTool"));
+        toolColor = new ColorPicker(grpColors);
+        toolColor->setObjectName(QString::fromUtf8("toolColor"));
 
-        gridLayout_6->addWidget(clpTool, 3, 1, 1, 1);
+        gridLayout_6->addWidget(toolColor, 3, 1, 1, 1);
 
         verticalSpacer = new QSpacerItem(20, 6, QSizePolicy::Minimum, QSizePolicy::Fixed);
 
@@ -808,15 +806,15 @@ public:
 
         gridLayout_6->addWidget(label_16, 6, 2, 1, 1);
 
-        clpToolpathDrawn = new ColorPicker(grpColors);
-        clpToolpathDrawn->setObjectName(QString::fromUtf8("clpToolpathDrawn"));
+        toolpathDrawnColor = new ColorPicker(grpColors);
+        toolpathDrawnColor->setObjectName(QString::fromUtf8("toolpathDrawnColor"));
 
-        gridLayout_6->addWidget(clpToolpathDrawn, 6, 3, 1, 1);
+        gridLayout_6->addWidget(toolpathDrawnColor, 6, 3, 1, 1);
 
-        clpToolpathNormal = new ColorPicker(grpColors);
-        clpToolpathNormal->setObjectName(QString::fromUtf8("clpToolpathNormal"));
+        toolpathNormalColor = new ColorPicker(grpColors);
+        toolpathNormalColor->setObjectName(QString::fromUtf8("toolpathNormalColor"));
 
-        gridLayout_6->addWidget(clpToolpathNormal, 6, 1, 1, 1);
+        gridLayout_6->addWidget(toolpathNormalColor, 6, 1, 1, 1);
 
         label_23 = new QLabel(grpColors);
         label_23->setObjectName(QString::fromUtf8("label_23"));
@@ -1000,14 +998,14 @@ public:
 
         horizontalLayout_4->addWidget(label_5);
 
-        txtLineWidth = new QDoubleSpinBox(grpVisualizer);
-        txtLineWidth->setObjectName(QString::fromUtf8("txtLineWidth"));
-        txtLineWidth->setAlignment(Qt::AlignCenter);
-        txtLineWidth->setButtonSymbols(QAbstractSpinBox::NoButtons);
-        txtLineWidth->setDecimals(1);
-        txtLineWidth->setMaximum(9.000000000000000);
+        lineWidth = new QDoubleSpinBox(grpVisualizer);
+        lineWidth->setObjectName(QString::fromUtf8("lineWidth"));
+        lineWidth->setAlignment(Qt::AlignCenter);
+        lineWidth->setButtonSymbols(QAbstractSpinBox::NoButtons);
+        lineWidth->setDecimals(1);
+        lineWidth->setMaximum(9.000000000000000);
 
-        horizontalLayout_4->addWidget(txtLineWidth);
+        horizontalLayout_4->addWidget(lineWidth);
 
 
         gridLayout_5->addLayout(horizontalLayout_4, 0, 0, 1, 1);
@@ -1023,15 +1021,15 @@ public:
 
         gridLayout_5->addWidget(zBuffer, 1, 4, 1, 1);
 
-        txtSimplifyPrecision = new QDoubleSpinBox(grpVisualizer);
-        txtSimplifyPrecision->setObjectName(QString::fromUtf8("txtSimplifyPrecision"));
-        txtSimplifyPrecision->setEnabled(false);
-        txtSimplifyPrecision->setAlignment(Qt::AlignCenter);
-        txtSimplifyPrecision->setButtonSymbols(QAbstractSpinBox::NoButtons);
-        txtSimplifyPrecision->setDecimals(2);
-        txtSimplifyPrecision->setMaximum(99.000000000000000);
+        simplifyPrecision = new QDoubleSpinBox(grpVisualizer);
+        simplifyPrecision->setObjectName(QString::fromUtf8("simplifyPrecision"));
+        simplifyPrecision->setEnabled(false);
+        simplifyPrecision->setAlignment(Qt::AlignCenter);
+        simplifyPrecision->setButtonSymbols(QAbstractSpinBox::NoButtons);
+        simplifyPrecision->setDecimals(2);
+        simplifyPrecision->setMaximum(99.000000000000000);
 
-        gridLayout_5->addWidget(txtSimplifyPrecision, 2, 4, 1, 1);
+        gridLayout_5->addWidget(simplifyPrecision, 2, 4, 1, 1);
 
 
         verticalLayout_2->addLayout(gridLayout_5);
@@ -1043,27 +1041,27 @@ public:
         grpTool->setObjectName(QString::fromUtf8("grpTool"));
         gridLayout = new QGridLayout(grpTool);
         gridLayout->setObjectName(QString::fromUtf8("gridLayout"));
-        txtToolAngle = new QDoubleSpinBox(grpTool);
-        txtToolAngle->setObjectName(QString::fromUtf8("txtToolAngle"));
-        sizePolicy1.setHeightForWidth(txtToolAngle->sizePolicy().hasHeightForWidth());
-        txtToolAngle->setSizePolicy(sizePolicy1);
-        txtToolAngle->setAlignment(Qt::AlignCenter);
-        txtToolAngle->setButtonSymbols(QAbstractSpinBox::NoButtons);
-        txtToolAngle->setDecimals(3);
-        txtToolAngle->setMaximum(180.000000000000000);
+        toolAngle = new QDoubleSpinBox(grpTool);
+        toolAngle->setObjectName(QString::fromUtf8("toolAngle"));
+        sizePolicy1.setHeightForWidth(toolAngle->sizePolicy().hasHeightForWidth());
+        toolAngle->setSizePolicy(sizePolicy1);
+        toolAngle->setAlignment(Qt::AlignCenter);
+        toolAngle->setButtonSymbols(QAbstractSpinBox::NoButtons);
+        toolAngle->setDecimals(3);
+        toolAngle->setMaximum(180.000000000000000);
 
-        gridLayout->addWidget(txtToolAngle, 0, 5, 1, 1);
+        gridLayout->addWidget(toolAngle, 0, 5, 1, 1);
 
-        txtToolLength = new QDoubleSpinBox(grpTool);
-        txtToolLength->setObjectName(QString::fromUtf8("txtToolLength"));
-        sizePolicy1.setHeightForWidth(txtToolLength->sizePolicy().hasHeightForWidth());
-        txtToolLength->setSizePolicy(sizePolicy1);
-        txtToolLength->setAlignment(Qt::AlignCenter);
-        txtToolLength->setButtonSymbols(QAbstractSpinBox::NoButtons);
-        txtToolLength->setDecimals(3);
-        txtToolLength->setMaximum(999.000000000000000);
+        toolLength = new QDoubleSpinBox(grpTool);
+        toolLength->setObjectName(QString::fromUtf8("toolLength"));
+        sizePolicy1.setHeightForWidth(toolLength->sizePolicy().hasHeightForWidth());
+        toolLength->setSizePolicy(sizePolicy1);
+        toolLength->setAlignment(Qt::AlignCenter);
+        toolLength->setButtonSymbols(QAbstractSpinBox::NoButtons);
+        toolLength->setDecimals(3);
+        toolLength->setMaximum(999.000000000000000);
 
-        gridLayout->addWidget(txtToolLength, 1, 5, 1, 1);
+        gridLayout->addWidget(toolLength, 1, 5, 1, 1);
 
         label_3 = new QLabel(grpTool);
         label_3->setObjectName(QString::fromUtf8("label_3"));
@@ -1075,16 +1073,16 @@ public:
 
         gridLayout->addWidget(lblToolLength, 1, 4, 1, 1);
 
-        txtToolDiameter = new QDoubleSpinBox(grpTool);
-        txtToolDiameter->setObjectName(QString::fromUtf8("txtToolDiameter"));
-        sizePolicy1.setHeightForWidth(txtToolDiameter->sizePolicy().hasHeightForWidth());
-        txtToolDiameter->setSizePolicy(sizePolicy1);
-        txtToolDiameter->setAlignment(Qt::AlignCenter);
-        txtToolDiameter->setButtonSymbols(QAbstractSpinBox::NoButtons);
-        txtToolDiameter->setDecimals(3);
-        txtToolDiameter->setMaximum(99.000000000000000);
+        toolDiameter = new QDoubleSpinBox(grpTool);
+        toolDiameter->setObjectName(QString::fromUtf8("toolDiameter"));
+        sizePolicy1.setHeightForWidth(toolDiameter->sizePolicy().hasHeightForWidth());
+        toolDiameter->setSizePolicy(sizePolicy1);
+        toolDiameter->setAlignment(Qt::AlignCenter);
+        toolDiameter->setButtonSymbols(QAbstractSpinBox::NoButtons);
+        toolDiameter->setDecimals(3);
+        toolDiameter->setMaximum(99.000000000000000);
 
-        gridLayout->addWidget(txtToolDiameter, 1, 1, 1, 1);
+        gridLayout->addWidget(toolDiameter, 1, 1, 1, 1);
 
         label_4 = new QLabel(grpTool);
         label_4->setObjectName(QString::fromUtf8("label_4"));
@@ -1152,13 +1150,13 @@ public:
 
         gridLayout_13->addWidget(tabWidget, 0, 0, 1, 1);
 
-        QWidget::setTabOrder(cboPort, cmdRefresh);
-        QWidget::setTabOrder(cmdRefresh, cboBaud);
-        QWidget::setTabOrder(cboBaud, cboToolType);
-        QWidget::setTabOrder(cboToolType, txtToolAngle);
-        QWidget::setTabOrder(txtToolAngle, txtToolDiameter);
-        QWidget::setTabOrder(txtToolDiameter, txtToolLength);
-        QWidget::setTabOrder(txtToolLength, cmdDefaults);
+        QWidget::setTabOrder(port, cmdRefresh);
+        QWidget::setTabOrder(cmdRefresh, baud);
+        QWidget::setTabOrder(baud, cboToolType);
+        QWidget::setTabOrder(cboToolType, toolAngle);
+        QWidget::setTabOrder(toolAngle, toolDiameter);
+        QWidget::setTabOrder(toolDiameter, toolLength);
+        QWidget::setTabOrder(toolLength, cmdDefaults);
         QWidget::setTabOrder(cmdDefaults, cmdOK);
         QWidget::setTabOrder(cmdOK, cmdCancel);
 
@@ -1166,9 +1164,9 @@ public:
         QObject::connect(moveOnRestore, SIGNAL(toggled(bool)), cboRestoreMode, SLOT(setEnabled(bool)));
         QObject::connect(vsync, SIGNAL(toggled(bool)), label_7, SLOT(setDisabled(bool)));
         QObject::connect(antialiasing, SIGNAL(toggled(bool)), msaa, SLOT(setEnabled(bool)));
-        QObject::connect(arcDegreeMode, SIGNAL(toggled(bool)), txtArcDegree, SLOT(setEnabled(bool)));
+        QObject::connect(arcDegreeMode, SIGNAL(toggled(bool)), arcDegree, SLOT(setEnabled(bool)));
         QObject::connect(vsync, SIGNAL(toggled(bool)), cboFps, SLOT(setDisabled(bool)));
-        QObject::connect(simplify, SIGNAL(toggled(bool)), txtSimplifyPrecision, SLOT(setEnabled(bool)));
+        QObject::connect(simplify, SIGNAL(toggled(bool)), simplifyPrecision, SLOT(setEnabled(bool)));
         QObject::connect(simplify, SIGNAL(toggled(bool)), label_8, SLOT(setEnabled(bool)));
 
         tabWidget->setCurrentIndex(1);
@@ -1197,9 +1195,9 @@ public:
         arcDegreeMode->setText(QApplication::translate("frmSettings", "by angle (deg.)", nullptr));
         groupBox_2->setTitle(QApplication::translate("frmSettings", "Control", nullptr));
         label_17->setText(QApplication::translate("frmSettings", "Probe commands:", nullptr));
-        txtTouchCommand->setPlaceholderText(QApplication::translate("frmSettings", "Command 1; command 2; ...", nullptr));
+        touchCommand->setPlaceholderText(QApplication::translate("frmSettings", "Command 1; command 2; ...", nullptr));
         label_33->setText(QApplication::translate("frmSettings", "Safe position commands:", nullptr));
-        txtSafeCommand->setPlaceholderText(QApplication::translate("frmSettings", "Command 1; command 2; ...", nullptr));
+        safeCommand->setPlaceholderText(QApplication::translate("frmSettings", "Command 1; command 2; ...", nullptr));
         moveOnRestore->setText(QApplication::translate("frmSettings", "\"Restore origin\" moves tool in:", nullptr));
         cboRestoreMode->setItemText(0, QApplication::translate("frmSettings", "Plane", nullptr));
         cboRestoreMode->setItemText(1, QApplication::translate("frmSettings", "Space", nullptr));
@@ -1214,14 +1212,14 @@ public:
         label->setText(QApplication::translate("frmSettings", "Port:", nullptr));
         cmdRefresh->setText(QApplication::translate("frmSettings", "...", nullptr));
         label_2->setText(QApplication::translate("frmSettings", "Baud:", nullptr));
-        cboBaud->setItemText(0, QApplication::translate("frmSettings", "9600", nullptr));
-        cboBaud->setItemText(1, QApplication::translate("frmSettings", "14400", nullptr));
-        cboBaud->setItemText(2, QApplication::translate("frmSettings", "19200", nullptr));
-        cboBaud->setItemText(3, QApplication::translate("frmSettings", "38400", nullptr));
-        cboBaud->setItemText(4, QApplication::translate("frmSettings", "57600", nullptr));
-        cboBaud->setItemText(5, QApplication::translate("frmSettings", "115200", nullptr));
+        baud->setItemText(0, QApplication::translate("frmSettings", "9600", nullptr));
+        baud->setItemText(1, QApplication::translate("frmSettings", "14400", nullptr));
+        baud->setItemText(2, QApplication::translate("frmSettings", "19200", nullptr));
+        baud->setItemText(3, QApplication::translate("frmSettings", "38400", nullptr));
+        baud->setItemText(4, QApplication::translate("frmSettings", "57600", nullptr));
+        baud->setItemText(5, QApplication::translate("frmSettings", "115200", nullptr));
 
-        cboBaud->setCurrentText(QApplication::translate("frmSettings", "9600", nullptr));
+        baud->setCurrentText(QApplication::translate("frmSettings", "9600", nullptr));
         groupBox_3->setTitle(QApplication::translate("frmSettings", "Common", nullptr));
         label_34->setText(QApplication::translate("frmSettings", "Application measurement units:", nullptr));
         cboUnitsCommon->setItemText(0, QApplication::translate("frmSettings", "Metric", nullptr));

@@ -19,4 +19,10 @@ void Runtime::insert(const QString &key, const QString &value) {
     if(bindings.contains(key)) {
         bindings.value(key)(getInstance()->value(key));
     }
+
+    if(fn != nullptr) fn(key, value);
+}
+
+void Runtime::bind(std::function<void (const QString, const QString)> cb) {
+    fn = cb;
 }

@@ -8,6 +8,7 @@ GRBLPort::GRBLPort()
     _port.setFlowControl(QSerialPort::NoFlowControl);
     _port.setStopBits(QSerialPort::OneStop);
 
+    connect(&_port, SIGNAL(readyRead()), this, SLOT(onReady()));
     connect(&_timerStateQuery, SIGNAL(timeout()), this, SLOT(onTimerStateQuery()));
     connect(&_port, SIGNAL(error(QSerialPort::SerialPortError)), this, SLOT(onSerialPortError(QSerialPort::SerialPortError)));
     _timerStateQuery.start();
